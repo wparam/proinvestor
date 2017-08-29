@@ -1,0 +1,8 @@
+*.*~
+
+# IGNORE DIRECTORIES #
+node_modules
+output/
+*.png
+*.txt
+*.xml
