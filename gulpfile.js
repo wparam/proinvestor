@@ -13,10 +13,10 @@ gulp.task('jshint', function(){
         .pipe(jshint.reporter('jshint-stylish'));
         // .pipe(jshint.reporter('fail'));
 });
-
+ 
 gulp.task('watch', function(){
     gulp.watch('app.js', ['jshint']);
-});
+}); 
 
 gulp.task('appmon', function () {
     nodemon({
