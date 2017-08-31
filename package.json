@@ -4,9 +4,17 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "gulp": "^3.9.1",
+    "jshint": "^2.9.5",
+    "pug": "^2.0.0-rc.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-jshint": "^2.0.4",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-util": "^3.0.8",
+    "jshint-stylish": "^2.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
