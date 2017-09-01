@@ -23,4 +23,4 @@ gulp.task('appmon', function () {
         script: 'app.js', 
         env: { 'NODE_ENV': 'development' }
     })
-})
+});
