@@ -2,7 +2,7 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const path = require('path');
-
+const glob = require('glob');
 
 const app = express();
 
@@ -15,8 +15,10 @@ app.use(morgan('combined'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res){
-    res.render('index', {title:'assetmanager', message: 'Hello, Asset Manager'});
+glob(path.join(__dirname, 'app/route/**/*.js'), (err, files) => {
+    if(files.length === 0)
+        return;
+    files.map((f) => require(f)(app));
 });
 
 app.listen(4000, function(){ 
