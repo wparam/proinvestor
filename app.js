@@ -3,13 +3,18 @@ const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const path = require('path');
 const glob = require('glob');
-
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(favicon(path.join(__dirname, 'public/main/styles/img', 'favicon.ico')));
 
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'pug');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 app.use(morgan('combined'));
 
