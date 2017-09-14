@@ -1,3 +1,3 @@
 # Asset Manager
 
-## https://github.com/mrholek/CoreUI-React
+## https://github.com/mrholek/CoreUI-React S
