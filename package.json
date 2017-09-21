@@ -6,10 +6,13 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "cookie-parser": "^1.4.3",
+    "ejs": "2.5.7",
+    "ejs-locals": "1.0.2",
     "express": "^4.15.4",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "jshint": "^2.9.5",
+    "lodash": "4.17.4",
     "morgan": "^1.8.2",
     "pug": "^2.0.0-rc.3",
     "serve-favicon": "^2.4.3"
