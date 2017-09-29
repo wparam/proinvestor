@@ -1,9 +1,16 @@
 const path = require('path');
 
+const SRC_DIR = path.resolve(__dirname, 'public');
+const BUILD_DIR = path.resolve(__dirname, 'public/dist');
+
+
 module.exports = {
-    entry: path.join(__dirname, 'app.js'),
+    entry: {
+        index: path.join(SRC_DIR, 'index.js')
+    },
+    devtool: 'eval-source-map',
     output: {
-        path: path.join(__dirname, 'public/dist'),
+        path: BUILD_DIR,
         filename: 'bundle.js'
     },
     target: 'node'    
