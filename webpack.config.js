@@ -13,5 +13,9 @@ module.exports = {
         path: BUILD_DIR,
         filename: 'bundle.js'
     },
-    target: 'node'    
+    module: {
+        rules: [
+            
+        ]
+    }    
 }
