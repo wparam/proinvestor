@@ -17,5 +17,9 @@ module.exports = {
         rules: [
             
         ]
-    }    
+    },
+    plugins: [new HtmlWebpackPlugin({
+        inject: true,
+        template: './app/views/index.ejs'
+    })]    
 }
