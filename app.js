@@ -9,7 +9,7 @@ const config = require('./config');
 const engine = require('ejs-locals');
 const app = express();
  
-app.use(favicon(path.join(__dirname, 'public/main/styles/img', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/src/main/styles/img', 'favicon.ico')));
 
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'app/views'));
@@ -18,7 +18,7 @@ app.set('view engine', config.templateEngine);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-
+ 
 app.use(morgan('combined'));
 
 app.use(express.static('public'));

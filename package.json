@@ -29,6 +29,8 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
+    "chalk": "2.1.0",
+    "gulp-clean": "0.3.2",
     "gulp-jshint": "^2.0.4",
     "gulp-nodemon": "^2.2.1",
     "gulp-util": "^3.0.8",
