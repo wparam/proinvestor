@@ -16,6 +16,7 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/public/dist/'
     },
+    watch: false,
     module: {
         rules: [
             {
@@ -37,11 +38,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: '!!raw-loader!app/views/index.ejs'
-            // filename: path.join(BUILD_DIR, 'index.html.ejs')
-        }),
+        // new HtmlWebpackPlugin({
+        //     inject: true,
+        //     template: '!!raw-loader!app/views/index.ejs'
+        //     // filename: path.join(BUILD_DIR, 'index.html.ejs')
+        // }),
         new webpack.optimize.UglifyJsPlugin,
         new LodashModuleReplacementPlugin
     ]    
