@@ -2,9 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const SRC_DIR = path.resolve(__dirname, 'public/src');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+
+const extractCSS = new ExtractTextPlugin('[name].fonts.css');
+const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
 module.exports = {
     entry: {
@@ -30,6 +33,28 @@ module.exports = {
                         presets: ['react', 'env']
                     }
                 }
+            },
+            {
+                test: /\.(scss)$/,
+                use: ['css-hot-loader'].concat(extractSCSS.extract({
+                    fallback: 'style-loader',
+                    use: [
+                    {
+                        loader: 'css-loader',
+                        options: {alias: {'../img': '../public/img'}}
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                    ]
+                }))
+            },
+            {
+                test: /\.css$/,
+                use: extractCSS.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
             },
             {
                 test: /\.html$/,
