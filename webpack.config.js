@@ -69,6 +69,8 @@ module.exports = {
         //     // filename: path.join(BUILD_DIR, 'index.html.ejs')
         // }),
         new webpack.optimize.UglifyJsPlugin,
+        extractCSS,
+        extractSCSS,
         new LodashModuleReplacementPlugin
     ]    
 }
