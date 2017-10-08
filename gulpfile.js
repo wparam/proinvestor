@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint');
 
 const webpack = require('webpack-stream');
-const SRC_DIR = path.resolve(__dirname, 'public');
+const SRC_DIR = path.resolve(__dirname, 'public/src');
 const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
 
@@ -14,8 +14,6 @@ const clean = require('gulp-clean');
 //          Settings
 //
 // ===========================
-
-
 const watchFiles = {
         serverViews: ['app/views/**/*.*'],
         serverJS: ['gulpfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js'],
@@ -29,13 +27,18 @@ const watchFiles = {
 //       Error Handler
 //
 // ===========================
-
 function errorHandler( error ) {
     if( typeof error === 'object' && error.message ) {
         error = error.message;
     }
     console.error( chalk.red( '[gulp] ' ) + chalk.red( error ) );
 }
+
+// ===========================
+//
+//       tasks
+//
+// ===========================
 
 gulp.task('default',  ['compile', 'watch', 'appmon']);
 

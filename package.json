@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.1",
+    "classnames": "2.2.5",
     "cookie-parser": "^1.4.3",
     "ejs": "2.5.7",
     "ejs-locals": "1.0.2",
@@ -19,6 +20,8 @@
     "react-dom": "16.0.0",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
+    "react-transition-group": "2.2.1",
+    "reactstrap": "4.8.0",
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-plugin-lodash": "3.2.11",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",

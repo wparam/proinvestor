@@ -12,7 +12,9 @@ import {createBrowserHistory} from 'history';
 //import '../scss/style.scss'
 
 // Containers
-//import Full from './containers/Full/'
+
+
+import Full from './containers/full'
 
 const history = createBrowserHistory();
 
@@ -23,3 +25,5 @@ ReactDOM.render((
     </Switch>
   </HashRouter>
 ), document.getElementById('root'));
+
+
