@@ -40,8 +40,8 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [
                     {
-                        loader: 'css-loader',
-                        options: {alias: {'../img': '../public/img'}}
+                        loader: 'css-loader'
+                        // options: {alias: {'../img': '../public/img'}}
                     },
                     {
                         loader: 'sass-loader'
@@ -55,6 +55,18 @@ module.exports = {
                     fallback: 'style-loader',
                     use: 'css-loader'
                 })
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|ico)$/,
+                use: [
+                    {
+                    // loader: 'url-loader'
+                    loader: 'file-loader',
+                    options: {
+                        name: './img/[name].[hash].[ext]'
+                    }
+                    }
+                ]
             },
             {
                 test: /\.html$/,
