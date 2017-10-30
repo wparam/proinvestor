@@ -5,15 +5,16 @@ const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const extractCSS = new ExtractTextPlugin('[name].fonts.css');
+const extractCSS = new ExtractTextPlugin('[name].font.css');
 const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
 module.exports = {
     entry: {
         index: path.join(SRC_DIR, 'index.js')
     },
-    devtool: 'eval-source-map',
+    devtool: process.env.NODE_ENV === 'development' ? 'cheap-module-eval-source-map' : 'source-map',
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js',
@@ -28,7 +29,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        'plugins': ['lodash'],
+                        'plugins': ['lodash', 'transform-class-properties'],
                         cacheDirectory: true,
                         presets: ['react', 'env']
                     }
@@ -51,19 +52,20 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: extractCSS.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader'
+                exclude: path.resolve(__dirname, 'public/resource'),
+                use: extractCSS.extract({ 
+                    fallback: 'style-loader',                   
+                    use:[ { loader: 'css-loader' }, {loader: 'resolve-url-loader'}]
                 })
             },
             {
                 test: /\.(png|jpg|jpeg|gif|ico)$/,
                 use: [
                     {
-                    // loader: 'url-loader'
-                    loader: 'file-loader',
+                    loader: 'url-loader',
+                    // loader: 'file-loader',
                     options: {
-                        name: './img/[name].[hash].[ext]'
+                        // name: './img/[name].[hash].[ext]'
                     }
                     }
                 ]
@@ -71,16 +73,25 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: 'html-loader'
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'public/dist/[name].[hash].[ext]'
+                }
             }
         ]
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     inject: true,
-        //     template: '!!raw-loader!app/views/index.ejs'
-        //     // filename: path.join(BUILD_DIR, 'index.html.ejs')
-        // }),
-        new webpack.optimize.UglifyJsPlugin,
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
         extractCSS,
         extractSCSS,
         new LodashModuleReplacementPlugin
