@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "1.0.3",
     "body-parser": "^1.18.1",
     "bootstrap": "4.0.0-beta",
     "classnames": "2.2.5",
@@ -20,7 +21,10 @@
     "jquery": "3.2.1",
     "jshint": "^2.9.5",
     "lodash": "4.17.4",
+    "mongoose": "4.12.5",
     "morgan": "^1.8.2",
+    "passport": "0.4.0",
+    "passport-local": "1.0.0",
     "popper.js": "1.12.5",
     "react": "16.0.0",
     "react-dom": "16.0.0",

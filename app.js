@@ -23,7 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(favicon(path.join(__dirname, 'public/resource', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/resource/img', 'favicon.png')));
 
 //for all authenticate users
 app.locals.users = [];
