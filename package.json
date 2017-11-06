@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-react-app": "3.1.0",
     "bcrypt": "1.0.3",
     "body-parser": "^1.18.1",
     "bootstrap": "4.0.0-beta",
@@ -11,10 +14,12 @@
     "connect-flash": "0.1.1",
     "connect-mongo": "2.0.0",
     "cookie-parser": "^1.4.3",
+    "copy-webpack-plugin": "4.2.0",
     "ejs": "2.5.7",
     "ejs-locals": "1.0.2",
     "express": "^4.15.4",
     "express-session": "1.15.6",
+    "font-awesome": "4.7.0",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "helmet": "3.9.0",
@@ -22,6 +27,7 @@
     "jquery": "3.2.1",
     "jshint": "^2.9.5",
     "lodash": "4.17.4",
+    "lodash-webpack-plugin": "0.11.4",
     "mongoose": "4.12.5",
     "morgan": "^1.8.2",
     "passport": "0.4.0",
@@ -34,7 +40,9 @@
     "react-router-dom": "4.2.2",
     "react-transition-group": "2.2.1",
     "reactstrap": "5.0.0-alpha.3",
-    "serve-favicon": "^2.4.3"
+    "resolve-url-loader": "2.2.0",
+    "serve-favicon": "^2.4.3",
+    "simple-line-icons": "2.4.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

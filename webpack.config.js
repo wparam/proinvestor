@@ -41,8 +41,8 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [
                     {
-                        loader: 'css-loader'
-                        // options: {alias: {'../img': '../public/img'}}
+                        loader: 'css-loader',
+                        options: {alias: {'../img': '../public/img'}}
                     },
                     {
                         loader: 'sass-loader'
@@ -52,20 +52,19 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: path.resolve(__dirname, 'public/resource'),
-                use: extractCSS.extract({ 
-                    fallback: 'style-loader',                   
-                    use:[ { loader: 'css-loader' }, {loader: 'resolve-url-loader'}]
+                use: extractCSS.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
                 })
             },
             {
                 test: /\.(png|jpg|jpeg|gif|ico)$/,
                 use: [
                     {
-                    loader: 'url-loader',
-                    // loader: 'file-loader',
+                    // loader: 'url-loader'
+                    loader: 'file-loader',
                     options: {
-                        // name: './img/[name].[hash].[ext]'
+                        name: './img/[name].[hash].[ext]'
                     }
                     }
                 ]
@@ -78,22 +77,26 @@ module.exports = {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'public/dist/[name].[hash].[ext]'
+                    name: './fonts/[name].[hash].[ext]'
                 }
             }
         ]
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
+            sourceMap: true
         }),
+        new webpack.NamedModulesPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
         }),
         extractCSS,
         extractSCSS,
-        new LodashModuleReplacementPlugin
+        new LodashModuleReplacementPlugin,
+        new CopyWebpackPlugin([
+          {from: './public/resource/img', to: 'img'}
+        ],
+        {copyUnmodified: false}
+      )
     ]    
 }

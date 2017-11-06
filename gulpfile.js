@@ -16,9 +16,9 @@ const clean = require('gulp-clean');
 // ===========================
 const watchFiles = {
         serverViews: ['app/views/**/*.*'],
-        serverJS: ['gulpfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js'],
+        serverJS: ['gulpfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js' ],
         clientViews: ['public/src/**/*.html'],
-        clientJS: ['public/src/**/*.js']
+        clientJS: ['public/src/**/*.js', 'webpack.config.js']
     };
 
 
@@ -77,5 +77,5 @@ gulp.task('appmon', function () {
         script: 'app.js', 
         watch: watchFiles.serverJS,
         env: { 'NODE_ENV': 'development' }
-    })
+    });
 });

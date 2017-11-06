@@ -2,4 +2,4 @@ module.exports = {
     static: {
         js: []
     }
-}
+};

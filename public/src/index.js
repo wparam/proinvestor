@@ -5,14 +5,11 @@ import {createBrowserHistory} from 'history';
 
 // Styles
 // Import Font Awesome Icons Set
-// import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.min.css';
   // Import Simple Line Icons Set
-// import 'simple-line-icons/css/simple-line-icons.css';
+import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
-import '../scss/style.scss'
-import '../test.css'
-
-// Containers
+import '../resource/scss/style.scss'
 
 
 import Full from './containers/full'
