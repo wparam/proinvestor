@@ -18,7 +18,7 @@ module.exports = {
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js',
-        publicPath: '/public/dist/'
+        publicPath: 'public/dist/'
     },
     watch: false,
     module: {
@@ -41,8 +41,8 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [
                     {
-                        loader: 'css-loader',
-                        options: {alias: {'../img': '../public/img'}}
+                        loader: 'css-loader'
+                        // options: {alias: {'../img': '../public/resource/img'}}
                     },
                     {
                         loader: 'sass-loader'
@@ -61,11 +61,17 @@ module.exports = {
                 test: /\.(png|jpg|jpeg|gif|ico)$/,
                 use: [
                     {
-                    // loader: 'url-loader'
-                    loader: 'file-loader',
-                    options: {
-                        name: './img/[name].[hash].[ext]'
-                    }
+                        // loader: 'url-loader'
+                        loader: 'file-loader',
+                        options: {
+                            name: './img/[name].[hash].[ext]'
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true,
+                        }
                     }
                 ]
             },
