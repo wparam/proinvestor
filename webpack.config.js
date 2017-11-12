@@ -98,11 +98,11 @@ module.exports = {
         }),
         extractCSS,
         extractSCSS,
-        new LodashModuleReplacementPlugin,
-        new CopyWebpackPlugin([
-          {from: './public/resource/img', to: 'img'}
-        ],
-        {copyUnmodified: false}
-      )
+        new LodashModuleReplacementPlugin
+        // new CopyWebpackPlugin([
+        //   {from: './public/resource/img', to: 'img'}
+        // ],
+        // {copyUnmodified: false}
+    //   )
     ]    
 }
