@@ -12,7 +12,7 @@ exports.localLogin = (req, res) => {
     //     return res.json(suc);
     // });
     let suc = {
-        status: "SUCCESS",
+        status: 'SUCCESS',
         user: {
             name: req.user.name,
             token: req.user.token
@@ -26,5 +26,5 @@ exports.localLogout = (req, res) => {
     req.session.destroy();
     delete req.user;
     // res.redirect('/#!/login');
-    res.json({status: "SUCCESS"});
+    res.json({status: 'SUCCESS'});
 };
