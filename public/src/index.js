@@ -8,14 +8,12 @@ class Root extends React.Component {
         this.state = {title: 'this is a state'};
     }
     foo() {
-        return (<div>{this.props.name} is here</div>);
+        return (<SubRoot/>);
     }
     render() {
         return (
             <div >
-                <SubRoot name='jason sub'/>
-                This is a JSX root, {this.foo()} 
-                This is a state: {this.state.title}
+                {this.foo()}
             </div>
         );
     }
@@ -25,12 +23,16 @@ class Root extends React.Component {
 class SubRoot extends React.Component {
     constructor(props){
         super(props);
-
+        this.onClick = this.onClick.bind(this);
+    }
+    onClick(e) {
+        console.log(e);
+        console.log('event is clicked');
     }
     render() {
         return (
-            <div> This is a subone: {this.props.name} 
-                <div> This is a state: {this.state.title} </div>
+            <div> This is a button
+                <button onClick={this.onClick} >ClickMe</button>
             </div>
             
         );
