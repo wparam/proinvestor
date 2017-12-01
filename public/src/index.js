@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class Root extends React.Component {
-    constructor(props){
+    constructor(props, context){
         super(props);
         this.foo = this.foo.bind(this);
         this.state = {title: 'this is a state'};
@@ -24,15 +24,20 @@ class SubRoot extends React.Component {
     constructor(props){
         super(props);
         this.onClick = this.onClick.bind(this);
+        this.state = {
+            cbox: false
+        };
     }
     onClick(e) {
-        console.log(e);
-        console.log('event is clicked');
+        this.setState(pre => ({
+            cbox: !pre.cbox
+        }));
     }
     render() {
         return (
-            <div> This is a button
+            <div> This is a button <br/>
                 <button onClick={this.onClick} >ClickMe</button>
+                <input type="checkbox" checked={this.state.cbox}/>
             </div>
             
         );

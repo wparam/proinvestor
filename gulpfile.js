@@ -44,7 +44,7 @@ gulp.task('default',  ['compile', 'watch', 'appmon']);
 
 gulp.task('hint:server', function(p){
     return gulp.src(watchFiles.serverJS)
-        .pipe(eslint())
+        .pipe(eslint({quiet:true}))
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
 });
@@ -53,7 +53,22 @@ gulp.task('hint:client', () => {
     return gulp.src(watchFiles.clientJS)
         .pipe(eslint())
         .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+        .pipe(eslint.result(function(result) {
+            console.log(result);
+            // Fail on the first file containing errors or warnings.
+            if (result.warningCount > 0 || result.errorCount > 0) {
+                // While anything can be thrown to fail the stream,
+                // the following properties will influence the resulting Gulp message.
+                throw {
+                    plugin: 'CustomPluginName',
+                    name: 'CustomErrorType',
+                    fileName: result.filePath,
+                    message: error.message,
+                    lineNumber: error.line,
+                    showStack: false
+                };
+            }
+        }));
 });
 
 
