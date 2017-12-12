@@ -58,7 +58,8 @@ class SearchBox extends React.Component {
         return (
             <div>
                 <div>
-                    <input type="text" value={this.state.search} onChange={this.onTextChange} placeholder="Search..." onClick={this.onTextClick}/>
+                    <input type="text" value={this.state.search} onChange={this.onTextChange} 
+                        placeholder="Search..." onClick={this.onTextClick}/>
                 </div>
                 <div>
                     <input type="checkbox" id="showLabel" onChange={this.onCbChange}/>
