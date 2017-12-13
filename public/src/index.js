@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import List from 'lists';
+import {List, ListItem} from './lists.js';
 
 
 const sd = [
@@ -23,6 +23,7 @@ class Compon extends React.Component {
         return (
             <div >
                 <SearchBox />
+                <List stocks={sd} />
             </div>
         );
     }

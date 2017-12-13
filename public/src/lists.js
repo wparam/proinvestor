@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class List extends React.Component{
+    constructor(props){
+        super(props);
+    }
     render(){
-        let items = this.props.items.map(item => {
-            return <ListItem name="" title="" />
+        let items = this.props.stocks.map((item, index) => {
+            return <ListItem name={item.name} price={item.price} key={index} stocked={item.stocked}/>;
         });
         return (
             <div>
@@ -17,14 +20,20 @@ class List extends React.Component{
 }
 
 class ListItem extends React.Component{
-    return (){
+    render (){
+        let span2Style = {
+            marginLeft: '5px'            
+        };
+        let spanColor = {
+            color: this.props.stocked ? '' : 'red'
+        };
         return (
             <li>
-                <span>{this.props.name}</span>
-                <span>{this.props.title}</span>
+                <span style={ spanColor }>{this.props.name}</span>
+                <span style={ span2Style }>{this.props.price}</span>
             </li>
         );
     }
 }
 
-module.exports = List;
+module.exports = { List, ListItem };
