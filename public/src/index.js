@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {List, ListItem} from './lists.js';
+import {List, ListItem} from './lists';
 
 var ds = [
     { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
