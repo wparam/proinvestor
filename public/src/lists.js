@@ -5,18 +5,6 @@ class List extends React.Component{
     constructor(props){
         super(props);
     }
-    componentDidMount(){
-        console.log('List is mounting');
-    }
-    componentDidUpdate(){
-        console.log('List is updating');
-    }
-    componentWillUpdate(){
-        console.log('List will be updated');
-    }
-    componentWillUnmount(){
-        console.log('List will be unmounted');
-    }
     render(){
         let items = this.props.stocks.map((item, index) => {
             return <ListItem name={item.name} price={item.price} key={index} stocked={item.stocked}/>;

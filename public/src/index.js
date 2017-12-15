@@ -74,7 +74,6 @@ class Compon extends React.Component {
                 <SearchBox filter={this.state.filter} onFilterChange={this.onFilterChange} 
                     onShowStockChange={this.onShowStockChange} showInStock={this.state.showInStock}/>
                 <List stocks={this.filterDataSet()} />
-                <Others />
             </div>
         );
     }
@@ -96,20 +95,6 @@ class SearchBox extends React.Component {
                     <label htmlFor="showLabel">Only show products in stock</label>
                 </div>
             </div>
-        );
-    }
-}
-
-class Others extends React.Component {
-    componentDidMount(){
-        console.log('Others is mounting');
-    }
-    componentDidUpdate(){
-        console.log('Others is updating');
-    }
-    render (){
-        return (
-            <div>This is other widget</div>
         );
     }
 }
