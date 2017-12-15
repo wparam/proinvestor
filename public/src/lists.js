@@ -5,6 +5,18 @@ class List extends React.Component{
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        console.log('List is mounting');
+    }
+    componentDidUpdate(){
+        console.log('List is updating');
+    }
+    componentWillUpdate(){
+        console.log('List will be updated');
+    }
+    componentWillUnmount(){
+        console.log('List will be unmounted');
+    }
     render(){
         let items = this.props.stocks.map((item, index) => {
             return <ListItem name={item.name} price={item.price} key={index} stocked={item.stocked}/>;
@@ -12,6 +24,10 @@ class List extends React.Component{
         return (
             <div>
                 <ul>
+                    <li>
+                        <span style={ {  color: 'blue' } }>Name</span>
+                        <span style={ { color: 'blue', marginLeft: '25px' } }>Price</span>
+                    </li>
                     {items}
                 </ul>
             </div>
@@ -22,7 +38,7 @@ class List extends React.Component{
 class ListItem extends React.Component{
     render (){
         let span2Style = {
-            marginLeft: '5px'            
+            marginLeft: '25px'            
         };
         let spanColor = {
             color: this.props.stocked ? '' : 'red'
