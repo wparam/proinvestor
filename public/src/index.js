@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {List, ListItem} from './lists';
+import PropTypes from 'prop-types';
 
 var ds = [
     { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
@@ -86,6 +87,8 @@ class SearchBox extends React.Component {
     render() {
         return (
             <div>
+                <div title="&lt;3">1</div>
+                <div title="<3">2{'<3'}</div>
                 <div>
                     <input type="text" value={this.props.filter} onChange={this.props.onFilterChange} 
                         placeholder="Search..." />
@@ -103,3 +106,7 @@ ReactDOM.render(
     <Compon />,
     document.getElementById('root')
 );
+
+SearchBox.propTypes = {
+    filter: PropTypes.string
+};
