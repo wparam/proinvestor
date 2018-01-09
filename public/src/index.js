@@ -87,8 +87,8 @@ class SearchBox extends React.Component {
     render() {
         return (
             <div>
-                <div title="&lt;3">1</div>
-                <div title="<3">2{'<3'}</div>
+                <div>1</div>
+                <div></div>
                 <div>
                     <input type="text" value={this.props.filter} onChange={this.props.onFilterChange} 
                         placeholder="Search..." />
