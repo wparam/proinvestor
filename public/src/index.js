@@ -22,6 +22,6 @@ ReactDOM.render((
             <Route path="/" name="Home" component={Full} />
         </Switch>
     </HashRouter>
-), document.getElementById('root'));
+), document.getElementById('root')); 
 
 
