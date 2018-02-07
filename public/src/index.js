@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 
 // Styles
 // Import Font Awesome Icons Set
@@ -14,10 +13,9 @@ import '../resource/scss/style.scss'
 
 import Full from './containers/full'
 
-const history = createBrowserHistory();
 
 ReactDOM.render((
-    <HashRouter history={history}>
+    <HashRouter>
         <Switch>
             <Route path="/" name="Home" component={Full} />
         </Switch>
