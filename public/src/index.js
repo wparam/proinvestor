@@ -11,13 +11,13 @@ import 'simple-line-icons/css/simple-line-icons.css';
 import '../resource/scss/style.scss'
 
 
-import Full from './containers/full'
+import App from './containers/app.jsx'
 
 
 ReactDOM.render((
     <HashRouter>
         <Switch>
-            <Route path="/" name="Home" component={Full} />
+            <Route path="/" name="Home" component={App} />
         </Switch>
     </HashRouter>
 ), document.getElementById('root')); 
