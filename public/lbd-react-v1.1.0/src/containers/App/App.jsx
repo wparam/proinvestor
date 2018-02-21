@@ -12,7 +12,7 @@ import Sidebar from 'components/Sidebar/Sidebar';
 
 import {style} from "variables/Variables.jsx";
 
-import appRoutes from 'routes/app.jsx';
+import appRoutes from 'routes/App.jsx';
 
 class App extends Component {
     constructor(props){
