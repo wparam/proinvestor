@@ -10,7 +10,7 @@ import NotificationSystem from 'react-notification-system';
 // import Footer from 'components/Footer/Footer';
 // import Sidebar from 'components/Sidebar/Sidebar';
 
-// import {style} from "variables/Variables.jsx";
+import {style} from "../components/variables/Variables.jsx";
 
 import appRoutes from '../routes/routes.jsx';
 
@@ -96,9 +96,9 @@ class App extends Component {
         return (
             <div className="wrapper">
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
-                <Sidebar {...this.props} />
+                {/* <Sidebar {...this.props} /> */}
                 <div id="main-panel" className="main-panel">
-                    <Header {...this.props}/>
+                    {/* <Header {...this.props}/>
                         <Switch>
                             {
                                 appRoutes.map((prop,key) => {
@@ -124,7 +124,7 @@ class App extends Component {
                                 })
                             }
                         </Switch>
-                    <Footer />
+                    <Footer /> */}
                 </div>
             </div>
         );

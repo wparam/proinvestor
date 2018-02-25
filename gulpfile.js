@@ -18,7 +18,7 @@ const watchFiles = {
         serverViews: ['app/views/**/*.*'],
         serverJS: ['gulpfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js' ],
         clientViews: ['public/src/**/*.html'],
-        clientJS: ['public/src/**/*.js', 'webpack.config.js']
+        clientJS: ['public/src/**/*.js','public/src/**/*.jsx', 'webpack.config.js']
     };
 
 
