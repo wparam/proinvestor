@@ -55,8 +55,8 @@ class App extends Component {
         });
     }
     componentDidMount(){
-        this.setState({_notificationSystem: this.refs.notificationSystem});
-        var _notificationSystem = this.refs.notificationSystem;
+        this.setState({_notificationSystem: this.notificationSystem});
+        var _notificationSystem = this.notificationSystem;
         var color = Math.floor((Math.random() * 4) + 1);
         var level;
         switch (color) {
@@ -97,7 +97,7 @@ class App extends Component {
             <div className="wrapper">
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
                 {/* <Sidebar {...this.props} /> */}
-                <div id="main-panel" className="main-panel">
+                <div id="main-panel" className="main-panel">This is main panel
                     {/* <Header {...this.props}/>
                         <Switch>
                             {
