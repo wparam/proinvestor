@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Nav,
-  NavItem,
-  NavbarToggler,
-  NavbarBrand,
-} from 'reactstrap';
+import { Nav, NavItem, NavbarToggler, NavbarBrand } from 'reactstrap';
 
 class Header extends Component {
 
