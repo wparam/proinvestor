@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {   Route,  Switch, Redirect } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
 
-// import Header from 'components/Header/Header';
-// import Footer from 'components/Footer/Footer';
-// import Sidebar from 'components/Sidebar/Sidebar';
+import Header from '../components/Header/Header.jsx';
+import Footer from '../components/Footer/Footer.jsx';
+import Sidebar from '../components/Sidebar/Sidebar.jsx';
 
 import {style} from "../components/variables/Variables.jsx";
 
@@ -92,9 +92,9 @@ class App extends Component {
         return (
             <div className="wrapper">
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
-                {/* <Sidebar {...this.props} /> */}
+                <Sidebar {...this.props} /> 
                 <div id="main-panel" className="main-panel">This is main panel
-                    {/* <Header {...this.props}/>
+                    <Header {...this.props}/>
                         <Switch>
                             {
                                 appRoutes.map((prop,key) => {
@@ -120,7 +120,7 @@ class App extends Component {
                                 })
                             }
                         </Switch>
-                    <Footer /> */}
+                    <Footer />
                 </div>
             </div>
         );
