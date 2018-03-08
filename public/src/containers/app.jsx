@@ -93,21 +93,15 @@ class App extends Component {
             <div className="wrapper">
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
                 <Sidebar {...this.props} /> 
-                <div id="main-panel" className="main-panel">This is main panel
+                <div id="main-panel" className="main-panel">
                     <Header {...this.props}/>
                         <Switch>
                             {
                                 appRoutes.map((prop,key) => {
                                     if(prop.name === "Notifications")
                                         return (
-                                            <Route
-                                                path={prop.path}
-                                                key={key}
-                                                render={routeProps =>
-                                                    <prop.component
-                                                        {...routeProps}
-                                                        handleClick={this.handleNotificationClick}
-                                                    />}
+                                            <Route path={prop.path} key={key} render={routeProps =>
+                                                    <prop.component {...routeProps} handleClick={this.handleNotificationClick}/>}
                                             />
                                         );
                                     if(prop.redirect)

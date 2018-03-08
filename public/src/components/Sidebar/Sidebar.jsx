@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from 'assets/img/sidebar-3.jpg';
-import logo from 'assets/img/reactlogo.png';
+import imagine from '../../../resource/img/sidebar-3.jpg';
+import logo from '../../../resource/img/reactlogo.png';
 
-import appRoutes from 'routes/app.jsx';
+import appRoutes from '../../routes/routes.jsx';
 
 class Sidebar extends Component{
     constructor(props){

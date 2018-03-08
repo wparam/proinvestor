@@ -2,14 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
-// Styles
-// Import Font Awesome Icons Set
-import 'font-awesome/css/font-awesome.min.css';
-// Import Simple Line Icons Set
-import 'simple-line-icons/css/simple-line-icons.css';
-// Import Main styles for this application
-import '../resource/scss/style.scss'
-
+import '../resource/css/bootstrap.min.css';
+import '../resource/css/animate.min.css';
+import '../resource/sass/light-bootstrap-dashboard.css';
+import '../resource/css/demo.css';
+import '../resource/css/pe-icon-7-stroke.css';
 
 import App from './containers/app.jsx'
 
