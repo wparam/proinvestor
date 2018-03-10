@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {   Route,  Switch, Redirect } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
 
-import Header from '../components/Header/Header.jsx';
-import Footer from '../components/Footer/Footer.jsx';
-import Sidebar from '../components/Sidebar/Sidebar.jsx';
+import Header from 'components/Header/Header.jsx';
+import Footer from 'components/Footer/Footer.jsx';
+import Sidebar from 'components/Sidebar/Sidebar.jsx';
 
-import {style} from "../components/variables/Variables.jsx";
+import {style} from "components/variables/Variables.jsx";
 
-import appRoutes from '../routes/routes.jsx';
+import appRoutes from 'routes/routes.jsx';
 
 class App extends Component {
     constructor(props){

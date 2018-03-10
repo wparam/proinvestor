@@ -18,9 +18,13 @@ module.exports = {
     output: {
         path: BUILD_DIR,
         filename: 'bundle.js',
-        publicPath: 'public/dist/'
+        publicPath: 'dist/'
     },
     watch: false,
+    resolve: {
+        modules: [path.resolve(__dirname, 'public/src'), path.resolve(__dirname, 'public/resource'), 'node_modules'],
+        extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx']
+    },
     module: {
         rules: [
             {
@@ -70,7 +74,7 @@ module.exports = {
                     {
                         loader: 'image-webpack-loader',
                         options: {
-                            bypassOnDebug: true,
+                            bypassOnDebug: true
                         }
                     }
                 ]

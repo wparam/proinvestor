@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../../resource/img/sidebar-3.jpg';
-import logo from '../../../resource/img/reactlogo.png';
+import imagine from 'img/sidebar-3.jpg';
+import logo from 'img/reactlogo.png';
 
 import appRoutes from '../../routes/routes.jsx';
 
