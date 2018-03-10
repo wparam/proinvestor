@@ -7,7 +7,7 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         Hello World
       </div>
-    )
+    );
   }
 }
 

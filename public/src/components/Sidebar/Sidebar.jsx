@@ -13,7 +13,7 @@ class Sidebar extends Component{
         super(props);
         this.state = {
             width: window.innerWidth
-        }
+        };
     }
     activeRoute(routeName) {
         return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
@@ -23,35 +23,35 @@ class Sidebar extends Component{
     }
     componentDidMount() {
         this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions.bind(this));
+        window.addEventListener('resize', this.updateDimensions.bind(this));
     }
     render(){
         const sidebarBackground = {
             backgroundImage: 'url(' + imagine + ')'
         };
         return (
-            <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
-                <div className="sidebar-background" style={sidebarBackground}></div>
-                    <div className="logo">
-                        <a href="https://www.creative-tim.com" className="simple-text logo-mini">
-                            <div className="logo-img">
-                                <img src={logo} alt="logo_image"/>
+            <div id='sidebar' className='sidebar' data-color='black' data-image={imagine}>
+                <div className='sidebar-background' style={sidebarBackground}></div>
+                    <div className='logo'>
+                        <a href='https://www.creative-tim.com' className='simple-text logo-mini'>
+                            <div className='logo-img'>
+                                <img src={logo} alt='logo_image'/>
                             </div>
 
                         </a>
-                        <a href="https://www.creative-tim.com" className="simple-text logo-normal">
+                        <a href='https://www.creative-tim.com' className='simple-text logo-normal'>
                             Creative Tim
                         </a>
                     </div>
-                <div className="sidebar-wrapper">
-                    <ul className="nav">
+                <div className='sidebar-wrapper'>
+                    <ul className='nav'>
                         { this.state.width <= 991 ? (<HeaderLinks />):null }
                         {
                             appRoutes.map((prop,key) => {
                                 if(!prop.redirect)
                                     return (
-                                        <li className={prop.upgrade ? "active active-pro":this.activeRoute(prop.path)} key={key}>
-                                            <NavLink to={prop.path} className="nav-link" activeClassName="active">
+                                        <li className={prop.upgrade ? 'active active-pro':this.activeRoute(prop.path)} key={key}>
+                                            <NavLink to={prop.path} className='nav-link' activeClassName='active'>
                                                 <i className={prop.icon}></i>
                                                 <p>{prop.name}</p>
                                             </NavLink>

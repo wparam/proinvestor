@@ -6,7 +6,7 @@ import Header from 'components/Header/Header.jsx';
 import Footer from 'components/Footer/Footer.jsx';
 import Sidebar from 'components/Sidebar/Sidebar.jsx';
 
-import {style} from "components/variables/Variables.jsx";
+import {style} from 'components/variables/Variables.jsx';
 
 import appRoutes from 'routes/routes.jsx';
 
@@ -39,7 +39,7 @@ class App extends Component {
                 break;
         }
         this.state._notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            title: (<span data-notify='icon' className='pe-7s-gift'></span>),
             message: (
                 <div>
                     Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
@@ -72,14 +72,14 @@ class App extends Component {
                 break;
         }
         _notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            title: (<span data-notify='icon' className='pe-7s-gift'></span>),
             message: (
                 <div>
                     Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
                 </div>
             ),
             level: level,
-            position: "tr",
+            position: 'tr',
             autoDismiss: 15,
         });
     }
@@ -90,15 +90,15 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="wrapper">
+            <div className='wrapper'>
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
                 <Sidebar {...this.props} /> 
-                <div id="main-panel" className="main-panel">
+                <div id='main-panel' className='main-panel'>
                     <Header {...this.props}/>
                         <Switch>
                             {
                                 appRoutes.map((prop,key) => {
-                                    if(prop.name === "Notifications")
+                                    if(prop.name === 'Notifications')
                                         return (
                                             <Route path={prop.path} key={key} render={routeProps =>
                                                     <prop.component {...routeProps} handleClick={this.handleNotificationClick}/>}

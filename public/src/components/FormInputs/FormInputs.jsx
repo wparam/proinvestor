@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row } from 'react-bootstrap';
 
-function FieldGroup({ label, ...props }) {
-    return (
-        <FormGroup>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-        </FormGroup>
-    );
+// function FieldGroup({ label, ...props }) {
+//     return (
+//         <FormGroup>
+//             <ControlLabel>{label}</ControlLabel>
+//             <FormControl {...props} />
+//         </FormGroup>
+//     );
+// }
+
+class FieldGroup extends Component {
+    constructor(){
+
+    }
+    render() {
+        return (
+            <FormGroup>
+                <ControlLabel>{this.props.label}</ControlLabel>
+                <FormControl {...props} />
+            </FormGroup>
+        );
+    }
 }
 
 export class FormInputs extends Component{

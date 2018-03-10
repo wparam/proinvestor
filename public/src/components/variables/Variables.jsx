@@ -243,7 +243,7 @@ var style = {
             padding: 0
         }
     }
-}
+};
 
 //
 // //

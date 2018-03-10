@@ -4,7 +4,7 @@ import Checkbox from 'elements/CustomCheckbox/CustomCheckbox.jsx';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 
 export class Tasks extends Component{
-    handleCheckbox = event => {
+    handleCheckbox(event){
         const target = event.target;
         console.log(event.target);
         this.setState({
@@ -12,8 +12,8 @@ export class Tasks extends Component{
         });
     };
     render(){
-        const edit = (<Tooltip id="edit_tooltip">Edit Task</Tooltip>);
-        const remove = (<Tooltip id="remove_tooltip">Remove</Tooltip>);
+        const edit = (<Tooltip id='edit_tooltip'>Edit Task</Tooltip>);
+        const remove = (<Tooltip id='remove_tooltip'>Remove</Tooltip>);
         const tasks_title = [
             'Sign contract for "What are conference organizers afraid of?"',
             'Lines From Great Russian Literature? Or E-mails From My Boss?',
@@ -25,7 +25,7 @@ export class Tasks extends Component{
         var tasks = [];
         var number;
         for (var i = 0; i < tasks_title.length; i++) {
-            number = "checkbox"+i;
+            number = 'checkbox'+i;
             tasks.push(
                 <tr key={i}>
                     <td>
@@ -35,26 +35,26 @@ export class Tasks extends Component{
                         />
                     </td>
                     <td>{tasks_title[i]}</td>
-                    <td className="td-actions text-right">
-                        <OverlayTrigger placement="top" overlay={edit}>
+                    <td className='td-actions text-right'>
+                        <OverlayTrigger placement='top' overlay={edit}>
                             <Button
-                                bsStyle="info"
+                                bsStyle='info'
                                 simple
-                                type="button"
-                                bsSize="xs"
+                                type='button'
+                                bsSize='xs'
                             >
-                                <i className="fa fa-edit"></i>
+                                <i className='fa fa-edit'></i>
                             </Button>
                         </OverlayTrigger>
 
-                        <OverlayTrigger placement="top" overlay={remove}>
+                        <OverlayTrigger placement='top' overlay={remove}>
                             <Button
-                                bsStyle="danger"
+                                bsStyle='danger'
                                 simple
-                                type="button"
-                                bsSize="xs"
+                                type='button'
+                                bsSize='xs'
                             >
-                                <i className="fa fa-times"></i>
+                                <i className='fa fa-times'></i>
                             </Button>
                         </OverlayTrigger>
 

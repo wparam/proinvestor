@@ -39,7 +39,7 @@ class Header extends Component{
                         name = prop.name;
                     }
                     return null;
-                })
+                });
             } else {
                 if(prop.redirect){
                     if(prop.path === this.props.location.pathname){
@@ -52,7 +52,7 @@ class Header extends Component{
                 }
             }
             return null;
-        })
+        });
         return name;
     }
     render(){
