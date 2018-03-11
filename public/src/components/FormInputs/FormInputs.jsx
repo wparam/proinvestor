@@ -11,8 +11,8 @@ import { FormGroup, ControlLabel, FormControl, Row } from 'react-bootstrap';
 // }
 
 class FieldGroup extends Component {
-    constructor(){
-
+    constructor(props){
+        super(props);
     }
     render() {
         return (
