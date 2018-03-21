@@ -8,15 +8,6 @@ import Maps from 'views/Maps/Maps';
 import Notifications from 'views/Notifications/Notifications';
 import Upgrade from 'views/Upgrade/Upgrade';
 
-class EmptyComponent extends React.Component{ 
-    constructor(props){
-        super(props);
-    }
-    render(){
- 
-    }
-}
-
 const appRoutes = [
     { path: '/dashboard', name: 'Dashboard', icon: 'pe-7s-graph', component: Dashboard },
     { path: '/user', name: 'User Profile', icon: 'pe-7s-user', component: UserProfile },
