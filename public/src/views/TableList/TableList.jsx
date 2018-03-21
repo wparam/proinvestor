@@ -40,7 +40,7 @@ class TableList extends Component {
                                                                 );
                                                             })
                                                         }</tr>
-                                                    )
+                                                    );
                                                 })
                                             }
                                         </tbody>
@@ -80,7 +80,7 @@ class TableList extends Component {
                                                                 );
                                                             })
                                                         }</tr>
-                                                    )
+                                                    );
                                                 })
                                             }
                                         </tbody>

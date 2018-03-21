@@ -28,4 +28,4 @@ class Maps extends Component{
 
 export default GoogleApiWrapper({
     apiKey: "YOUR_API_KEY_HERE"
-})(Maps)
+})(Maps);
