@@ -22,7 +22,7 @@ class Maps extends Component{
                 </Map>
             </div>
         );
-    }
+    } 
 
 }
 
