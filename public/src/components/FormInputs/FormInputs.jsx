@@ -18,7 +18,7 @@ class FieldGroup extends Component {
         return (
             <FormGroup>
                 <ControlLabel>{this.props.label}</ControlLabel>
-                <FormControl {...props} />
+                <FormControl {...this.props} />
             </FormGroup>
         );
     }
