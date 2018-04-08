@@ -14,7 +14,7 @@ class Sidebar extends Component{
         this.state = {
             width: window.innerWidth
         };
-    }
+    } 
     activeRoute(routeName) {
         return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
     }
