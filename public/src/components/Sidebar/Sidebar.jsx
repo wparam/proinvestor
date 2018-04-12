@@ -11,19 +11,9 @@ import appRoutes from '../../routes/routes.jsx';
 class Sidebar extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            width: window.innerWidth
-        };
     } 
     activeRoute(routeName) {
         return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
-    }
-    updateDimensions(){
-        this.setState({width:window.innerWidth});
-    }
-    componentDidMount() {
-        this.updateDimensions();
-        window.addEventListener('resize', this.updateDimensions.bind(this));
     }
     render(){
         const sidebarBackground = {
@@ -45,7 +35,6 @@ class Sidebar extends Component{
                     </div>
                 <div className='sidebar-wrapper'>
                     <ul className='nav'>
-                        { this.state.width <= 991 ? (<HeaderLinks />):null }
                         {
                             appRoutes.map((prop,key) => {
                                 if(!prop.redirect)
