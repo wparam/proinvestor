@@ -5,6 +5,5 @@ node_modules
 public/lib
 public/dist
 output/
-*.png
 *.txt
 *.xml
