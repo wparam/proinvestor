@@ -1,5 +1,6 @@
 import React from 'react';
 import Dashboard from 'views/Dashboard/Dashboard';
+import Overview from 'views/Overview/Overview';
 import UserProfile from 'views/UserProfile/UserProfile';
 import TableList from 'views/TableList/TableList';
 import Typography from 'views/Typography/Typography';
@@ -10,6 +11,7 @@ import Upgrade from 'views/Upgrade/Upgrade';
 
 const appRoutes = [
     { path: '/dashboard', name: 'Dashboard', icon: 'pe-7s-graph', component: Dashboard },
+    { path: '/overview', name: 'Overview', icon: 'pe-7s-display1', component: Overview },
     { path: '/user', name: 'User Profile', icon: 'pe-7s-user', component: UserProfile },
     { path: '/table', name: 'Table List', icon: 'pe-7s-note2', component: TableList },
     { path: '/typography', name: 'Typography', icon: 'pe-7s-news-paper', component: Typography },
