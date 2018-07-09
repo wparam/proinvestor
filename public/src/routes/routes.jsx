@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Dashboard from 'views/Dashboard/Dashboard';
 import Overview from 'views/Overview/Overview';
 import UserProfile from 'views/UserProfile/UserProfile';
@@ -23,3 +23,5 @@ const appRoutes = [
 ];
 
 export default appRoutes;
+
+
