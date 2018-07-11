@@ -15,7 +15,7 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const coreCtrl = require('./app/controllers/core.controller');
 const app = express(); 
-
+const db = require('./app/models')();
 
 
 const env = process.env.NODE_ENV || 'development';

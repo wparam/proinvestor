@@ -1,23 +1,34 @@
 const glob = require('glob');
+const path = require('path');
 const mongoose = require('mongoose');
 
-const modelsFiles = './*.model.js'
+const modelsFiles = path.join(__dirname, '*.model.js');
 
-module.exports = (app) => {
-    const db = mongoose.connection;
-    mongoose.connect('mongodb://localhost/asset_manager');
-    db.on('error', (err) => {
-        console.error(err);
-    });
+const conn = mongoose.connection;
+mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
 
-    db.on('open', () => {
-        console.log('DB connected');
-    });
+conn.on('error', (err) => {
+    console.error(err);
+});
 
+conn.on('open', () => {
+    console.log('DB connected');
+});
+
+
+module.exports = () => {
+    const db = {};
     glob(modelsFiles, (err, files)=>{
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(files);
         files.forEach((file) => {
-            require(file)(app);
+            var model = require(file);
+            console.log(model.modelName);
+            // db[require(file)(app);
         });
     });
-
+    return db;
 };

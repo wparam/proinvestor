@@ -2,17 +2,13 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 var UserSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true
-    },
+    displayname: String,
     username: {
         type: String,
         unique: true,
         required: true,
-        trim: true
+        trim: true,
+        index: true
     },
     password: {
         type: String,
@@ -21,7 +17,13 @@ var UserSchema = new mongoose.Schema({
     passwordConf: {
         type: String,
         required: true,
-    }
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true
+    }    
 });
 
 // authenticate input against database
