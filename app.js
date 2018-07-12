@@ -15,8 +15,19 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const coreCtrl = require('./app/controllers/core.controller');
 const app = express(); 
+const mongoose = require('mongoose');
 const db = require('./app/models')();
 
+const conn = mongoose.connection;
+mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
+
+conn.on('error', (err) => {
+    console.error(err);
+});
+
+conn.on('open', () => {
+    console.log('DB connected');
+});
 
 const env = process.env.NODE_ENV || 'development';
 

@@ -8,6 +8,7 @@ const webpack = require('webpack-stream');
 const SRC_DIR = path.resolve(__dirname, 'public/src');
 const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
+const fixture = require('./fixtures');
 
 // ===========================
 //
@@ -56,7 +57,6 @@ gulp.task('hint:client', () => {
         .pipe(eslint.failAfterError());
 });
 
-
 gulp.task('compile',['clean'], function(){
     return gulp.src(path.join(SRC_DIR, 'index.js'))
         .pipe(webpack(WEBPACK_CONFIG))
@@ -72,6 +72,19 @@ gulp.task('watch', function(){
     gulp.watch(watchFiles.serverJS, ['hint:server']);
     gulp.watch(watchFiles.clientJS, ['hint:client', 'compile']);
 }); 
+
+gulp.task('db:load', (done)=>{
+    console.log('in load');
+    done();
+    return;
+    return fixture.loadData((err, files)=>{
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(files);
+    });
+});
 
 gulp.task('appmon', function () {
     nodemon({
