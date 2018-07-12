@@ -38,19 +38,39 @@ const loadDocuments = (db,  done) => {
             return done(err);
         files.forEach((file)=>{
             let filename = path.join(__dirname, file);
+            let f = file.split('.')[0];
+            removeDocuments(f, db, (err, flag)=>{
+                if(err||!flag){
+                    return done(err);
+                }
+                fs.readFile(filename, (err, data) => {
+                    if(err)
+                        return done(err);
+                    insertDocuments(f, db, (err, flag) =>{
 
+                    });
+                });
+                
+            });
         });
         done(null, files);
     });
 };
 
-const insertDocuments = (modelName, db, done) => {
-    if(!modelName)
+const insertDocuments = (modelName, data, db, done) => {
+    if(!modelName || (data instanceof Array && data.length === 0))
         return;
     if(typeof db === 'function'){
         done = db;
         db = conn;
     }
+    const model = db.model(modelName);
+    model.insertMany(data, function(err){
+        if(err){
+            return done(err);            
+        }
+        done(null, true);
+    });
 };
 
 const loadData = (db, done)=>{
