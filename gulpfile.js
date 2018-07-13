@@ -74,9 +74,6 @@ gulp.task('watch', function(){
 }); 
 
 gulp.task('db:load', (done)=>{
-    console.log('in load');
-    done();
-    return;
     return fixture.loadData((err, files)=>{
         if(err){
             console.error(err);

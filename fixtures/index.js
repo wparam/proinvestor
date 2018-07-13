@@ -46,9 +46,7 @@ const loadDocuments = (db,  done) => {
                 fs.readFile(filename, (err, data) => {
                     if(err)
                         return done(err);
-                    insertDocuments(f, db, (err, flag) =>{
-
-                    });
+                    insertDocuments(f, data, db, done);
                 });
                 
             });
