@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+const models = require('../app/models')();
+mongoose.Promise = global.Promise;
 var conn = mongoose.connection;
 
 if(conn.readyState === 0){
@@ -37,13 +39,13 @@ const loadDocuments = (db,  done) => {
         if(err)
             return done(err);
         files.forEach((file)=>{
-            let filename = path.join(__dirname, file);
+            let filename = path.join(__dirname, 'data', file);
             let f = file.split('.')[0];
             removeDocuments(f, db, (err, flag)=>{
                 if(err||!flag){
                     return done(err);
                 }
-                fs.readFile(filename, (err, data) => {
+                fs.readFile(filename, 'utf8', (err, data) => {
                     if(err)
                         return done(err);
                     insertDocuments(f, data, db, done);
@@ -62,12 +64,12 @@ const insertDocuments = (modelName, data, db, done) => {
         done = db;
         db = conn;
     }
-    const model = db.model(modelName);
-    model.insertMany(data, function(err){
+    const model = models[modelName];
+    model.insertMany(JSON.parse(data), function(err, doc){
         if(err){
             return done(err);            
         }
-        done(null, true);
+        done(null, doc);
     });
 };
 
