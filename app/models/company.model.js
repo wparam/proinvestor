@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //mongoose only auto create collection when index is provided
 const stockSchema = mongoose.Schema({
-    ticker: { type: String, index: true },
+    symbol: { type: String, index: true },
     companyName: String, //Apple Inc.,
     exchange: String, //Nasdaq Global Select,
     industry: String, //Computer Hardware,
@@ -11,6 +11,6 @@ const stockSchema = mongoose.Schema({
     ceo: String, //Timothy D. Cook,
     issueType: String, //cs, ??
     sector: String, //Technology
-});
+},{ timestamps: {} });
 
 module.exports = mongoose.model('Company', stockSchema);
