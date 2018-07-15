@@ -135,4 +135,4 @@ class System extends Component {
     }
 }
 
-export default Dashboard;
+export default System;

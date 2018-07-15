@@ -16,6 +16,7 @@
     "connect-mongo": "2.0.0",
     "cookie-parser": "^1.4.3",
     "copy-webpack-plugin": "4.2.0",
+    "data_importer": "file:./modules/data_importer",
     "ejs": "2.5.7",
     "ejs-locals": "1.0.2",
     "express": "^4.15.4",
