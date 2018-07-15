@@ -18,7 +18,7 @@ module.exports = class TaskManager{
     async processTasks(){
         if(this.tasks.keys.length === 0)
             return Promise.reject(new Error('Tasks list is empty'));
-        return Promise.all(Array.from(this.tasks.values());
+        return Promise.all(Array.from(this.tasks.values()));
     }
     
     /**async function to run task
