@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const models = require('../app/models')();
+const logger = require('logger');
+
 mongoose.Promise = global.Promise;
+
 var conn = mongoose.connection;
 
 const openConnection = ()=>{
@@ -99,18 +102,18 @@ const insertDocuments = (modelName, data, db, done) => {
 
 const loadData = (db, done)=>{
     openConnection().then( (msg)=>{
-        console.log(msg);
+        logger.info(msg);
         if(typeof db === 'function'){
             done = db;
             db = conn;
         }
         return loadDocuments(db, (err, docs) => {
-            console.log('Init docs:');
-            console.log(docs);
+            logger.info('Init docs:');
+            logger.info(docs);
             return closeConnection().then(done);
         });
     } ).catch( (err) => {
-        console.error(err);
+        logger.error(err);
     });
     
 }

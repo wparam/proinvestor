@@ -30,6 +30,7 @@
     "jquery": "3.2.1",
     "lodash": "4.17.4",
     "lodash-webpack-plugin": "0.11.4",
+    "logger": "file:modules/logger",
     "mongoose": "4.12.5",
     "morgan": "^1.8.2",
     "passport": "0.4.0",
@@ -48,8 +49,7 @@
     "reactstrap": "5.0.0-alpha.3",
     "resolve-url-loader": "2.2.0",
     "serve-favicon": "^2.4.3",
-    "simple-line-icons": "2.4.1",
-    "winston": "3.0.0"
+    "simple-line-icons": "2.4.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

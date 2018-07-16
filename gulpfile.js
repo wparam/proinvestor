@@ -10,6 +10,7 @@ const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
 const fixture = require('./fixtures');
 const data_importer = require('data_importer');
+const logger = require('logger');
 
 // ===========================
 //
@@ -33,7 +34,7 @@ function errorHandler( error ) {
     if( typeof error === 'object' && error.message ) {
         error = error.message;
     }
-    console.error( chalk.red( '[gulp] ' ) + chalk.red( error ) );
+    logger.error( chalk.red( '[gulp] ' ) + chalk.red( error ) );
 }
 
 // ===========================
@@ -75,17 +76,18 @@ gulp.task('watch', function(){
 }); 
 
 gulp.task('db:load', (done)=>{
+    logger.info('start db:load');
     return fixture.loadData((err, files)=>{
         if(err){
-            console.error(err);
+            logger.error(err);
             return;
         }
-        console.log(files);
+        logger.info(files);
     });
 });
 
 gulp.task('db:data-import', ()=>{
-    
+    logger.info('start data-import task');
 });
 
 gulp.task('appmon', function () {

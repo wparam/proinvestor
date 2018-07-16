@@ -1,0 +1,6 @@
+{"message":"start db:load","level":"info"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Init docs:","level":"info"}
+{"message":[[{"updatedAt":"2018-07-16T20:54:50.981Z","createdAt":"2018-07-16T20:54:50.981Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4d061a4dfbda30eacf82fc"}],[{"updatedAt":"2018-07-16T20:54:50.991Z","createdAt":"2018-07-16T20:54:50.991Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4d061a4dfbda30eacf82fd"}]],"level":"info"}
+{"message":"Db is closed","level":"error"}
