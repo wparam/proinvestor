@@ -1,9 +1,15 @@
 const importer = require('../importer');
-module.exports = class CompanyImporter extends importer{
-    constructor(){
-        super();
-    }
+const mongoose = require('mongoose');
 
+module.exports = class CompanyImporter extends importer{
+    constructor(conn){
+        super(conn);
+        this.modelName = 'Company';
+        this.model = mongoose.model(this.modelName);
+    }
+    getRemoteData() {
+        
+    }
     import() {
 
     }

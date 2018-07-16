@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 module.exports = class TaskManager{
     constructor() {
         this.tasks = new Map(); 
