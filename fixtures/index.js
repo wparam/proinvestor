@@ -5,13 +5,33 @@ const models = require('../app/models')();
 mongoose.Promise = global.Promise;
 var conn = mongoose.connection;
 
-if(conn.readyState === 0){
-    conn = mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
+const openConnection = ()=>{
+    return new Promise((resolve, reject) => {
+        if(conn.readyState === 0){
+            conn = mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
+        }
+
+        conn.on('open', () => {
+            resolve('DB is open');
+        });
+        
+        conn.on('error', (err) => {
+            reject(err);
+        });
+    });
+    
 }
 
-conn.on('error', (err) => {
-    console.error(err);
-});
+const closeConnection = ()=>{
+    return new Promise((resolve, reject) => {
+        if(conn.readyState === 1){
+            mongoose.disconnect();        
+        }
+        console.log('Db is closed');
+        resolve();
+    });
+    
+}
 
 const removeDocuments = (modelName, db, done) => {
     if(!modelName)
@@ -74,13 +94,19 @@ const insertDocuments = (modelName, data, db, done) => {
 };
 
 const loadData = (db, done)=>{
-    if(typeof db === 'function'){
-        done = db;
-        db = conn;
-    }
-    if(conn.readyState === 0)
-        return done('db is not open');
-    return loadDocuments(db, done);
+    openConnection().then( (msg)=>{
+        console.log(msg);
+        if(typeof db === 'function'){
+            done = db;
+            db = conn;
+        }
+        return loadDocuments(db, () => {
+            return closeConnection().then(done);
+        });
+    } ).catch( (err) => {
+        console.error(err);
+    });
+    
 }
 
 module.exports = {

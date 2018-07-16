@@ -15,7 +15,7 @@ module.exports = class TaskManager{
         return this.tasks.delete(taskName);
     }
     
-    async processTasks(){
+    processTasks(){
         if(this.tasks.keys.length === 0)
             return Promise.reject(new Error('Tasks list is empty'));
         return Promise.all(Array.from(this.tasks.values()));
@@ -24,7 +24,7 @@ module.exports = class TaskManager{
     /**async function to run task
      * @param  {} taskName
      */
-    async runTask(taskName) {
+    runTask(taskName) {
         if(!taskName || !this.tasks.has(taskName) || !this.tasks.get(taskName)){
             return Promise.reject(new Error(`Task doest exist: ${taskName}`));
         }

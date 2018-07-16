@@ -16,7 +16,7 @@
     "connect-mongo": "2.0.0",
     "cookie-parser": "^1.4.3",
     "copy-webpack-plugin": "4.2.0",
-    "data_importer": "file:./modules/data_importer",
+    "data_importer": "file:modules/data_importer",
     "ejs": "2.5.7",
     "ejs-locals": "1.0.2",
     "express": "^4.15.4",
@@ -48,7 +48,8 @@
     "reactstrap": "5.0.0-alpha.3",
     "resolve-url-loader": "2.2.0",
     "serve-favicon": "^2.4.3",
-    "simple-line-icons": "2.4.1"
+    "simple-line-icons": "2.4.1",
+    "winston": "3.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
