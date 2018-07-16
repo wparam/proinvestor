@@ -27,8 +27,7 @@ const closeConnection = ()=>{
         if(conn.readyState === 1){
             mongoose.disconnect();        
         }
-        console.log('Db is closed');
-        resolve();
+        resolve('Db is closed');
     });
     
 }
@@ -58,6 +57,7 @@ const loadDocuments = (db,  done) => {
     return fs.readdir(dataFolder, (err, files)=>{
         if(err)
             return done(err);
+        let docs = [];
         files.forEach((file)=>{
             let filename = path.join(__dirname, 'data', file);
             let f = file.split('.')[0];
@@ -68,18 +68,22 @@ const loadDocuments = (db,  done) => {
                 fs.readFile(filename, 'utf8', (err, data) => {
                     if(err)
                         return done(err);
-                    insertDocuments(f, data, db, done);
+                    insertDocuments(f, data, db, (err, doc) => {
+                        docs.push(doc);
+                        if(docs.length === files.length){
+                            return done(null, docs);
+                        }
+                    });
                 });
-                
             });
         });
-        done(null, files);
     });
 };
 
 const insertDocuments = (modelName, data, db, done) => {
-    if(!modelName || (data instanceof Array && data.length === 0))
-        return;
+    if(!modelName || (data instanceof Array && data.length === 0)){
+        return done(`Error in insertDocuments, modelName:${modelName}, data.length:${data.length}`);
+    }
     if(typeof db === 'function'){
         done = db;
         db = conn;
@@ -100,7 +104,9 @@ const loadData = (db, done)=>{
             done = db;
             db = conn;
         }
-        return loadDocuments(db, () => {
+        return loadDocuments(db, (err, docs) => {
+            console.log('Init docs:');
+            console.log(docs);
             return closeConnection().then(done);
         });
     } ).catch( (err) => {

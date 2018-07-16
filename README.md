@@ -1,3 +1,3 @@
 # Asset Manager
 
-## https://github.com/mrholek/CoreUI-React S
+## A asset management tool for anaylise stock
