@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
+const fs       = require('fs');
 
-module.exports = class TaskManager{
+module.exports = class ImportManager{
     constructor() {
         this.tasks = new Map(); 
+    }
+
+    static getImporters(){
+        const importerFolder = './db';
+        
     }
     
     createTask(taskName, importer){

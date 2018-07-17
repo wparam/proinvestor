@@ -7,6 +7,9 @@ module.exports = class Importer{
         if(!conn)
             this.conn = mongoose.connection;
     }
+    static importerTypes(){
+        
+    }
     openConnection() {
         return new Promise((resolve, reject) => {
             if(this.conn.readyState === 0){
@@ -46,3 +49,4 @@ module.exports = class Importer{
 
     }
 }   
+

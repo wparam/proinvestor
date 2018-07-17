@@ -9,7 +9,7 @@ const SRC_DIR = path.resolve(__dirname, 'public/src');
 const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
 const fixture = require('./fixtures');
-const data_importer = require('data_importer');
+const ImportManager = require('data_importer');
 const logger = require('logger');
 
 // ===========================
@@ -37,12 +37,13 @@ function errorHandler( error ) {
     logger.error( chalk.red( '[gulp] ' ) + chalk.red( error ) );
 }
 
-// ===========================
-//
-//       tasks
-//
-// ===========================
 
+// ===========================
+//
+//       app tasks
+//
+// ===========================
+// #region app tasks
 gulp.task('default',  ['compile', 'watch', 'appmon']);
 
 gulp.task('hint:server', function(p){
@@ -75,6 +76,17 @@ gulp.task('watch', function(){
     gulp.watch(watchFiles.clientJS, ['hint:client', 'compile']);
 }); 
 
+gulp.task('appmon', function () {
+    nodemon({
+        script: 'app.js', 
+        watch: watchFiles.serverJS,
+        env: { 'NODE_ENV': 'development' }
+    });
+});
+
+//#endregion
+
+//#region db related tasks
 gulp.task('db:load', (done)=>{
     logger.info('start db:load');
     return fixture.loadData((err, files)=>{
@@ -88,12 +100,7 @@ gulp.task('db:load', (done)=>{
 
 gulp.task('db:data-import', ()=>{
     logger.info('start data-import task');
+    let importerTasks = new ImportManager();
+    importerTasks.createTask('Basket', )
 });
-
-gulp.task('appmon', function () {
-    nodemon({
-        script: 'app.js', 
-        watch: watchFiles.serverJS,
-        env: { 'NODE_ENV': 'development' }
-    });
-});
+//#endregion
