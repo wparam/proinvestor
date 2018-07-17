@@ -13,4 +13,4 @@ const stockSchema = mongoose.Schema({
     sector: String, //Technology
 },{ timestamps: {} });
 
-module.exports = mongoose.model('Company', stockSchema);
+module.exports = mongoose.model('company', stockSchema);

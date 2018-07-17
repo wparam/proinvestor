@@ -4,12 +4,25 @@ const mongoose = require('mongoose');
 module.exports = class CompanyImporter extends importer{
     constructor(conn){
         super(conn);
-        this.modelName = 'Company';
-        this.model = mongoose.model(this.modelName);
+        this._modelName = 'company';
+        this.model = mongoose.model(this._modelName);
     }
+    static importerType(){
+        return 'company';
+    }
+
+    get modelName(){
+        return this._modelName;
+    }
+
+    set modelName(v){
+        this._modelName = v;
+    }
+
     getRemoteData() {
         
     }
+
     import(entity) {
         if(!entity || !entity.symbol){
             throw new Error('Fail at Company import, entity is invalid');

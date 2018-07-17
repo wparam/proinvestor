@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-const models = require('../app/models')();
+const models = require('../app/models')(mongoose.connection);
 const logger = require('logger');
 
 mongoose.Promise = global.Promise;
@@ -100,6 +100,7 @@ const insertDocuments = (modelName, data, db, done) => {
     });
 };
 
+//mixed by promise and callback, really bad idea
 const loadData = (db, done)=>{
     openConnection().then( (msg)=>{
         logger.info(msg);
@@ -108,9 +109,12 @@ const loadData = (db, done)=>{
             db = conn;
         }
         return loadDocuments(db, (err, docs) => {
-            logger.info('Init docs:');
-            logger.info(docs);
-            return closeConnection().then(done);
+            logger.info(`Insert docs number:${docs.length}`);
+            return closeConnection().then((msg)=>{
+                return done(null, msg);
+            }).catch((err)=>{
+                return done(err);
+            });
         });
     } ).catch( (err) => {
         logger.error(err);

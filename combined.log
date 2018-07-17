@@ -4,3 +4,190 @@
 {"message":"Init docs:","level":"info"}
 {"message":[[{"updatedAt":"2018-07-16T20:54:50.981Z","createdAt":"2018-07-16T20:54:50.981Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4d061a4dfbda30eacf82fc"}],[{"updatedAt":"2018-07-16T20:54:50.991Z","createdAt":"2018-07-16T20:54:50.991Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4d061a4dfbda30eacf82fd"}]],"level":"info"}
 {"message":"Db is closed","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"start data-import task","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Init docs:","level":"info"}
+{"message":[[{"updatedAt":"2018-07-17T19:59:18.123Z","createdAt":"2018-07-17T19:59:18.123Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4e4a968c14f340ea844ff5"}],[{"updatedAt":"2018-07-17T19:59:18.129Z","createdAt":"2018-07-17T19:59:18.129Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4e4a968c14f340ea844ff6"}]],"level":"info"}
+{"message":"Db is closed","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Init docs:","level":"info"}
+{"message":[[{"updatedAt":"2018-07-17T20:02:52.832Z","createdAt":"2018-07-17T20:02:52.832Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4e4b6c147b7841542182cd"}],[{"updatedAt":"2018-07-17T20:02:52.846Z","createdAt":"2018-07-17T20:02:52.846Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4e4b6c147b7841542182ce"}]],"level":"info"}
+{"message":"Db is closed","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Init docs:","level":"info"}
+{"message":[[{"updatedAt":"2018-07-17T20:03:20.931Z","createdAt":"2018-07-17T20:03:20.931Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4e4b8832d20c418446074a"}],[{"updatedAt":"2018-07-17T20:03:20.949Z","createdAt":"2018-07-17T20:03:20.949Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4e4b8832d20c418446074b"}]],"level":"info"}
+{"message":"Db is closed","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Init docs:","level":"info"}
+{"message":[[{"updatedAt":"2018-07-17T20:05:08.732Z","createdAt":"2018-07-17T20:05:08.731Z","__v":0,"name":"NASDAQ-100","componentUrl":"http://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download","componentType":"csv","_id":"5b4e4bf4a3eae541b3b12d69"}],[{"updatedAt":"2018-07-17T20:05:08.746Z","createdAt":"2018-07-17T20:05:08.746Z","__v":0,"displayName":"Test User","userName":"test","password":"a","passwordConf":"a","email":"a@a.com","_id":"5b4e4bf4a3eae541b3b12d6a"}]],"level":"info"}
+{"message":"Db is closed","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Insert docs number:2","level":"info"}
+{"message":"Db is closed","level":"error"}
+{"message":"start db:load","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Insert docs number:2","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:74:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:74:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:75:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"TypeError: Cannot read property 'find' of undefined\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:28:19)\n    at Promise.all.Array.from.map (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:78:35)\n    at Array.map (native)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:77:61)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"TypeError: (intermediate value) is not a function\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:107:69)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"TypeError: (intermediate value) is not a function\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:107:69)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"MissingSchemaError: Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)\n    at MongooseError.MissingSchemaError (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/error/missingSchema.js:20:11)\n    at Mongoose.model (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/index.js:378:13)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:27:31)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:70:47)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"DB is open","level":"info"}
+{"message":"MissingSchemaError: Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)\n    at MongooseError.MissingSchemaError (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/error/missingSchema.js:20:11)\n    at Mongoose.model (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/index.js:378:13)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:27:31)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:70:47)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}

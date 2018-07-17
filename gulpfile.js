@@ -9,7 +9,8 @@ const SRC_DIR = path.resolve(__dirname, 'public/src');
 const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
 const fixture = require('./fixtures');
-const ImportManager = require('data_importer');
+// const ImportManager = require('data_importer');
+const ImportManager = require('./modules/data_importer');
 const logger = require('logger');
 
 // ===========================
@@ -87,20 +88,30 @@ gulp.task('appmon', function () {
 //#endregion
 
 //#region db related tasks
-gulp.task('db:load', (done)=>{
-    logger.info('start db:load');
-    return fixture.loadData((err, files)=>{
+gulp.task('db:load', ()=>{
+    return fixture.loadData((err, msg)=>{
         if(err){
             logger.error(err);
             return;
         }
-        logger.info(files);
+        logger.info(msg);
     });
 });
 
-gulp.task('db:data-import', ()=>{
-    logger.info('start data-import task');
+gulp.task('db:data-import', /*['db:load'],*/ ()=>{
     let importerTasks = new ImportManager();
-    importerTasks.createTask('Basket', )
+    let importers = ImportManager.getImporters();
+    importerTasks.openConnection().then( (conn) => {
+        const models = require('./app/models')(conn);
+        importerTasks.createTask('basket', new importers['basket'](models['basket']));
+        // importerTasks.createTask('company', new importers['company']());
+        return importerTasks.runTasks();
+    }).catch((err) => {
+        logger.error(err.stack);
+    }).then(()=>{
+        return importerTasks.closeConnection();
+    });
+    
+    
 });
 //#endregion

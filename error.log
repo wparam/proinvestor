@@ -1,1 +1,63 @@
 {"message":"Db is closed","level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"message":"Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)","name":"MissingSchemaError","level":"error"}
+{"message":"Db is closed","level":"error"}
+{"message":"Db is closed","level":"error"}
+{"message":"Db is closed","level":"error"}
+{"message":"Db is closed","level":"error"}
+{"message":"Db is closed","level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:74:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:74:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Error: Tasks list is empty\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:75:35)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"TypeError: Cannot read property 'find' of undefined\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:28:19)\n    at Promise.all.Array.from.map (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:78:35)\n    at Array.map (native)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:77:61)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"TypeError: (intermediate value) is not a function\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:107:69)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"TypeError: (intermediate value) is not a function\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:107:69)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"MissingSchemaError: Schema hasn't been registered for model \"basket\".\nUse mongoose.model(name, schema)\n    at MongooseError.MissingSchemaError (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/error/missingSchema.js:20:11)\n    at Mongoose.model (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/index.js:378:13)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:27:31)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:70:47)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"MissingSchemaError: Schema hasn't been registered for model \"Basket\".\nUse mongoose.model(name, schema)\n    at MongooseError.MissingSchemaError (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/error/missingSchema.js:20:11)\n    at Mongoose.model (/home/jason/github/assetmanager/modules/data_importer/node_modules/mongoose/lib/index.js:378:13)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:27:31)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:70:47)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}

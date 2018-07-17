@@ -1,52 +1,24 @@
 const mongoose = require('mongoose');
-const constr = 'mongodb://localhost/asset_manager';
+const import_log = require('./import_log');
+
 
 module.exports = class Importer{
-    constructor(conn){
-        this.conn = conn;
-        if(!conn)
-            this.conn = mongoose.connection;
-    }
-    static importerTypes(){
-        
-    }
-    openConnection() {
-        return new Promise((resolve, reject) => {
-            if(this.conn.readyState === 0){
-                this.conn = mongoose.connect(constr, {useMongoClient: true});
-            }
-    
-            this.conn.on('open', () => {
-                resolve('DB is open');
-            });
-            
-            this.conn.on('error', (err) => {
-                reject(err);
-            });
-        });
-    }
-    closeConnection() {
-        return new Promise((resolve, reject) => {
-            if(conn.readyState === 1){
-                mongoose.disconnect();        
-            }
-            resolve('Db is closed');
-        });
-    }
-    getRemoteData(){
-
-    }
-    processData() {
-        
-    }
-    saveData() {
-
-    }
-    import(entity) {
+    constructor(model){
+        this.model = model;
     }
 
-    importMany(arrylike){
+    processData() {}
 
+    saveData() {}
+
+    import() {}
+
+    beforeImport() {
+        // console.log('start before import in importer father');
+    }
+
+    afterImport() {
+        // console.log('after before import in importer father');
     }
 }   
 

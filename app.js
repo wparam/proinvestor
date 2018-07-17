@@ -19,13 +19,13 @@ const mongoose = require('mongoose');
 const db = require('./app/models')();
 
 const conn = mongoose.connection;
-mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
+mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
 
 conn.on('error', (err) => {
     console.error(err);
 });
 
-conn.on('open', () => {
+conn.once('open', () => {
     console.log('DB connected');
 });
 
