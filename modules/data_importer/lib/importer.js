@@ -39,7 +39,10 @@ module.exports = class Importer{
     saveData() {
 
     }
-    import() {
+    import(entity) {
     }
 
+    importMany(arrylike){
+
+    }
 }   
