@@ -103,13 +103,14 @@ gulp.task('db:data-import', /*['db:load'],*/ ()=>{
     let importerTasks = new ImportManager();
     let importers = ImportManager.getImporters();
     importerTasks.openConnection().then( (msg) => {
+        logger.info(msg);
         importerTasks.createTask('basket', new importers['basket'](models['basket']));
         // importerTasks.createTask('company', new importers['company']());
         return importerTasks.runTasks();
     }).catch((err) => {
         logger.error(err.stack);
     }).then(()=>{
-        return importerTasks.closeConnection();
+        return importerTasks.closeConnection().then((msg)=>{logger.info(msg);});
     });
     
     

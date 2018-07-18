@@ -75,10 +75,9 @@ module.exports = class ImportManager{
         if(this.tasks.size === 0){
             return Promise.reject(new Error('Tasks list is empty'));
         }
-        return this.tasks.get('basket').import().catch((err)=>{console.log(err.stack);});
-        // return Promise.all((Array.from(this.tasks.values()).map((importer) => {
-        //     return importer.import();
-        // })));
+        return Promise.all((Array.from(this.tasks.values()).map((importer) => {
+            return importer.import();
+        })));
     }
     
 }

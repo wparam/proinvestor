@@ -208,3 +208,6 @@
 {"message":"DB is open","level":"info"}
 {"message":"Insert docs number:2","level":"info"}
 {"message":"Db is closed","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}

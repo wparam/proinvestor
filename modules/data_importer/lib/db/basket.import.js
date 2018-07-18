@@ -30,6 +30,7 @@ module.exports = class BasketImporter extends importer{
             this.model.find({}, null, function(err, docs){
                 if(err)
                     return reject(err);
+                console.log(docs);
                 self.afterImport();                
                 resolve(docs);
             });

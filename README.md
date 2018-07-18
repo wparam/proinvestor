@@ -1,4 +1,4 @@
 # Asset Manager
 
-## A asset management tool for anaylise stock
+## A asset management tool for analyze stock
 
