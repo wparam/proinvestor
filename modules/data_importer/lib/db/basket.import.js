@@ -1,6 +1,8 @@
 const importer = require('../importer');
 const mongoose = require('mongoose');
-const https     = require('https');
+const fs       = require('fs');
+const https    = require('https');
+const zlib     = require('zlib');
 
 module.exports = class BasketImporter extends importer{
     constructor(model){
@@ -19,7 +21,21 @@ module.exports = class BasketImporter extends importer{
         this._modelName = v;
     }
 
-    getRemoteData(url) {
+    getNASDAQ100() {
+        const requestOptions = {
+            hostname: 'www.nasdaq.com',
+            port: 443,
+            path: '/quotes/nasdaq-100-stocks.aspx',
+            method: 'GET',
+            query: 'render=download',
+            search: '?render=download',
+            headers: {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language' : 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            }
+        };
+        let nasFile = fs.createWriteStream('nas.csv');
         return new Promise((resolve, reject) => {
             https.get(url, (res)=> {
                 const {statusCode} = res;
@@ -54,7 +70,10 @@ module.exports = class BasketImporter extends importer{
                 reject(err.message);
             });
         });
-        
+    }
+
+    getData() { 
+        return Promise.resolve();
     }
 
     import() {
@@ -67,18 +86,19 @@ module.exports = class BasketImporter extends importer{
                     return reject(err);
                 if(docs.length===0)
                     resolve([]);
-                docs.forEach((doc) => {
-                    console.log(doc);
-                    self.getRemoteData(doc.componentUrl).then((d)=>{
-                        console.log(d);
-                        self.afterImport();                
-                        resolve(docs);
-                    }).catch((err)=>{
-                        console.log(err);
-                        reject(err);
-                    });
-                });
                 
+                return Promise.all(docs.map((doc)=>{
+                    if(doc.name === 'NASDAQ-100'){
+                        return self.getNASDAQ100()
+                    }
+                    return self.getData()
+                })).then(((ds)=>{
+                    console.log(ds);
+                    resolve(ds);
+                    self.afterImport();
+                })).catch((err)=>{
+                    reject(err);
+                });
             });
         });
         
