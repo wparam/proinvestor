@@ -28,10 +28,8 @@ module.exports = class BasketImporter extends importer{
             this.beforeImport();
             //note: callback in mongoose"s api can"t use array function
             this.model.find({}, null, function(err, docs){
-                console.log(err.stack);
                 if(err)
                     return reject(err);
-                console.log(docs);
                 self.afterImport();                
                 resolve(docs);
             });

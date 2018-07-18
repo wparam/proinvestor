@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-const models = require('../app/models')(mongoose.connection);
+const models = require('../app/models');
 const logger = require('logger');
 
 mongoose.Promise = global.Promise;
@@ -11,7 +11,7 @@ var conn = mongoose.connection;
 const openConnection = ()=>{
     return new Promise((resolve, reject) => {
         if(conn.readyState === 0){
-            conn = mongoose.connect('mongodb://localhost/asset_manager', {useMongoClient: true});
+            mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
         }
 
         conn.on('open', () => {

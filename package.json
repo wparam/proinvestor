@@ -31,7 +31,7 @@
     "lodash": "4.17.4",
     "lodash-webpack-plugin": "0.11.4",
     "logger": "file:modules/logger",
-    "mongoose": "4.12.5",
+    "mongoose": "5.2.4",
     "morgan": "^1.8.2",
     "passport": "0.4.0",
     "passport-local": "1.0.0",

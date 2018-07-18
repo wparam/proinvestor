@@ -34,18 +34,19 @@ module.exports = class ImportManager{
     }
 
     openConnection() {
+        let self = this;
         return new Promise((resolve, reject) => {
-            this.conn.once('open', (err) => {
-                console.log('DB connected');
-            });
+            // this.conn.once('open', (err) => {
+            //     console.log('DB connected');
+            // });
             this.conn.on('error', (err) => {
                 return reject(err);
             });
             if(this.isDbOpen)
-                return resolve(this.conn);
+                return resolve('DB is already connected');
             else
                 mongoose.connect(this.constr, {useNewUrlParser: true}).then(function(){
-                    return resolve(this.conn);
+                    return resolve('DB is connected');
                 });
         });
     }
