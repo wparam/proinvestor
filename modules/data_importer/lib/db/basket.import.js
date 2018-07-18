@@ -1,5 +1,6 @@
 const importer = require('../importer');
 const mongoose = require('mongoose');
+const http     = require('http');
 
 module.exports = class BasketImporter extends importer{
     constructor(model){
@@ -18,7 +19,40 @@ module.exports = class BasketImporter extends importer{
         this._modelName = v;
     }
 
-    getRemoteData() {
+    getRemoteData(url) {
+        return new Promise((resolve, reject) => {
+            http.get(url, (res)=> {
+                const {statusCode} = res;
+                const contentType = res.headers['content-type'];
+                const contentDisposition = res.headers['content-disposition'];
+                console.log(contentDisposition);
+                let error;  
+                if(statusCode!==200){
+                    error = new Error(`Request Failed: StatusCode: ${statusCode} `);
+                }
+
+                if(error){
+                    res.resume();
+                    return reject(error);
+                }
+
+                res.setEncoding('utf8');
+                let rawData = '';
+
+                res.on('data', (chunk)=>{
+                    rawData += chunk;
+                });
+
+                res.on('end', ()=>{
+                    const parsedData = JSON.parse(rawData);
+                    console.log(parsedData);
+                    resolve(parsedData);
+                });
+            }).on('error', (err)=>{
+                console.log(err);
+                reject(err.message);
+            });
+        });
         
     }
 
@@ -30,13 +64,24 @@ module.exports = class BasketImporter extends importer{
             this.model.find({}, null, function(err, docs){
                 if(err)
                     return reject(err);
-                console.log(docs);
-                self.afterImport();                
-                resolve(docs);
+                if(docs.length===0)
+                    resolve([]);
+                docs.forEach((doc) => {
+                    self.getRemoteData(doc.componentUrl).then((d)=>{
+                        console.log(d);
+                        self.afterImport();                
+                        resolve(docs);
+                    }).catch((err)=>{
+                        console.log(err);
+                    });
+                });
+                
             });
         });
         
     }
+    insertDocument(){}
+
     importMany(data) {
         if(!data || data.length === 0){
             throw new Error('Fail at Company"s insertMany function');
