@@ -1,6 +1,6 @@
 const importer = require('../importer');
 const mongoose = require('mongoose');
-const http     = require('http');
+const https     = require('https');
 
 module.exports = class BasketImporter extends importer{
     constructor(model){
@@ -21,11 +21,11 @@ module.exports = class BasketImporter extends importer{
 
     getRemoteData(url) {
         return new Promise((resolve, reject) => {
-            http.get(url, (res)=> {
+            https.get(url, (res)=> {
                 const {statusCode} = res;
                 const contentType = res.headers['content-type'];
                 const contentDisposition = res.headers['content-disposition'];
-                console.log(contentDisposition);
+
                 let error;  
                 if(statusCode!==200){
                     error = new Error(`Request Failed: StatusCode: ${statusCode} `);
@@ -49,7 +49,8 @@ module.exports = class BasketImporter extends importer{
                     resolve(parsedData);
                 });
             }).on('error', (err)=>{
-                console.log(err);
+                console.log('err in errr');
+                console.log(err.stack);
                 reject(err.message);
             });
         });
@@ -67,12 +68,14 @@ module.exports = class BasketImporter extends importer{
                 if(docs.length===0)
                     resolve([]);
                 docs.forEach((doc) => {
+                    console.log(doc);
                     self.getRemoteData(doc.componentUrl).then((d)=>{
                         console.log(d);
                         self.afterImport();                
                         resolve(docs);
                     }).catch((err)=>{
                         console.log(err);
+                        reject(err);
                     });
                 });
                 
