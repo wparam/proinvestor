@@ -1,5 +1,4 @@
 const importer = require('../importer');
-const mongoose = require('mongoose');
 const fs       = require('fs');
 const https    = require('https');
 const zlib     = require('zlib');
@@ -21,54 +20,63 @@ module.exports = class BasketImporter extends importer{
         this._modelName = v;
     }
 
+    loadNASDAQ100(){
+        return this.getNASDAQ100().then(this.parseNASDAQ100.bind(this));
+    }
+
     getNASDAQ100() {
         const requestOptions = {
             hostname: 'www.nasdaq.com',
             port: 443,
-            path: '/quotes/nasdaq-100-stocks.aspx',
+            path: '/quotes/nasdaq-100-stocks.aspx?render=download',
             method: 'GET',
-            query: 'render=download',
-            search: '?render=download',
             headers: {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language' : 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language' : 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate, br'
             }
         };
-        let nasFile = fs.createWriteStream('nas.csv');
+        let tempFileName = 'nas.csv';
+        let nasFile = fs.createWriteStream(tempFileName);
         return new Promise((resolve, reject) => {
-            https.get(url, (res)=> {
+            const req = https.request(requestOptions, (res)=> {
                 const {statusCode} = res;
-                const contentType = res.headers['content-type'];
-                const contentDisposition = res.headers['content-disposition'];
-
-                let error;  
+                const contentEncoding = res.headers['content-encoding']
+                let rs = res;
                 if(statusCode!==200){
-                    error = new Error(`Request Failed: StatusCode: ${statusCode} `);
-                }
-
-                if(error){
                     res.resume();
-                    return reject(error);
+                    reject(Error(`Request Failed: StatusCode: ${statusCode} `));
                 }
 
-                res.setEncoding('utf8');
-                let rawData = '';
+                if(contentEncoding === 'gzip'){
+                    rs = res.pipe(zlib.createGunzip());
+                }else if(contentEncoding === 'deflate'){
+                    rs = res.pipe(zlib.createInflate());
+                }
 
-                res.on('data', (chunk)=>{
-                    rawData += chunk;
+                let filestream = rs.pipe(nasFile);
+                filestream.on('finish', ()=>{
+                    fs.readFile(tempFileName, 'utf8', (err, data)=>{
+                        fs.unlink(tempFileName, (e)=>{ 
+                            if(e || err) 
+                                return reject(e || err);
+                            resolve(data);
+                        });
+                    });
                 });
-
-                res.on('end', ()=>{
-                    const parsedData = JSON.parse(rawData);
-                    console.log(parsedData);
-                    resolve(parsedData);
+                filestream.on('error', (err)=>{
+                    fs.rmdir(nasFile, (err)=>{ if(err) reject(err); });
                 });
             }).on('error', (err)=>{
-                console.log('err in errr');
-                console.log(err.stack);
-                reject(err.message);
+                reject(err);
             });
+            req.end();
+        });
+    }
+
+    parseNASDAQ100(data){
+        return new Promise((resolve, reject)=>{
+            
         });
     }
 
@@ -80,18 +88,20 @@ module.exports = class BasketImporter extends importer{
         let self = this;
         return new Promise((resolve, reject)=>{
             this.beforeImport();
+            if(this.model.db._readyState === 0){
+                return reject(new Error('Current DB is closed'));
+            }
             //note: callback in mongoose"s api can"t use array function
-            this.model.find({}, null, function(err, docs){
+            this.model.find({name: 'NASDAQ-100'}, function(err, docs){
                 if(err)
                     return reject(err);
                 if(docs.length===0)
                     resolve([]);
-                
                 return Promise.all(docs.map((doc)=>{
                     if(doc.name === 'NASDAQ-100'){
-                        return self.getNASDAQ100()
+                        return self.loadNASDAQ100()
                     }
-                    return self.getData()
+                    return self.getData();
                 })).then(((ds)=>{
                     console.log(ds);
                     resolve(ds);

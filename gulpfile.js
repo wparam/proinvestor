@@ -8,11 +8,16 @@ const webpack = require('webpack-stream');
 const SRC_DIR = path.resolve(__dirname, 'public/src');
 const WEBPACK_CONFIG = require('./webpack.config');
 const clean = require('gulp-clean');
-const fixture = require('./fixtures');
+const mongoose = require('mongoose');
+const models = require('./app/models')(mongoose);
+
+const fixture = require('./fixtures')(mongoose, models);
 // const ImportManager = require('data_importer');
-const models = require('./app/models');
+
 const ImportManager = require('./modules/data_importer');
 const logger = require('logger');
+
+mongoose.Promise = global.Promise;
 
 // ===========================
 //
@@ -100,7 +105,7 @@ gulp.task('db:load', ()=>{
 });
 
 gulp.task('db:data-import', /*['db:load'],*/ ()=>{
-    let importerTasks = new ImportManager();
+    let importerTasks = new ImportManager(mongoose);
     let importers = ImportManager.getImporters();
     importerTasks.openConnection().then( (msg) => {
         logger.info(msg);

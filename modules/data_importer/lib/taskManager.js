@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
 const fs       = require('fs');
 const path     = require('path');
 
 
 module.exports = class ImportManager{
-    constructor() {
+    constructor(mongoose) {
+        this.mongoose = mongoose;
         this.constr = 'mongodb://localhost:27017/asset_manager';
         this.tasks = new Map(); 
-        this.conn = mongoose.connection;
+        this.conn = this.mongoose.connection;
     }
 
     static getImporters(){
@@ -45,7 +45,7 @@ module.exports = class ImportManager{
             if(this.isDbOpen)
                 return resolve('DB is already connected');
             else
-                mongoose.connect(this.constr, {useNewUrlParser: true}).then(function(){
+                this.mongoose.connect(this.constr, {useNewUrlParser: true}).then(function(){
                     return resolve('DB is connected');
                 });
         });
@@ -54,7 +54,7 @@ module.exports = class ImportManager{
     closeConnection() {
         return new Promise((resolve, reject) => {
             if(!this.isDbClosed){
-                mongoose.disconnect();        
+                this.mongoose.disconnect();        
             }
             resolve('Db is closed');
         });

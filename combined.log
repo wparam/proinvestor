@@ -245,3 +245,77 @@
 {"message":"DB is connected","level":"info"}
 {"level":"error"}
 {"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"ReferenceError: url is not defined\n    at Promise (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:40:23)\n    at BasketImporter.getNASDAQ100 (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:39:16)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:64:21)\n    at Promise.all.Array.from.map (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:79:35)\n    at Array.map (native)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:78:61)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Error: socket hang up\n    at createHangUpError (_http_client.js:253:15)\n    at TLSSocket.socketOnEnd (_http_client.js:345:23)\n    at emitNone (events.js:91:20)\n    at TLSSocket.emit (events.js:185:7)\n    at endReadableNT (_stream_readable.js:974:12)\n    at _combinedTickCallback (internal/process/next_tick.js:80:11)\n    at process._tickCallback (internal/process/next_tick.js:104:9)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Error: socket hang up\n    at createHangUpError (_http_client.js:253:15)\n    at TLSSocket.socketOnEnd (_http_client.js:345:23)\n    at emitNone (events.js:91:20)\n    at TLSSocket.emit (events.js:185:7)\n    at endReadableNT (_stream_readable.js:974:12)\n    at _combinedTickCallback (internal/process/next_tick.js:80:11)\n    at process._tickCallback (internal/process/next_tick.js:104:9)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Error: socket hang up\n    at createHangUpError (_http_client.js:253:15)\n    at TLSSocket.socketOnEnd (_http_client.js:345:23)\n    at emitNone (events.js:91:20)\n    at TLSSocket.emit (events.js:185:7)\n    at endReadableNT (_stream_readable.js:974:12)\n    at _combinedTickCallback (internal/process/next_tick.js:80:11)\n    at process._tickCallback (internal/process/next_tick.js:104:9)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Error: socket hang up\n    at createHangUpError (_http_client.js:253:15)\n    at TLSSocket.socketOnEnd (_http_client.js:345:23)\n    at emitNone (events.js:91:20)\n    at TLSSocket.emit (events.js:185:7)\n    at endReadableNT (_stream_readable.js:974:12)\n    at _combinedTickCallback (internal/process/next_tick.js:80:11)\n    at process._tickCallback (internal/process/next_tick.js:104:9)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Error: ENOTDIR: not a directory, rmdir 'nas.csv'\n    at Error (native)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Insert docs number:2","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"TypeError: Cannot read property 'basket' of undefined\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:108:74)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"TypeError: Cannot read property 'basket' of undefined\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:108:74)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"TypeError: Cannot read property 'basket' of undefined\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:109:74)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is open","level":"info"}
+{"message":"Insert docs number:2","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"ReferenceError: mongoose is not defined\n    at Promise (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:102:25)\n    at BasketImporter.import (/home/jason/github/assetmanager/modules/data_importer/lib/db/basket.import.js:99:16)\n    at Promise.all.Array.from.map (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:79:35)\n    at Array.map (native)\n    at ImportManager.runTasks (/home/jason/github/assetmanager/modules/data_importer/lib/taskManager.js:78:61)\n    at importerTasks.openConnection.then (/home/jason/github/assetmanager/gulpfile.js:114:30)\n    at process._tickCallback (internal/process/next_tick.js:109:7)","level":"error"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
+{"message":"DB is connected","level":"info"}
+{"message":"Db is closed","level":"info"}
