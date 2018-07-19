@@ -2,6 +2,7 @@ const importer = require('../importer');
 const fs       = require('fs');
 const https    = require('https');
 const zlib     = require('zlib');
+const csv      = require('csv');
 
 module.exports = class BasketImporter extends importer{
     constructor(model){
@@ -76,7 +77,10 @@ module.exports = class BasketImporter extends importer{
 
     parseNASDAQ100(data){
         return new Promise((resolve, reject)=>{
-            
+            csv.parse(data, (err, d)=>{
+                console.log(d);
+                resolve();
+            });
         });
     }
 
