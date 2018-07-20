@@ -4,6 +4,7 @@ module.exports = (mongoose) => {
         company_symbol: String,
         company_name: String,
         last_sale: Number,
+        net_change: Number,
         pct_change: Number,
         share_volume: Number,
         points: Number

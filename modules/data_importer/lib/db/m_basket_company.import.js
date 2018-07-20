@@ -6,13 +6,13 @@ const csv      = require('csv');
 const readline = require('readline');
 const { Readable } = require('stream');
 
-module.exports = class BasketImporter extends importer{
+module.exports = class M_Basket_CompanyImporter extends importer{
     constructor(model){
         super(model);
-        this._modelName = 'basket';
+        this._modelName = 'm_basket_company';
     }
     static importerType(){
-        return 'basket';
+        return 'm_basket_company';
     }
 
     get modelName(){
@@ -29,6 +29,10 @@ module.exports = class BasketImporter extends importer{
 
         return this.getNASDAQ100(nasFile)
             .then(this.parseNASDAQ100.bind(this, tempFileName))
+            .then((data)=>{
+                console.log('hit finish parse');
+                console.log(data);
+            })
             .then(()=>{
                 fs.unlink(tempFileName, (err)=>{ 
                     if(err) 
@@ -84,15 +88,36 @@ module.exports = class BasketImporter extends importer{
     }
 
     parseNASDAQ100(sourceStream){
+        const basketName = 'NASDAQ-100';
         return new Promise((resolve, reject)=>{
             let linereader = readline.createInterface({
                 input: fs.createReadStream(sourceStream)
             });
+            let nasArry = [];
             linereader.on('line', (line)=>{
-                console.log('~~~~~~~~~`~Read next line~~~~~~~~~~~~~~~~');
-                console.log(line);
+                let s = line.split(',');
+                if(s[0] === 'Symbol')
+                    return;
+                nasArry.push({
+                    basket_name: basketName,
+                    company_symbol: s[0].trim(),
+                    company_name: s[1].trim(),
+                    last_sale: parseFloat(s[2]),
+                    net_change: parseFloat(s[3]),
+                    pct_change: parseFloat(s[4]),
+                    share_volume: parseFloat(s[5]),
+                    points: parseFloat(s[6])
+                });
             });
-            resolve(true);
+            linereader.on('close', ()=>{
+                resolve(nasArry);
+            });
+        });
+    }
+
+    insertNASDAQ100(d){
+        return new Promise((resolve, reject) => {
+            // this.model.
         });
     }
 
@@ -108,7 +133,7 @@ module.exports = class BasketImporter extends importer{
                 return reject(new Error('Current DB is closed'));
             }
             //note: callback in mongoose"s api can"t use array function
-            this.model.find({name: 'NASDAQ-100'}, function(err, docs){
+            this.model.find({}, function(err, docs){
                 if(err)
                     return reject(err);
                 if(docs.length===0)
@@ -129,14 +154,6 @@ module.exports = class BasketImporter extends importer{
         });
         
     }
-    insertDocument(){}
-
-    importMany(data) {
-        if(!data || data.length === 0){
-            throw new Error('Fail at Company"s insertMany function');
-        }
-
-    }
-
     
+    insertDocument(){}
 }

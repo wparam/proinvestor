@@ -1,10 +1,10 @@
 const importer = require('../importer');
 
 module.exports = class CompanyImporter extends importer{
-    constructor(conn){
-        super(conn);
+    constructor(model){
+        super(model);
         this._modelName = 'company';
-        this.model = mongoose.model(this._modelName);
+        this.model = model;
     }
     static importerType(){
         return 'company';
