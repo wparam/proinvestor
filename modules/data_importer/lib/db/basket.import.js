@@ -3,6 +3,8 @@ const fs       = require('fs');
 const https    = require('https');
 const zlib     = require('zlib');
 const csv      = require('csv');
+const readline = require('readline');
+const { Readable } = require('stream');
 
 module.exports = class BasketImporter extends importer{
     constructor(model){
@@ -22,10 +24,22 @@ module.exports = class BasketImporter extends importer{
     }
 
     loadNASDAQ100(){
-        return this.getNASDAQ100().then(this.parseNASDAQ100.bind(this));
+        let tempFileName = 'nas.csv';
+        let nasFile = fs.createWriteStream(tempFileName);
+
+        return this.getNASDAQ100(nasFile)
+            .then(this.parseNASDAQ100.bind(this, tempFileName))
+            .then(()=>{
+                fs.unlink(tempFileName, (err)=>{ 
+                    if(err) 
+                        return Promise.reject(err);
+                    return Promise.resolve();
+                });        
+            });
+        
     }
 
-    getNASDAQ100() {
+    getNASDAQ100(targetStream) {
         const requestOptions = {
             hostname: 'www.nasdaq.com',
             port: 443,
@@ -37,8 +51,8 @@ module.exports = class BasketImporter extends importer{
                 'Accept-Encoding': 'gzip, deflate, br'
             }
         };
-        let tempFileName = 'nas.csv';
-        let nasFile = fs.createWriteStream(tempFileName);
+        
+        
         return new Promise((resolve, reject) => {
             const req = https.request(requestOptions, (res)=> {
                 const {statusCode} = res;
@@ -55,18 +69,12 @@ module.exports = class BasketImporter extends importer{
                     rs = res.pipe(zlib.createInflate());
                 }
 
-                let filestream = rs.pipe(nasFile);
+                let filestream = rs.pipe(targetStream);
                 filestream.on('finish', ()=>{
-                    fs.readFile(tempFileName, 'utf8', (err, data)=>{
-                        fs.unlink(tempFileName, (e)=>{ 
-                            if(e || err) 
-                                return reject(e || err);
-                            resolve(data);
-                        });
-                    });
+                    resolve();
                 });
                 filestream.on('error', (err)=>{
-                    fs.rmdir(nasFile, (err)=>{ if(err) reject(err); });
+                    reject(err);
                 });
             }).on('error', (err)=>{
                 reject(err);
@@ -75,12 +83,16 @@ module.exports = class BasketImporter extends importer{
         });
     }
 
-    parseNASDAQ100(data){
+    parseNASDAQ100(sourceStream){
         return new Promise((resolve, reject)=>{
-            csv.parse(data, (err, d)=>{
-                console.log(d);
-                resolve();
+            let linereader = readline.createInterface({
+                input: fs.createReadStream(sourceStream)
             });
+            linereader.on('line', (line)=>{
+                console.log('~~~~~~~~~`~Read next line~~~~~~~~~~~~~~~~');
+                console.log(line);
+            });
+            resolve(true);
         });
     }
 
