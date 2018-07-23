@@ -5,6 +5,8 @@ module.exports = class CompanyImporter extends Importer{
         super(models, forceMode);
         this._modelName = 'company';
         this.model = this.models[this._modelName];
+        this.api = '/stock/{company}/company';
+        this.mapModel = this.models['m_basket_company'];
     }
     static importerType(){
         return 'company';
@@ -23,16 +25,17 @@ module.exports = class CompanyImporter extends Importer{
     }
 
     import() {
-        console.log('in company import');
-        return Promise.resolve();
-        if(!entity || !entity.symbol){
-            throw new Error('Fail at Company import, entity is invalid');
-        }
-        //note: callback in mongoose"s api can"t use array function
-        this.model.findOne({ symbol: entity.symbol }, function(err, company){
-            console.log(err);
-            console.log(company);
-        });
+        return this.beforeImport().then((d)=>{
+            return new Promise((resolve, reject) => {
+                this.mapModel.distinct('company_symbol', {}, function(err, docs){
+                    //tbc
+                    resolve();
+                });
+            });
+        }).then((d)=>{ console.log('after import'); console.log(d);  })
+        .catch((err)=>{
+            console.log(err.stack);
+        }).then(this.afterImport.bind(this));
     }
     importMany(data) {
         if(!data || data.length === 0){

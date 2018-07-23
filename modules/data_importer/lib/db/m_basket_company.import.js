@@ -132,7 +132,7 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
                         resolve(docs.length);
                     });
                 }else{
-                    reject(new Error('Fail in insertNASDAQ100: Document already exists'));
+                    resolve(0);
                 }
             });
         });
