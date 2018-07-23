@@ -1,4 +1,4 @@
-const importer = require('../importer');
+const Importer = require('../importer');
 const fs       = require('fs');
 const https    = require('https');
 const zlib     = require('zlib');
@@ -6,10 +6,12 @@ const csv      = require('csv');
 const readline = require('readline');
 const { Readable } = require('stream');
 
-module.exports = class M_Basket_CompanyImporter extends importer{
-    constructor(model){
-        super(model);
+module.exports = class M_Basket_CompanyImporter extends Importer{
+    constructor(models, forceMode){
+        super(models, forceMode);
         this._modelName = 'm_basket_company';
+        this.model = this.models[this._modelName];
+        this.basketModel = this.models['basket']; //refer to basket model, dependency
     }
     static importerType(){
         return 'm_basket_company';
@@ -29,18 +31,16 @@ module.exports = class M_Basket_CompanyImporter extends importer{
 
         return this.getNASDAQ100(nasFile)
             .then(this.parseNASDAQ100.bind(this, tempFileName))
-            .then((data)=>{
-                console.log('hit finish parse');
-                console.log(data);
+            .then((d)=>{
+                return new Promise((resolve, reject)=>{
+                    fs.unlink(tempFileName, (err)=>{ 
+                        if(err) 
+                            return reject(err);
+                        resolve(d);
+                    });  
+                })
             })
-            .then(()=>{
-                fs.unlink(tempFileName, (err)=>{ 
-                    if(err) 
-                        return Promise.reject(err);
-                    return Promise.resolve();
-                });        
-            });
-        
+            .then(this.insertNASDAQ100.bind(this));
     }
 
     getNASDAQ100(targetStream) {
@@ -116,8 +116,25 @@ module.exports = class M_Basket_CompanyImporter extends importer{
     }
 
     insertNASDAQ100(d){
+        let self = this;
         return new Promise((resolve, reject) => {
-            // this.model.
+            if(!d || d.length===0)
+                return reject(new Error('Fail in insertNASDAQ100: Empty document'));
+            this.model.find({basket_name: "NASDAQ-100"}, function(err, docs){
+                if(err){
+                    return reject(err);
+                }
+                if(docs.length === 0){
+                    self.model.insertMany(d, function(err, docs){
+                        if(err){
+                            return reject(err);
+                        }
+                        resolve(docs.length);
+                    });
+                }else{
+                    reject(new Error('Fail in insertNASDAQ100: Document already exists'));
+                }
+            });
         });
     }
 
@@ -127,32 +144,27 @@ module.exports = class M_Basket_CompanyImporter extends importer{
 
     import() {
         let self = this;
-        return new Promise((resolve, reject)=>{
-            this.beforeImport();
-            if(this.model.db._readyState === 0){
-                return reject(new Error('Current DB is closed'));
-            }
-            //note: callback in mongoose"s api can"t use array function
-            this.model.find({}, function(err, docs){
-                if(err)
-                    return reject(err);
-                if(docs.length===0)
-                    resolve([]);
-                return Promise.all(docs.map((doc)=>{
-                    if(doc.name === 'NASDAQ-100'){
-                        return self.loadNASDAQ100()
-                    }
-                    return self.getData();
-                })).then(((ds)=>{
-                    console.log(ds);
-                    resolve(ds);
-                    self.afterImport();
-                })).catch((err)=>{
-                    reject(err);
+        return this.beforeImport().then((d)=>{
+            return new Promise((resolve, reject)=>{
+                this.basketModel.find({}, function(err, docs){
+                    if(err)
+                        return reject(err);
+                    return Promise.all(docs.map((doc)=>{
+                        if(doc.name === 'NASDAQ-100'){
+                            return self.loadNASDAQ100();
+                        }
+                        return self.getData();
+                    })).then((d)=>{
+                        resolve(d);
+                    }).catch((err)=>{
+                        reject(err);
+                    });
                 });
-            });
-        });
-        
+            })
+        }).then((d)=>{ console.log('after import'); console.log(d);  })
+        .catch((err)=>{
+            console.log(err.stack);
+        }).then(this.afterImport.bind(this));
     }
     
     insertDocument(){}

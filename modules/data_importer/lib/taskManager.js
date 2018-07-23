@@ -11,6 +11,7 @@ module.exports = class ImportManager{
         this.tasks = new Map(); 
         this.conn = this.mongoose.connection;
         this.importers = ImportManager.getImporters();
+        this.force = false;
     }
 
     static getImporters(){
@@ -24,6 +25,14 @@ module.exports = class ImportManager{
 
         return importers;
     }
+
+    get isForceMode(){
+        return this.force;
+    }
+
+    set setForceMode(v){
+        this.force = v;
+    }   
 
 //#region start connection related
     get isDbOpen(){
@@ -65,21 +74,29 @@ module.exports = class ImportManager{
     }
 //#endregion
     
+    /**
+     * tasks looks like this: 
+     * new Map({
+     *   'name': {importer: new importer(), dependency: [ new importer(), new importer(), ... ]
+     * })
+     * @param  {} taskName
+     * @param  {} dependency
+     */
     createTask(taskName, dependency){
-        if(!taskName || this.importers.indexOf(taskName)<0)
+        if(!taskName || !this.importers[taskName])
             return new Error('Task name is invalid');
         let dep = [];
-        if(dependency.length>0){
+        if(dependency && dependency.length>0){
             for(let i = 0, l = dependency.length; i<l; i++){
-                if(this.importers.indexOf(dependency[i])>=0)
-                    dep.push(new this.importers[dependency[i]](this.models));
+                if(this.importers[dependency[i]])
+                    dep.push(new this.importers[dependency[i]](this.models, this.isForceMode));
                 else
                     return new Error('Dependency is invalid');
             }
         }
         let imp = {
             dependency: dep,
-            importer: new this.importers[taskName](this.models)
+            importer: new this.importers[taskName](this.models, this.isForceMode)
         };
         if(!this.tasks.has(taskName))
             this.tasks.set(taskName, imp);
@@ -95,14 +112,15 @@ module.exports = class ImportManager{
         if(this.tasks.size === 0){
             return Promise.reject(new Error('Tasks list is empty'));
         }
-        return Promise.all((Array.from(this.tasks.values()).map((importer) => {
-            if(importer.dependency.length>0){
-                let depPromise = importer.dependency[0].import();
-                for(let i = 1, l = importer.dependency.length; i<l; i++){
-                    depPromise = importer.dependency[i].import();
+        return Promise.all((Array.from(this.tasks.values()).map((task) => {
+            let dep = null;
+            if(task.dependency.length>0){
+                dep = task.dependency[0].import();
+                for(let i = 1, l = task.dependency.length-1; i<l; i++){
+                    dep = dep.then(task.dependency[i].import.bind(task.dependency[i]));
                 }
             }
-            return true;//importer.import();
+            return dep === null ? task.importer.import() : dep.then(task.importer.import.bind(task.importer));
         })));
     }
     

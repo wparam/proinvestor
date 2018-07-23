@@ -1,10 +1,10 @@
-const importer = require('../importer');
+const Importer = require('../importer');
 
-module.exports = class CompanyImporter extends importer{
-    constructor(model){
-        super(model);
+module.exports = class CompanyImporter extends Importer{
+    constructor(models, forceMode){
+        super(models, forceMode);
         this._modelName = 'company';
-        this.model = model;
+        this.model = this.models[this._modelName];
     }
     static importerType(){
         return 'company';
@@ -22,7 +22,9 @@ module.exports = class CompanyImporter extends importer{
         
     }
 
-    import(entity) {
+    import() {
+        console.log('in company import');
+        return Promise.resolve();
         if(!entity || !entity.symbol){
             throw new Error('Fail at Company import, entity is invalid');
         }
@@ -36,7 +38,6 @@ module.exports = class CompanyImporter extends importer{
         if(!data || data.length === 0){
             throw new Error('Fail at Company"s insertMany function');
         }
-
     }
 
     

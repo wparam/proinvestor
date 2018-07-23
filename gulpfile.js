@@ -105,10 +105,11 @@ gulp.task('db:load', ()=>{
 });
 
 gulp.task('db:data-import', /*['db:load'],*/ ()=>{
-    let importerTasks = new ImportManager(mongoose, models);    
+    let importerTasks = new ImportManager(mongoose, models);   
+    importerTasks.setForceMode = true;
     importerTasks.openConnection().then( (msg) => {
         logger.info(msg);
-        importerTasks.createTask('m_basket_company');
+        // importerTasks.createTask('m_basket_company');
         importerTasks.createTask('company', ['m_basket_company']);
         return importerTasks.runTasks();
     }).catch((err) => {
