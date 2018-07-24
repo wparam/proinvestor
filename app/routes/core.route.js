@@ -1,5 +1,5 @@
 const coreCtrl = require('../controllers/core.controller');
-const authen = require('../controllers/authen.controller')();
+const authen = require('../controllers/authenticate.controller')();
 
 module.exports = (app) => {
     app.get('/test', authen, function(req, res){

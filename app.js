@@ -16,7 +16,7 @@ const passport = require('./config/passport');
 const coreCtrl = require('./app/controllers/core.controller');
 const app = express(); 
 const mongoose = require('mongoose');
-const db = require('./app/models')();
+const db = require('./app/models')(mongoose);
 
 const conn = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});

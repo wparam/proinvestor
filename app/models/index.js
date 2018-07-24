@@ -10,7 +10,7 @@ module.exports = (mongoose) => {
         db[model.modelName] = model;
     });
     return db;
-}
+};
 
 //single of models must be used with node's exports, 
 //so that the models can be cached in node and never called second time,

@@ -1,4 +1,5 @@
 const Importer = require('../importer');
+const https = require('https');
 
 module.exports = class CompanyImporter extends Importer{
     constructor(models, forceMode){
@@ -24,6 +25,30 @@ module.exports = class CompanyImporter extends Importer{
         
     }
 
+    getData(company){
+        return new Promise((resolve, reject) => {
+            if(!company)
+                return reject(new Error('Company is empty'));
+            let url = this.api.replace('{company}', company);
+            https.get(url, (res)=>{
+                if(res.statusCode !== 200)
+                    return reject(new Error(`Fail in getData when fetch company infor, company: ${company}`));
+                let s = '';
+                res.setEncoding = 'utf8';
+                res.on('data', (chunk)=>{
+                    s += chunk;
+                });
+                res.on('end', ()=>{
+                    console.log(s);
+                    resolve(JSON.parse(s));
+                });
+            }).on('error', (err)=>{
+                reject(err);
+            });
+        });
+        
+    }
+
     import() {
         return this.beforeImport().then((d)=>{
             return new Promise((resolve, reject) => {
@@ -37,6 +62,7 @@ module.exports = class CompanyImporter extends Importer{
             console.log(err.stack);
         }).then(this.afterImport.bind(this));
     }
+
     importMany(data) {
         if(!data || data.length === 0){
             throw new Error('Fail at Company"s insertMany function');

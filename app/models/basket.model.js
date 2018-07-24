@@ -10,7 +10,7 @@ module.exports = (mongo) => {
         componentType: String
     }, { timestamps: {} });
     return mongo.model('basket', basketSchema);
-}
+};
 
 // const basketSchema = mongoose.Schema({
 //     name: {

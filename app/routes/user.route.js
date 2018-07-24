@@ -1,6 +1,6 @@
 const passport = require('passport');
 const userCtrl = require('../controllers/user.controller');
-const authen = require('../controllers/authen.controller')();
+const authen = require('../controllers/authenticate.controller')();
 
 module.exports = (app) => {
     app.post('/login', passport.authenticate('local'), userCtrl.localLogin);
