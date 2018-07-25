@@ -3,8 +3,17 @@ const import_log = require('./import_log');
 
 module.exports = class Importer{
     constructor(models, forceMode=false){
+        this._modelName = null;
         this.models = models;
         this._force = forceMode;
+    }
+
+    get modelName(){
+        return this._modelName;
+    }
+
+    set modelName(v){
+        this._modelName = v;
     }
 
     processData() {}

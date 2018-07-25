@@ -3,6 +3,7 @@
 module.exports = (mongoose) => {
     const chartSchema = mongoose.Schema({
         symbol: String,
+        datevalue: Number,
         date: String, //Apple Inc.,
         change: Number,
         changeOverTime: Number,

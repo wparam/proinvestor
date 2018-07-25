@@ -17,14 +17,6 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
         return 'm_basket_company';
     }
 
-    get modelName(){
-        return this._modelName;
-    }
-
-    set modelName(v){
-        this._modelName = v;
-    }
-
     loadNASDAQ100(){
         let tempFileName = 'nas.csv';
         let nasFile = fs.createWriteStream(tempFileName);

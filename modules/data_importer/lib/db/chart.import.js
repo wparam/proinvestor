@@ -1,29 +1,30 @@
 const Importer = require('../importer');
 const http = require('http');
+const _  = require('lodash');
 
-module.exports = class CompanyImporter extends Importer{
+module.exports = class ChartImporter extends Importer{
     constructor(models, forceMode){
         super(models, forceMode);
-        this._modelName = 'company';
+        this._modelName = 'chart';
         this.model = this.models[this._modelName];
-        this.api = '/api/stock/stock/{company}/company';
-        this.mapModel = this.models['m_basket_company'];
+        this.api = '/api/stock/stock/{company}/chart/5y';
+        this.companyModel = this.models['company'];
     }
     static importerType(){
-        return 'company';
+        return 'chart';
     }
 
-    filterCompanyData(mapCompanys) {
+    filterCompanyData(companies) {
         return new Promise((resolve, reject)=>{
-            if(!mapCompanys || mapCompanys.length ===0){
+            if(!companies || companies.length ===0){
                 return reject(new Error('Fail in prepareCompanyData: Empty data got from mapping table'));
             }
             this.model.find({}, 'symbol', function(err, docs){
                 if(err)
                     return reject(err);
-                let result = mapCompanys.filter((mc)=>{
-                    return !docs.find((c)=>{
-                        return c.symbol===mc;
+                let result = companies.filter((c)=>{
+                    return !docs.find((cc)=>{
+                        return cc.symbol===c.symbol;
                     });
                 });
                 resolve(result);
@@ -34,9 +35,9 @@ module.exports = class CompanyImporter extends Importer{
     getBatchData(batchCompanies){
         return new Promise((resolve, reject)=>{
             if(!batchCompanies || batchCompanies.length === 0)
-                return reject(new Error('Fail in getBatchData: Batch load company list emtpy'));
-            Promise.all(batchCompanies.map((c)=>{ return this.getData(c); })).then((result)=>{
-                resolve(result);
+                return resove('Batch load company list emtpy');
+            Promise.all(batchCompanies.map((c)=>{ return this.getData(c.symbol); })).then((result)=>{
+                resolve(result.reduce((accu, n)=>{ return [].concat(accu, n); }));
             });
         });
     }
@@ -55,7 +56,15 @@ module.exports = class CompanyImporter extends Importer{
                     s += chunk;
                 });
                 res.on('end', ()=>{
-                    resolve(JSON.parse(s));
+                    let r = JSON.parse(s);
+                    if(r instanceof Array){
+                        r.forEach((c)=>{
+                            c.datevalue = new Date(c.date).getTime(),
+                            c.symbol =  company
+                        });
+                        return resolve(r);
+                    }
+                    return reject(new Error('Fail in getData: '))
                 });
             }).on('error', (err)=>{
                 reject(err);
@@ -65,7 +74,7 @@ module.exports = class CompanyImporter extends Importer{
         
     }
 
-    insertData(data){
+    insertData(data){       
         return new Promise((resolve, reject)=>{
             let d = data instanceof Array ? data: [data];
             this.model.insertMany(d, function(err, docs){
@@ -80,7 +89,7 @@ module.exports = class CompanyImporter extends Importer{
     import() {
         return this.beforeImport().then((d)=>{
             return new Promise((resolve, reject) => {
-                this.mapModel.distinct('company_symbol', function(err, docs){
+                this.companyModel.find({}, 'symbol', function(err, docs){
                     resolve(docs);
                 });
             });
