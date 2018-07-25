@@ -90,7 +90,6 @@ class System extends Component {
                             />
                         </Col>
                     </Row>
-
                     <Row>
                         <Col md={6}>
                             <Card
@@ -128,7 +127,6 @@ class System extends Component {
                             />
                         </Col>
                     </Row>
-
                 </Grid>
             </div>
         );
