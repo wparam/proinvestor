@@ -7,6 +7,7 @@ import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
 
+const ReactHighcharts = require('react-highcharts');
 
 class System extends Component {
     render() {
