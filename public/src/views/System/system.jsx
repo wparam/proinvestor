@@ -3,21 +3,28 @@ import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 
-import {Card} from 'components/Card/Card.jsx';
+import {Card} from 'components/Cards/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
 
 const ReactHighcharts = require('react-highcharts');
 
 class System extends Component {
+    getSysInfo(){
+        return ( 
+            <Card>
+                
+            </Card>
+        );
+    }
     render() {
         return (
             <div className="content">
                 <Grid fluid>
                     <Row>
                         <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-server text-warning"></i>}
+                            <Card
+                                title=""
                                 statsText="Capacity"
                                 statsValue="105GB"
                                 statsIcon={<i className="fa fa-refresh"></i>}

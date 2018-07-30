@@ -54,7 +54,8 @@
     "reactstrap": "5.0.0-alpha.3",
     "resolve-url-loader": "2.2.0",
     "serve-favicon": "^2.4.3",
-    "simple-line-icons": "2.4.1"
+    "simple-line-icons": "2.4.1",
+    "systeminformation": "3.42.4"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Grid, Row, Col } from 'react-bootstrap';
 
-import Card from 'components/Card/Card';
+import Card from 'components/Cards/Card';
 
 import Button from 'elements/CustomButton/CustomButton';
 
