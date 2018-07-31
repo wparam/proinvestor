@@ -19,7 +19,7 @@ class System extends Component {
         this.state = {
             cpuInfo: []
         };
-
+        this.sysapi = '/system/curload';
         this.chartRef = new Map();
         this.getSysInfo = this.getSysInfo.bind(this);
         this.setSysLoad = this.setSysLoad.bind(this);
@@ -35,7 +35,24 @@ class System extends Component {
         clearInterval(this.timer);
     }
     setSysLoad(){
-
+        let self = this;
+        fetch(this.sysapi).then((res)=>{
+            res.json().then((data)=>{
+                if(data && data.cpus && data.cpus.length>0){
+                    data.cpus.forEach((c, i)=>{
+                        if(!self.chartRef.get(i)){
+                            console.error('Specific cpu chart ref is empty');
+                            return;
+                        }
+                        let chartSpeed = self.chartRef.get(i);
+                        let load = Math.round(c.load * 100)/100;
+                        let point = chartSpeed.series[0].points[0];
+                        point.update(load);
+                    });
+                    self.setState({cpuInfo: data.cpus});
+                }
+            });
+        }).catch(err=>console.log(err));
     }
     getSysChartConfig(){
         return {
@@ -90,9 +107,8 @@ class System extends Component {
     }
 
     getSysInfo(){
-        let api = '/system/curload';
         let self = this;
-        fetch(api).then((res)=>{
+        fetch(this.sysapi).then((res)=>{
             res.json().then((data)=>{
                 if(data && data.cpus && data.cpus.length>0){
                     data.cpus.forEach((c)=>{
@@ -115,7 +131,7 @@ class System extends Component {
         }).catch(err=>console.log(err));
     }
     processSysInfo(){
-        
+
     }
     render() {
         return (
