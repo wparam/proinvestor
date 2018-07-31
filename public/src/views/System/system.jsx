@@ -10,27 +10,43 @@ import {Tasks} from 'components/Tasks/Tasks.jsx';
 const ReactHighcharts = require('react-highcharts');
 const Highcharts = ReactHighcharts.Highcharts;
 
+require('highcharts/highcharts-more')(Highcharts);
+require('highcharts/modules/solid-gauge')(Highcharts);
+
 class System extends Component {
     constructor(props){
         super(props);
         this.state = {
-            cpuInfo:null
+            cpuInfo: []
         };
+
+        this.chartRef = new Map();
         this.getSysInfo = this.getSysInfo.bind(this);
+        this.setSysLoad = this.setSysLoad.bind(this);
         this.getSysChartConfig = this.getSysChartConfig.bind(this);
     }
     componentDidMount(){
         this.getSysInfo();
+        this.timer = setInterval(()=>{
+            this.setSysLoad();
+        }, 3000);
+    }
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    setSysLoad(){
+
     }
     getSysChartConfig(){
         return {
             chart: {
-                type: 'solidgauge'
+                type: 'solidgauge',
+                height: 180,
+                width: 300
             },                        
             title: null,                        
             pane: {
-                center: ['50%', '85%'],
-                size: '140%',
+                center: ['50%', '50%'],
                 startAngle: -90,
                 endAngle: 90,
                 background: {
@@ -44,6 +60,8 @@ class System extends Component {
                 enabled: false
             },                        
             yAxis: {
+                min: 0,
+                max: 100,
                 stops: [
                     [0.1, '#55BF3B'], // green
                     [0.5, '#DDDF0D'], // yellow
@@ -59,18 +77,6 @@ class System extends Component {
                     y: 16
                 }
             },
-            series: [{
-                name: 'Speed',
-                data: [80],
-                dataLabels: {
-                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                           '<span style="font-size:12px;color:silver">km/h</span></div>'
-                },
-                tooltip: {
-                    valueSuffix: ' km/h'
-                }
-            }],
             plotOptions: {
                 solidgauge: {
                     dataLabels: {
@@ -82,49 +88,55 @@ class System extends Component {
             }
         };
     }
+
     getSysInfo(){
-        let resultComp = null;
         let api = '/system/curload';
+        let self = this;
         fetch(api).then((res)=>{
             res.json().then((data)=>{
-                if(data && data.cpus && data.cpus>0){
-                    resultComp = data.cpus.map((c, idx)=>{
-                        let config = 
-                        <Card title="CPU:{idx}"
-                                category="System information"  
-                                content={
-                                    <ReactHighcharts config={config}></ReactHighcharts>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        Legend: {idx}
-                                    </div>
-                                }>
-                        </Card>
+                if(data && data.cpus && data.cpus.length>0){
+                    data.cpus.forEach((c)=>{
+                        c.config = self.getSysChartConfig();
+                        c.config.series= [{
+                            name: 'Load',
+                            data: [Math.round(c.load * 100)/100],
+                            dataLabels: {
+                                format: '<div style="text-align:center"><span style="font-size:12px;color:' +
+                                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}%</span><br/>'
+                            },
+                            tooltip: {
+                                valueSuffix: ' %'
+                            }
+                        }];
                     });
+                    self.setState({cpuInfo: data.cpus});
                 }
             });
         }).catch(err=>console.log(err));
-
-        return resultComp;
+    }
+    processSysInfo(){
+        
     }
     render() {
         return (
             <div className="content">
                 <Grid fluid>
-                    <Row>
-                        <Col lg={3} sm={6}>
-                            {this.state.cpuInfo.map((c))}
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            
-                        </Col>
+                    <Row >
+                            {this.state.cpuInfo && this.state.cpuInfo.map((c, idx) => 
+                                <Col lg={3} sm={6} key={idx} >
+                                    <Card title={ 'CPU:' + idx} 
+                                            category="System information"  
+                                            content={
+                                                <ReactHighcharts ref={ (ref)=>{this.chartRef.set(idx, ref);} } config={c.config}></ReactHighcharts>
+                                            }
+                                            legend={
+                                                <div className="legend">
+                                                    CPU: {idx}
+                                                </div>
+                                            }>
+                                    </Card>
+                                </Col>
+                            )}
                     </Row>
                 </Grid>
             </div>
