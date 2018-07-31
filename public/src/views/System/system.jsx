@@ -10,7 +10,21 @@ import {Tasks} from 'components/Tasks/Tasks.jsx';
 const ReactHighcharts = require('react-highcharts');
 
 class System extends Component {
+    constructor(props){
+        super(props);
+        this.getSysInfo = this.getSysInfo.bind(this);
+    }
+    componentDidMount(){
+        this.getSysInfo();
+    }
     getSysInfo(){
+        let api = '/system/curload';
+        fetch(api).then((res)=>{
+            res.json().then((data)=>{
+                console.log(data);
+            });
+        }).catch(err=>console.log(err));
+
         return ( 
             <Card>
                 
