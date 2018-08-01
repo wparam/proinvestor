@@ -40,16 +40,16 @@ class System extends Component {
             res.json().then((data)=>{
                 if(data && data.cpus && data.cpus.length>0){
                     data.cpus.forEach((c, i)=>{
-                        if(!self.chartRef.get(i)){
+                        let chart = self.chartRef.get(i);
+                        if(!chart || !chart.chart){
                             console.error('Specific cpu chart ref is empty');
                             return;
                         }
-                        let chartSpeed = self.chartRef.get(i);
+                        let chartSpeed = chart.chart;
                         let load = Math.round(c.load * 100)/100;
                         let point = chartSpeed.series[0].points[0];
                         point.update(load);
                     });
-                    self.setState({cpuInfo: data.cpus});
                 }
             });
         }).catch(err=>console.log(err));
