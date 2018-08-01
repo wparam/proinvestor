@@ -86,7 +86,7 @@ gulp.task('clean', function() {
 gulp.task('watch', function(){ 
     gulp.watch(watchFiles.serverJS, ['hint:server']);
     gulp.watch(watchFiles.clientJS, ['hint:client', 'compile']);
-    livereload.listen({ basePath: 'dist' });
+    livereload.listen({ basePath: 'public/dist' });
 }); 
 
 gulp.task('appmon', function () {

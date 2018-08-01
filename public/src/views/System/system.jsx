@@ -184,8 +184,7 @@ class System extends Component {
                 plotBorderWidth: null,
                 plotShadow: false,
                 type: 'pie',
-                height: 150,
-                size: '140%'
+                height: 150
             },
             title: {
                 text: ''
