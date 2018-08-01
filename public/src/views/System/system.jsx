@@ -59,7 +59,7 @@ class System extends Component {
             chart: {
                 type: 'solidgauge',
                 height: 180,
-                width: 300
+                width: 260
             },                        
             title: null,                        
             pane: {
