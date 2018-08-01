@@ -6,3 +6,17 @@ exports.getCurrentLoad = (req, res, next)=>{
         res.json(data);
     });
 };
+
+
+exports.mem = (req, res, next)=>{
+    si.mem((data)=>{
+        res.json(data);
+    });
+};
+
+
+exports.disk = (req, res, next)=>{
+    si.diskLayout((data)=>{
+        res.json(data);
+    });
+};

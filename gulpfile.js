@@ -2,7 +2,8 @@ var gulp = require('gulp'),
     path = require('path'),
     gulputil = require('gulp-util'),
     nodemon = require('gulp-nodemon'),
-    eslint = require('gulp-eslint');
+    eslint = require('gulp-eslint'),
+    livereload = require('gulp-livereload');
 
 const webpack = require('webpack-stream');
 const SRC_DIR = path.resolve(__dirname, 'public/src');
@@ -11,6 +12,7 @@ const clean = require('gulp-clean');
 const mongoose = require('mongoose');
 const models = require('./app/models')(mongoose);
 
+
 const fixture = require('./fixtures')(mongoose, models);
 // const ImportManager = require('data_importer');
 
@@ -18,6 +20,8 @@ const ImportManager = require('./modules/data_importer');
 const logger = require('logger');
 
 mongoose.Promise = global.Promise;
+
+livereload();
 
 // ===========================
 //
@@ -70,7 +74,8 @@ gulp.task('hint:client', () => {
 gulp.task('compile',['clean'], function(){
     return gulp.src(path.join(SRC_DIR, 'index.js'))
         .pipe(webpack(WEBPACK_CONFIG))
-        .pipe(gulp.dest('public/dist/'));
+        .pipe(gulp.dest('public/dist/'))
+        .pipe(livereload());
 });
 
 gulp.task('clean', function() {
@@ -81,6 +86,7 @@ gulp.task('clean', function() {
 gulp.task('watch', function(){ 
     gulp.watch(watchFiles.serverJS, ['hint:server']);
     gulp.watch(watchFiles.clientJS, ['hint:client', 'compile']);
+    livereload.listen({ basePath: 'dist' });
 }); 
 
 gulp.task('appmon', function () {

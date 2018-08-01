@@ -17,19 +17,23 @@ class System extends Component {
     constructor(props){
         super(props);
         this.state = {
-            cpuInfo: []
+            cpuInfo: [],
+            mem: {}
         };
         this.sysapi = '/system/curload';
+        this.memapi = '/system/mem';
         this.chartRef = new Map();
         this.getSysInfo = this.getSysInfo.bind(this);
         this.setSysLoad = this.setSysLoad.bind(this);
+        this.getMemInfo = this.getMemInfo.bind(this);
         this.getSysChartConfig = this.getSysChartConfig.bind(this);
     }
     componentDidMount(){
         this.getSysInfo();
+        this.getMemInfo();
         this.timer = setInterval(()=>{
             this.setSysLoad();
-        }, 3000);
+        }, 5000);
     }
     componentWillUnmount(){
         clearInterval(this.timer);
@@ -58,12 +62,12 @@ class System extends Component {
         return {
             chart: {
                 type: 'solidgauge',
-                height: 180,
-                width: 260
+                height: 150
             },                        
             title: null,                        
             pane: {
-                center: ['50%', '50%'],
+                center: ['50%', '80%'],
+                size: '140%',
                 startAngle: -90,
                 endAngle: 90,
                 background: {
@@ -102,10 +106,39 @@ class System extends Component {
                         useHTML: true
                     }
                 }
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            align: 'center',
+                            verticalAlign: 'bottom',
+                            layout: 'horizontal'
+                        },
+                        yAxis: {
+                            labels: {
+                                align: 'left',
+                                x: 0,
+                                y: -5
+                            },
+                            title: {
+                                text: null
+                            }
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    }
+                }]
             }
         };
     }
-
     getSysInfo(){
         let self = this;
         fetch(this.sysapi).then((res)=>{
@@ -130,8 +163,93 @@ class System extends Component {
             });
         }).catch(err=>console.log(err));
     }
-    processSysInfo(){
-
+    getMemChartConfig(meminfo){
+        let used = Math.round( (meminfo.used/meminfo.total) * 100 )/100;
+        let series = [{
+            name: 'Usage',
+            colorByPoint: true,
+            data:[
+                {
+                    name: 'Used',
+                    y: used
+                },{
+                    name: 'Free',
+                    y: 100 - used
+                }
+            ]
+        }];
+        return {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                height: 150,
+                size: '140%'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: series,
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            align: 'center',
+                            verticalAlign: 'bottom',
+                            layout: 'horizontal'
+                        },
+                        yAxis: {
+                            labels: {
+                                align: 'left',
+                                x: 0,
+                                y: -5
+                            },
+                            title: {
+                                text: null
+                            }
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    }
+                }]
+            }
+        };
+    }
+    getMemInfo(){
+        fetch(this.memapi).then((res)=>{
+            res.json().then((data)=>{
+                let chart = this.getMemChartConfig({
+                    total: data.total,
+                    used: data.used,
+                    free: data.free
+                });
+                this.setState({mem: chart });
+            });
+        }).catch((err)=>{console.error(err);});
     }
     render() {
         return (
@@ -153,7 +271,34 @@ class System extends Component {
                                     </Card>
                                 </Col>
                             )}
+                            <Col lg={3} sm={6} >        
+                                <Card title="Memory Usage" 
+                                        category="System information"  
+                                        content={
+                                            <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                        }
+                                        legend={
+                                            <div className="legend">
+                                                Memory
+                                            </div>  
+                                        }>
+                                </Card>
+                            </Col>
+                            <Col lg={3} sm={6} >        
+                                <Card title="Memory Usage" 
+                                        category="System information"  
+                                        content={
+                                            <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                        }
+                                        legend={
+                                            <div className="legend">
+                                                Memory
+                                            </div>  
+                                        }>
+                                </Card>
+                            </Col>
                     </Row>
+                    
                 </Grid>
             </div>
         );
