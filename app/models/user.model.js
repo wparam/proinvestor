@@ -12,13 +12,13 @@ module.exports = (mongoose) => {
         },
         password: {
             type: String,
-            required: true,
+            required: true
         },
         passwordConf: {
             type: String,
-            required: true,
+            required: true
         },
-        email: String,
+        email: String
     },{ timestamps: {} });
     
     // authenticate input against database

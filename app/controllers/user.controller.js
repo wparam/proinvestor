@@ -1,3 +1,6 @@
+const errorhandling = require('./error.controller');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.localLogin = (req, res) => {
     req.session.curuser = req.user;
@@ -27,4 +30,17 @@ exports.localLogout = (req, res) => {
     delete req.user;
     // res.redirect('/#!/login');
     res.json({status: 'SUCCESS'});
+};
+
+
+exports.register = (db, req, res, next) => {
+    if(req.body.password){
+        req.body.password = bcrypt.hashSync(req.body.password, saltRounds);
+    }
+    var user = new db.user(req.body);
+    user.save(function(err){
+        if(err)
+            return errorhandling.error500(res, err.message);
+        res.send('Create User Success');
+    });
 };

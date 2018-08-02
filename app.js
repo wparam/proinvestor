@@ -22,6 +22,7 @@ const conn = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
 
 app.amMongoose = mongoose;
+app.amModels = db;
 
 conn.on('error', (err) => {
     console.error(err);

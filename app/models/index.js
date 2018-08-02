@@ -3,6 +3,7 @@ const path = require('path');
 
 const modelsFiles = path.join(__dirname, '*.model.js');
 
+//db: {user: {}, basket: {},,,}
 module.exports = (mongoose) => {
     let db = {};
     glob.sync(modelsFiles).forEach((file) => {
