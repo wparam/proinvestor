@@ -12,11 +12,12 @@ const helmet = require('helmet');
 const flash = require('connect-flash');
 const engine = require('ejs-locals');
 const session = require('express-session');
-const passport = require('./config/passport');
 const coreCtrl = require('./app/controllers/core.controller');
+const logger = require('logger');
 const app = express(); 
 const mongoose = require('mongoose');
 const db = require('./app/models')(mongoose);
+const passport = require('./config/passport')(db);
 
 const conn = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
@@ -25,11 +26,11 @@ app.amMongoose = mongoose;
 app.amModels = db;
 
 conn.on('error', (err) => {
-    console.error(err);
+    logger.error(err.stack);
 });
 
 conn.once('open', () => {
-    console.log('DB connected');
+    logger.info('DB connected');
 });
 
 const env = process.env.NODE_ENV || 'development';
