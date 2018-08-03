@@ -1,13 +1,16 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = (db) => {
     passport.use(new LocalStrategy({
-            usernameField: 'userName',
-            passwordField: 'password',
-            passReqToCallback: true
-        }, (req, username, password, done) => {
-            User.findUser(req, username, password, (err, user) => {
+            usernameField: 'username',
+            passwordField: 'password'
+        }, (username, password, done) => {
+            console.log(username);
+            console.log(bcrypt.hashSync(password, saltRounds));
+            db.find({userName: username, password: bcrypt.hashSync(password, saltRounds)}, function(err, user){
                 if (err) {
                     return done(err);
                 } else if (!user) {

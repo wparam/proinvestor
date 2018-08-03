@@ -17,7 +17,7 @@ module.exports = (db) => {
     glob(path.join(__dirname, './strategies/*.js'), (err, files) => {
         if(files.length === 0)
             return;
-        files.map((f) => require(f)(db));
+        files.map((f) => require(f)(db.user));
     });
 
     return passport;
