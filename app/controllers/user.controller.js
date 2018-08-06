@@ -6,8 +6,7 @@ exports.localLogout = (req, res) => {
     req.logout();
     req.session.destroy();
     delete req.user;
-    // res.redirect('/#!/login');
-    res.json({status: 'SUCCESS'});
+    res.redirect('/login');
 };
 
 
