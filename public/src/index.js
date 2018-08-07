@@ -8,8 +8,6 @@ import '../resource/sass/light-bootstrap-dashboard.css';
 import '../resource/css/demo.css';
 import '../resource/css/pe-icon-7-stroke.css';
 
-import '../resource/css/login.css';
-
 import App from 'containers/app.jsx';
 import Login from 'containers/login.jsx';
 
