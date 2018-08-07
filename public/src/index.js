@@ -15,7 +15,7 @@ import Login from 'containers/login.jsx';
 ReactDOM.render((
     <HashRouter>
         <Switch>
-            <Route exact path='/' name='Home' component={App} />
+            <Route path='/' name='Home' component={App} />
             <Route exact path='/login' name='Login' component={Login} />
         </Switch>
     </HashRouter>
