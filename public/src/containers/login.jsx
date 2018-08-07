@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 
+const loginForm = {
+    backgroundImage: 'url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg")', 
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center', 
+    backgroundSize: 'cover',
+    padding:'10px',
+    height: '100vh'
+};
+
+
+
 export default class Login extends Component{
     render(){
         return (
-            <div className='login-form'>
+            <div className={loginForm}>
                 <div className=''>
                     <div className='main-div'>
                         <div className='panel'>

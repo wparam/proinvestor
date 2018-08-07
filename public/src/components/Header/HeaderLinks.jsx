@@ -42,7 +42,7 @@ class HeaderLinks extends Component{
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={3} href="#">Log out</NavItem>
+                    <NavItem eventKey={3} href="#/login">Log out</NavItem>
                 </Nav>
             </div>
         );

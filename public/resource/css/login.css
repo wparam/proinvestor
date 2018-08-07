@@ -4,6 +4,7 @@ body .login-form{
     background-position:center; 
     background-size:cover; 
     padding:10px;
+    height: 100vh;
 }
 
 .form-heading { color:#fff; font-size:23px;}
