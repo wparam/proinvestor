@@ -10,6 +10,7 @@ import Notifications from 'views/Notifications/Notifications';
 import System from 'views/System/system';
 // import Upgrade from 'views/Upgrade/Upgrade';  //old upgrade
 
+
 //todo, this should be refactored into a component
 const appRoutes = [
     { path: '/dashboard', name: 'Dashboard', icon: 'pe-7s-graph', component:  Dashboard },

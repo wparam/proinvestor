@@ -7,14 +7,14 @@ import Footer from 'components/Footer/Footer.jsx';
 import Sidebar from 'components/Sidebar/Sidebar.jsx';
 
 import {style} from 'components/variables/Variables.jsx';
-
+import Dashboard from 'views/Dashboard/Dashboard';
 import appRoutes from 'routes/routes.jsx';
 
 class App extends Component {
     constructor(props){
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleNotificationClick = this.handleNotificationClick.bind(this);
+        this.handleNotificationClick = this.handleNotificationClick.bind(this);        
         this.state = {
             _notificationSystem: null
         };
@@ -106,7 +106,7 @@ class App extends Component {
                                         );
                                     if(prop.redirect)
                                         return (
-                                            <Redirect from={prop.path} to={prop.to} key={key}/>
+                                            <Redirect exact from={prop.path} to={prop.to} key={key}/>
                                         );
                                     return (
                                         <Route path={prop.path} component={prop.component} key={key}/>
@@ -116,7 +116,7 @@ class App extends Component {
                         </Switch>
                     <Footer />
                 </div>
-            </div>
+            </div> 
         );
     }
 }
