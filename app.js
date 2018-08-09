@@ -100,6 +100,7 @@ glob.sync(path.join(__dirname, 'app/routes/**/*.js')).forEach((routePath) => {
 app.get('*', coreCtrl.index);
 
 app.use((err, req, res, next) => {
+    console.log('~~~hit first use~~~~');
     if(!err)
         next();
     res.status(err.status || 500);
@@ -107,6 +108,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((req, res, next) => {
+    console.log('~~~~hit second use~~~~~');
     var err = new Error('Not Found Resource: ' + req.url);
     err.status = 404;
     next(err);
