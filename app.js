@@ -18,6 +18,7 @@ const app = express();
 const mongoose = require('mongoose');
 const db = require('./app/models')(mongoose);
 const passport = require('./config/passport')(db);
+const authen = require('./app/controllers/authenticate.controller')();
 
 const conn = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
@@ -97,21 +98,18 @@ glob.sync(path.join(__dirname, 'app/routes/**/*.js')).forEach((routePath) => {
     require(path.resolve(routePath))(app);
 });
 
-app.get('*', coreCtrl.index);
-
 app.use((err, req, res, next) => {
-    console.log('~~~hit first use~~~~');
     if(!err)
         next();
-    res.status(err.status || 500);
-    res.send(err.message);
+    res.status(err.status || 500).render('500', {
+        message: err.message
+    });
 });
 
 app.use((req, res, next) => {
-    console.log('~~~~hit second use~~~~~');
-    var err = new Error('Not Found Resource: ' + req.url);
-    err.status = 404;
-    next(err);
+    res.status(404).render('404', {
+        message: 'Resource not found'
+    });
 });
 
 app.listen(config.port, () => {

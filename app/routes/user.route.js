@@ -1,8 +1,10 @@
 const passport = require('passport');
+const coreCtrl = require('../controllers/core.controller');
 const userCtrl = require('../controllers/user.controller');
 // const authen = require('../controllers/authenticate.controller')();
 
 module.exports = (app) => {
+    app.get('/login', coreCtrl.index);
     app.post('/login', passport.authenticate('local', { successRedirect: '/',  failureRedirect: '/login' }));
     app.post('/logout', userCtrl.localLogout);
     app.post('/register', (req, res, next) => {

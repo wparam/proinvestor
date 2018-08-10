@@ -1,9 +1,6 @@
 module.exports = () => {
     return (req, res, next) => {
-        return next();
-        if(req.isAuthenticated() && req.session.curuser && 
-            req.session.curuser.name === req.user.name && 
-            req.session.curuser.token === req.user.token){
+        if(req.isAuthenticated()){
             next();
         }
         else{

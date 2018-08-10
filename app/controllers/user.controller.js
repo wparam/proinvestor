@@ -2,6 +2,10 @@ const errorhandling = require('./error.controller');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+exports.localLogin = (req, res) => {
+    res.redirect('/login');
+};
+
 exports.localLogout = (req, res) => {
     req.logout();
     req.session.destroy();
