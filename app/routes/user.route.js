@@ -5,7 +5,7 @@ const userCtrl = require('../controllers/user.controller');
 
 module.exports = (app) => {
     app.get('/login', coreCtrl.index);
-    app.post('/login', passport.authenticate('local', { successRedirect: '/',  failureRedirect: '/login' }));
+    app.post('/login', passport.authenticate('local'), userCtrl.localLogin);
     app.post('/logout', userCtrl.localLogout);
     app.post('/register', (req, res, next) => {
         return userCtrl.register(app.amModels, req, res, next);

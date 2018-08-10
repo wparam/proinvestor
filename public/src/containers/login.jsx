@@ -66,21 +66,50 @@ const loginForm_btn_btnPrimary_reset = {
 };
 
 export default class Login extends Component{
+    constructor(){
+        super();
+        this.state = {
+            username: '',
+            password: ''
+        };
+        this.logout = this.logout.bind(this);
+        this.register = this.register.bind(this);
+        this.login = this.login.bind(this);
+    }
+    login(){
+
+    }
+    logout(){
+        fetch('/logout', {
+            method: 'POST',
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        }).then((res) => {
+            console.log(res);
+        })
+    }
+    register(){
+
+    }
     render(){
         return (
             <div style={loginForm}>
                 <div>
                     <div style={mainDiv}>
                         <div className='panel'>
-                            <h2 style={panelH2}>Admin Login</h2>
-                            <p style={panelP}>Please enter your email and password</p>
+                            <h2 style={panelH2}>Login</h2>
+                            <p style={panelP}>Please enter your username and password</p>
                         </div>
                         <form id='Login'>
                             <div style={loginForm_formGroup}>
-                                <input type='email' className='form-control' style={loginForm_formControl} id='inputEmail' placeholder='Email Address' />
+                                <input type='text' className='form-control' style={loginForm_formControl}  placeholder='User Name' value={this.state.username} 
+                                    onChange={ (e)=>this.setState({username: e.target.value}) }/>
                             </div>
                             <div style={loginForm_formGroup}>
-                                <input type='password' className='form-control' style={loginForm_formControl} id='inputPassword' placeholder='Password' />
+                                <input type='password' className='form-control' style={loginForm_formControl}  placeholder='Password' value={this.state.password}
+                                    onChange={ (e)=>this.setState({password: e.target.value}) }/>
                             </div>
                             <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                                 <a style={forgotA} href='reset.html'>Forgot password?</a>

@@ -8,8 +8,6 @@ module.exports = (db) => {
             usernameField: 'username',
             passwordField: 'password'
         }, (username, password, done) => {
-            console.log(username);
-            console.log(bcrypt.hashSync(password, saltRounds));
             db.find({userName: username, password: bcrypt.hashSync(password, saltRounds)}, function(err, user){
                 if (err) {
                     return done(err);

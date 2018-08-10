@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 exports.localLogin = (req, res) => {
-    res.redirect('/login');
+    console.log(req.user);
+    res.json({
+        loginSuccess: true,
+        token: req.user._id
+    });
 };
 
 exports.localLogout = (req, res) => {
