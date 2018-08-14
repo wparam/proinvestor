@@ -72,15 +72,23 @@ export default class Login extends Component{
             username: '',
             password: ''
         };
-        this.logout = this.logout.bind(this);
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
     }
     login(){
-
+        console.log('1');
+        // fetch('/login', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         username: this.state.username,
+        //         password: this.state.password
+        //     })
+        // }).then((res) => {
+        //     console.log(res);
+        // });
     }
-    logout(){
-        fetch('/logout', {
+    register(){
+        fetch('/register', {
             method: 'POST',
             body: JSON.stringify({
                 username: this.state.username,
@@ -88,10 +96,7 @@ export default class Login extends Component{
             })
         }).then((res) => {
             console.log(res);
-        })
-    }
-    register(){
-
+        });
     }
     render(){
         return (
@@ -114,8 +119,8 @@ export default class Login extends Component{
                             <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                                 <a style={forgotA} href='reset.html'>Forgot password?</a>
                             </div>
-                            <button type='submit' className='btn btn-primary' style={loginForm_btn_btnPrimary}>Login</button>
-                            <button type='submit' className='btn btn-primary' style={loginForm_btn_btnPrimary}>Register</button>
+                            <button className='btn btn-primary' onClick={this.login} style={loginForm_btn_btnPrimary}>Login</button>
+                            <button className='btn btn-primary' style={loginForm_btn_btnPrimary}>Register</button>
                         </form>
                     </div>
                 </div>
