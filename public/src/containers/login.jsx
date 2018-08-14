@@ -76,20 +76,25 @@ export default class Login extends Component{
         this.login = this.login.bind(this);
     }
     login(){
-        console.log('1');
-        // fetch('/login', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         username: this.state.username,
-        //         password: this.state.password
-        //     })
-        // }).then((res) => {
-        //     console.log(res);
-        // });
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        }).then((res) => {
+            console.log(res);
+        });
     }
-    register(){
+    register(e){
         fetch('/register', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 username: this.state.username,
                 password: this.state.password
@@ -119,8 +124,8 @@ export default class Login extends Component{
                             <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                                 <a style={forgotA} href='reset.html'>Forgot password?</a>
                             </div>
-                            <button className='btn btn-primary' onClick={this.login} style={loginForm_btn_btnPrimary}>Login</button>
-                            <button className='btn btn-primary' style={loginForm_btn_btnPrimary}>Register</button>
+                            <button type='button' className='btn btn-primary' onClick={(e) => this.login(e)} style={loginForm_btn_btnPrimary}>Login</button>
+                            <button type='button' className='btn btn-primary' style={loginForm_btn_btnPrimary}>Register</button>
                         </form>
                     </div>
                 </div>

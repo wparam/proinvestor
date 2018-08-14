@@ -8,13 +8,15 @@ module.exports = (db) => {
             usernameField: 'username',
             passwordField: 'password'
         }, (username, password, done) => {
-            db.find({userName: username, password: bcrypt.hashSync(password, saltRounds)}, function(err, user){
+            db.findOne({userName: username}, function(err, user){
                 if (err) {
                     return done(err);
                 } else if (!user) {
                     var uerr = new Error('User not found.');
                     uerr.status = 401;
                     return done(uerr);
+                } else if(!bcrypt.compareSync(password, user.password)){
+                    return done(new Error('Incorrect password'));
                 }
                 return done(null, user);
             });
