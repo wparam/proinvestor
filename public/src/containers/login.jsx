@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import LocalStorage from '../modules/LocalStorage/localStorage';
+import Http from '../modules/AjaxCalls/ajaxCalls';
 
 const loginForm = {
     backgroundImage: 'url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg")', 
@@ -68,6 +70,7 @@ const loginForm_btn_btnPrimary_reset = {
 export default class Login extends Component{
     constructor(){
         super();
+        this.TOKEN = 'token';
         this.state = {
             username: '',
             password: ''
@@ -75,18 +78,18 @@ export default class Login extends Component{
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
     }
+    componentDidMount(){
+        LocalStorage.removeItem(this.TOKEN);
+    }
     login(){
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        Http.post('/login', {}, JSON.stringify({
                 username: this.state.username,
                 password: this.state.password
             })
-        }).then((res) => {
-            console.log(res);
+        ).then((res) => {
+            if(res.loginSuccess){
+                LocalStorage.setItem(this.TOKEN, res.token);
+            }
         });
     }
     register(e){
@@ -101,6 +104,7 @@ export default class Login extends Component{
             })
         }).then((res) => {
             console.log(res);
+
         });
     }
     render(){
