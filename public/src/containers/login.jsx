@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect  } from 'react-router-dom';
-import LocalStorage from '../modules/LocalStorage/localStorage';
+import Authentication from 'modules/authentication/authentication';
 import Http from '../modules/AjaxCalls/ajaxCalls';
 
 const loginForm = {
@@ -79,7 +79,7 @@ export default class Login extends Component{
         this.login = this.login.bind(this);
     }
     componentDidMount(){
-        LocalStorage.removeItem();
+        Authentication.removeToken();
     }
     login(){
         Http.post('/login', {}, JSON.stringify({
@@ -88,12 +88,13 @@ export default class Login extends Component{
             })
         ).then((res) => {
             if(res.loginSuccess){
-                LocalStorage.setItem({
+                Authentication.setToken({
                     token:  res.token, 
                     created: new Date().getTime(),
                     expired: res.expired
                 });
-                this.props.onSuccessLogin();
+                
+                this.props.history.push('/');
             }
         });
     }

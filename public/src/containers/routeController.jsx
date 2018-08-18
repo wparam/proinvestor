@@ -1,28 +1,18 @@
+import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import App from 'containers/app.jsx';
 import Login from 'containers/login.jsx';
+import Authentication from 'modules/authentication/authentication';
 import PrivateRouter from 'components/PrivateRouter/privateRouter';
 
-export default class RouterController{
-    constructor(props){
-        super(props);
-        this.authenticate = this.authenticate.bind(this);
-        this.state = {
-            authenticated: false
-        };
-    }
-    authenticate(){
-        this.setState({authenticated : true});
-    }
-    deauthenticate(){
-        this.setState({authenticated : false});
-    }
+export default class RouterController extends React.Component {
     render (){
         return (<BrowserRouter>
-                    {!this.state.authenticated ? 
-                        (<Route exact path='/login' name='Login' component={Login} onSuccessLogin={this.authenticate} />) : 
-                        (<PrivateRouter path='/' name='Home' component={App} />) }
+                    <Switch>
+                        <Route exact path='/login' name='Login' component={Login} />) : 
+                        <PrivateRouter path='/' name='Home' component={App} />) }
+                    </Switch>
                 </BrowserRouter>
         );
     }
