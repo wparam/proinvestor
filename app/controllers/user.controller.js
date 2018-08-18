@@ -1,11 +1,13 @@
 const errorhandling = require('./error.controller');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const sessionExp = 1000 * 60 * 60 * 24; //24 hours
 
 exports.localLogin = (req, res) => {
     res.json({
         loginSuccess: true,
-        token: req.user._id
+        token: req.user._id,
+        expired: sessionExp
     });
 };
 

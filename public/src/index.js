@@ -8,16 +8,11 @@ import '../resource/sass/light-bootstrap-dashboard.css';
 import '../resource/css/demo.css';
 import '../resource/css/pe-icon-7-stroke.css';
 
-import App from 'containers/app.jsx';
-import Login from 'containers/login.jsx';
+import RouterController from 'containers/routeController.jsx';
+
 
 ReactDOM.render((
-    <BrowserRouter>
-        <Switch>
-            <Route exact path='/login' name='Login' component={Login} />
-            <Route path='/' name='Home' component={App} />
-        </Switch>
-    </BrowserRouter>
+    <RouterController/>
 ), document.getElementById('root')); 
 
 

@@ -69,9 +69,8 @@ const loginForm_btn_btnPrimary_reset = {
 };
 
 export default class Login extends Component{
-    constructor(){
-        super();
-        this.TOKEN = 'token';
+    constructor(props){
+        super(props);
         this.state = {
             username: '',
             password: ''
@@ -80,7 +79,7 @@ export default class Login extends Component{
         this.login = this.login.bind(this);
     }
     componentDidMount(){
-        LocalStorage.removeItem(this.TOKEN);
+        LocalStorage.removeItem();
     }
     login(){
         Http.post('/login', {}, JSON.stringify({
@@ -89,8 +88,12 @@ export default class Login extends Component{
             })
         ).then((res) => {
             if(res.loginSuccess){
-                LocalStorage.setItem(this.TOKEN, res.token);
-                // Redirect
+                LocalStorage.setItem({
+                    token:  res.token, 
+                    created: new Date().getTime(),
+                    expired: res.expired
+                });
+                this.props.onSuccessLogin();
             }
         });
     }
