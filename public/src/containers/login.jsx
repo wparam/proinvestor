@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect  } from 'react-router-dom';
 import LocalStorage from '../modules/LocalStorage/localStorage';
 import Http from '../modules/AjaxCalls/ajaxCalls';
 
@@ -89,6 +90,7 @@ export default class Login extends Component{
         ).then((res) => {
             if(res.loginSuccess){
                 LocalStorage.setItem(this.TOKEN, res.token);
+                // Redirect
             }
         });
     }
