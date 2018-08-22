@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import Authentication from 'modules/authentication/authentication';
+import Http from 'modules/AjaxCalls/ajaxCalls';
 
-
+//this should be a view
 class HeaderLinks extends Component{
+    constructor(props){
+        super(props);
+        this.logout = this.logout.bind(this);
+    }
+    logout(){
+        console.log(this);
+        if(!Authentication.removeToken()){
+            this.props.history.push('/logout');
+        }else
+            console.error('Fail on logout');
+    }
     render(){
         const notification = (
             <div>
@@ -42,7 +55,7 @@ class HeaderLinks extends Component{
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={3} href="/login">Log out</NavItem>
+                    <NavItem eventKey={3} onClick={this.logout}>Log out</NavItem>
                 </Nav>
             </div>
         );
