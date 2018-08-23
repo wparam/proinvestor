@@ -73,7 +73,9 @@ export default class Login extends Component{
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loginStatus: true,
+            loginMsg: ''
         };
         this.register = this.register.bind(this);
         this.login = this.login.bind(this);
@@ -88,6 +90,10 @@ export default class Login extends Component{
             })
         ).then((res) => {
             if(res.loginSuccess){
+                this.setState({
+                    loginStatus: true,
+                    loginMsg: ''
+                });
                 Authentication.setToken({
                     token:  res.token, 
                     created: new Date().getTime(),
@@ -96,21 +102,26 @@ export default class Login extends Component{
                 
                 this.props.history.push('/');
             }
+        }).catch((err)=>{
+            this.setState({
+                loginStatus: false,
+                loginMsg: err.message
+            });
         });
     }
-    register(e){
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+    register(){
+        Http.post('/register', {}, JSON.stringify({
                 username: this.state.username,
                 password: this.state.password
             })
-        }).then((res) => {
+        ).then((res) => {
             console.log(res);
-
+            
+        }).catch((err)=>{
+            this.setState({
+                loginStatus: false,
+                loginMsg: err.message
+            });
         });
     }
     render(){
@@ -134,8 +145,11 @@ export default class Login extends Component{
                             <div style={{ textAlign: 'left', marginBottom: '30px' }}>
                                 <a style={forgotA} href='reset.html'>Forgot password?</a>
                             </div>
-                            <button type='button' className='btn btn-primary' onClick={(e) => this.login(e)} style={loginForm_btn_btnPrimary}>Login</button>
-                            <button type='button' className='btn btn-primary' style={loginForm_btn_btnPrimary}>Register</button>
+                            <button type='button' className='btn btn-primary' onClick={() => this.login()} style={loginForm_btn_btnPrimary}>Login</button>
+                            <button type='button' className='btn btn-primary' onClick={() => this.register()} style={loginForm_btn_btnPrimary}>Register</button>
+                            <div style={{ textAlign: 'left', marginTop: '0' }} className={this.state.loginStatus ? "hide" : "text-danger" }>
+                                {this.state.loginMsg}
+                            </div>
                         </form>
                     </div>
                 </div>

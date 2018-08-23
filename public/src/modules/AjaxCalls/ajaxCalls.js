@@ -1,31 +1,44 @@
 export default class Http{
-    static get(url, headers, body){
+    static get(url, headers){
         let config = {
-                        method: 'GET',
-                        headers: Object.assign({
-                            'Content-Type': 'application/json',
-                        }, headers),
-                        credentials: 'same-origin',
-                        
-                    };
-        if(body){
-            config.body = body;
-        }
+            method: 'GET',
+            headers: Object.assign({
+                'Content-Type': 'application/json',
+            }, headers),
+            credentials: 'same-origin'
+        };
         return fetch(url, config).then((res) => {
-            return res.json();
+            let ct = res.headers.get('content-type');
+            if(res.status >= 200 && res.status < 300){
+                let ret = ct.indexOf('application/json') >=0 ? res.json() : res;
+                return Promise.resolve(ret);
+            }else{
+                return Promise.reject(res);
+            }
         });
     }
     static post(url, headers, body){
         let config = {
-                        method: 'POST',
-                        headers: Object.assign({
-                            'Content-Type': 'application/json',
-                        }, headers),
-                        credentials: 'same-origin',
-                        body: body
-                    };
+            method: 'POST',
+            headers: Object.assign({
+                'Content-Type': 'application/json'
+            }, headers),
+            credentials: 'same-origin',
+            body: body
+        };
         return fetch(url, config).then((res) => {
-            return res.json();
+            let ct = res.headers.get('content-type');
+            let content = null;
+            if(ct.indexOf('application/json') >=0) content = res.json();
+            if(ct.indexOf('content-type') >=0) content = res.text();
+            if(res.status >= 200 && res.status < 300) 
+                return Promise.resolve(content);
+            else{
+                let err = new Error(res.statusText);
+                if(res.status === 401 && res.headers.get('www-authenticate'))
+                    err.message = res.headers.get('www-authenticate');
+                return Promise.reject(err);
+            }
         });
     }
 }

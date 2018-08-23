@@ -73,7 +73,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const sessionExp = 1000 * 60 * 60 * 24; //24 hours
+const sessionExp = 1000 * 60 * 60; //1 hours
 app.use(session({
     secret: config.sessionSecret,
     cookie: {
@@ -107,6 +107,9 @@ app.use((err, req, res, next) => {
 });
 
 app.use((req, res, next) => {
+    if(req.isAuthenticated()){
+        return res.redirect('/');
+    }
     res.status(404).render('404', {
         message: 'Resource not found'
     });

@@ -15,7 +15,7 @@ export class UserCard extends Component{
                             <h4 className="title">
                                 {this.props.name}
                                 <br />
-                                <small>{this.props.userName}</small>
+                                <small>{this.props.username}</small>
                             </h4>
                         </a>
                     </div>

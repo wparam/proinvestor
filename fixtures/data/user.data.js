@@ -1,9 +1,8 @@
 [
     {
         "displayName": "Test User",
-        "userName": "test",
+        "username": "test",
         "password":"a",
-        "passwordConf": "a",
         "email": "a@a.com"
     }
 ]

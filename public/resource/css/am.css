@@ -502,3 +502,8 @@
 .table-upgrade td:nth-child(3){
     text-align: center;
 }
+
+
+.hide{
+    display:none;
+}

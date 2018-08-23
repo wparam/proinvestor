@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt');
 module.exports = (mongoose) => {
     var UserSchema = new mongoose.Schema({
         displayName: String,
-        userName: {
+        username: {
             type: String,
             unique: true,
             required: true,
@@ -14,16 +14,12 @@ module.exports = (mongoose) => {
             type: String,
             required: true
         },
-        passwordConf: {
-            type: String,
-            required: true
-        },
         email: String
     },{ timestamps: {} });
     
     // authenticate input against database
     UserSchema.statics.authenticate = function (username, password, callback) {
-        User.findOne({ userName: username })
+        User.findOne({ username: username })
             .exec(function (err, user) {
                 if (err) {
                     return callback(err);

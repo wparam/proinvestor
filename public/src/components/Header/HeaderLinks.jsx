@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import Authentication from 'modules/authentication/authentication';
 import Http from 'modules/AjaxCalls/ajaxCalls';
@@ -8,15 +9,18 @@ class HeaderLinks extends Component{
     constructor(props){
         super(props);
         this.logout = this.logout.bind(this);
+        this.state= { logout: false };
     }
     logout(){
-        console.log(this);
         if(!Authentication.removeToken()){
-            this.props.history.push('/logout');
+            this.setState({logout: true});
         }else
             console.error('Fail on logout');
     }
     render(){
+        if(this.state.logout){
+            return <Redirect to="/login" />;
+        }
         const notification = (
             <div>
                 <i className="fa fa-globe"></i>
