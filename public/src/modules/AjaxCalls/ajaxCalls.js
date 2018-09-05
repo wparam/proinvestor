@@ -10,7 +10,7 @@ export default class Http{
         return fetch(url, config).then((res) => {
             let ct = res.headers.get('content-type');
             if(res.status >= 200 && res.status < 300){
-                let ret = ct.indexOf('application/json') >=0 ? res.json() : res;
+                let ret = ct.indexOf('application/json') >=0 ? res.json() : { loginSuccess: false, message: res.text() };
                 return Promise.resolve(ret);
             }else{
                 return Promise.reject(res);
@@ -30,7 +30,7 @@ export default class Http{
             let ct = res.headers.get('content-type');
             let content = null;
             if(ct.indexOf('application/json') >=0) content = res.json();
-            if(ct.indexOf('content-type') >=0) content = res.text();
+            if(ct.indexOf('content-type') >=0) content = { loginSuccess: false, message: res.text() };
             if(res.status >= 200 && res.status < 300) 
                 return Promise.resolve(content);
             else{

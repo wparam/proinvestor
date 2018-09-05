@@ -89,19 +89,7 @@ export default class Login extends Component{
                 password: this.state.password
             })
         ).then((res) => {
-            if(res.loginSuccess){
-                this.setState({
-                    loginStatus: true,
-                    loginMsg: ''
-                });
-                Authentication.setToken({
-                    token:  res.token, 
-                    created: new Date().getTime(),
-                    expired: res.expired
-                });
-                
-                this.props.history.push('/');
-            }
+            this.loginDone(res);
         }).catch((err)=>{
             this.setState({
                 loginStatus: false,
@@ -115,14 +103,33 @@ export default class Login extends Component{
                 password: this.state.password
             })
         ).then((res) => {
-            console.log(res);
-            
+            this.loginDone(res);
         }).catch((err)=>{
             this.setState({
                 loginStatus: false,
                 loginMsg: err.message
             });
         });
+    }
+    loginDone(res){
+        if(res.loginSuccess){
+            this.setState({
+                loginStatus: true,
+                loginMsg: ''
+            });
+            Authentication.setToken({
+                token:  res.token, 
+                created: new Date().getTime(),
+                expired: res.expired
+            });
+            
+            this.props.history.push('/');
+        }else{
+            this.setState({
+                loginStatus: false,
+                loginMsg: res.message
+            });
+        }
     }
     render(){
         return (

@@ -7,7 +7,8 @@ exports.localLogin = (req, res) => {
     res.json({
         loginSuccess: true,
         token: req.user._id,
-        expired: sessionExp
+        expired: sessionExp,
+        message: ''
     });
 };
 
@@ -29,7 +30,8 @@ exports.register = (db, req, res, next) => {
             return res.json({
                     loginSuccess: true,
                     token: req.user._id,
-                    expired: sessionExp
+                    expired: sessionExp,
+                    message: ''
                 });
         });
     });
