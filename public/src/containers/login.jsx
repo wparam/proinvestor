@@ -126,7 +126,7 @@ export default class Login extends Component{
             this.props.history.push('/');
         }else{
             this.setState({
-                loginStatus: false,
+                loginStatus: false, //todo, store username
                 loginMsg: res.message
             });
         }

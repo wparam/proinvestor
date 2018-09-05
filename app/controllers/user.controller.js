@@ -6,6 +6,7 @@ const sessionExp = 1000 * 60 * 60; //1 hours
 exports.localLogin = (req, res) => {
     res.json({
         loginSuccess: true,
+        display: req.user.username,
         token: req.user._id,
         expired: sessionExp,
         message: ''
@@ -29,6 +30,7 @@ exports.register = (db, req, res, next) => {
                 return next(err);
             return res.json({
                     loginSuccess: true,
+                    display: req.user.username,
                     token: req.user._id,
                     expired: sessionExp,
                     message: ''
