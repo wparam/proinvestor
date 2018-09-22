@@ -10,6 +10,9 @@ import {style} from 'components/variables/Variables.jsx';
 import Dashboard from 'views/Dashboard/Dashboard';
 import appRoutes from 'routes/routes.jsx';
 
+import { createStore } from 'redux';
+const store = createStore(()=>{});
+
 class App extends Component {
     constructor(props){
         super(props);
