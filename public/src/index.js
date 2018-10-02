@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Redux, {createStore} from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import '../resource/css/bootstrap.min.css';
