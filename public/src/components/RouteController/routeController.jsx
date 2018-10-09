@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import App from 'containers/app.jsx';
-import Login from 'containers/login.jsx';
+import Login from 'containers/Login/login.jsx';
 import Authentication from 'modules/authentication/authentication';
 import PrivateRouter from 'components/PrivateRouter/privateRouter';
 
