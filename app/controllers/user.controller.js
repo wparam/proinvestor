@@ -4,10 +4,11 @@ const saltRounds = 10;
 const sessionExp = 1000 * 60 * 60; //1 hours
 
 exports.localLogin = (req, res) => {
+    var user = Object.assign({}, req.user, {password: ''});
     res.json({
         loginSuccess: true,
-        display: req.user.username,
         token: req.user._id,
+        user: user,
         expired: sessionExp,
         message: ''
     });
@@ -26,12 +27,13 @@ exports.register = (db, req, res, next) => {
         if(err)
             return errorhandling.error500(res, err.message);
         req.login(user, (err)=>{
+            var retuser = Object.assign({}, user, {password: ''});
             if(err)
                 return next(err);
             return res.json({
                     loginSuccess: true,
-                    display: req.user.username,
                     token: req.user._id,
+                    user: retuser,
                     expired: sessionExp,
                     message: ''
                 });

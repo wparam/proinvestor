@@ -29,8 +29,8 @@ export default class Http{
         return fetch(url, config).then((res) => {
             let ct = res.headers.get('content-type');
             let content = null;
-            if(ct.indexOf('application/json') >=0) content = res.json();
-            if(ct.indexOf('content-type') >=0) content = { loginSuccess: false, message: res.text() };
+            if(ct && ct.indexOf('application/json') >=0) content = res.json();
+            if(ct && ct.indexOf('content-type') >=0) content = { loginSuccess: false, message: res.text() };
             if(res.status >= 200 && res.status < 300) 
                 return Promise.resolve(content);
             else{

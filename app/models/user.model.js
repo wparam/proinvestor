@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = (mongoose) => {
     var UserSchema = new mongoose.Schema({
-        displayName: String,
+        displayname: String,
         username: {
             type: String,
             unique: true,

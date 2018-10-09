@@ -5,13 +5,20 @@ const glob = require('glob');
 
 module.exports = (db) => {
     passport.serializeUser((user, done) => {
-        done(null, user);
+        done(null, user._id);
     });
     
-    passport.deserializeUser((user, done) => {
-        if(!user)
+    passport.deserializeUser((userId, done) => {
+        if(!userId)
             done(new Error('User is empty'));
-        done(null, user);
+        db.user.findOne({_id: userId}, function(err, user){
+            if(err)  return done(err);
+            if (!user) {
+                return done(null, false, 'User not found.');
+            } 
+            delete user.password;
+            done(null, user);
+        });
     });
     
     glob(path.join(__dirname, './strategies/*.js'), (err, files) => {

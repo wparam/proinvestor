@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Authentication from 'modules/authentication/authentication';
 import Http from 'modules/AjaxCalls/ajaxCalls';
 
@@ -68,10 +69,11 @@ const loginForm_btn_btnPrimary_reset = {
     background: '#ff9900 none repeat scroll 0 0'
 };
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            displayname: '',
             username: '',
             password: '',
             loginStatus: true,
@@ -99,6 +101,7 @@ export default class Login extends Component {
     }
     register() {
         Http.post('/register', {}, JSON.stringify({
+            displayname: this.state.displayname,
             username: this.state.username,
             password: this.state.password
         })
@@ -112,6 +115,7 @@ export default class Login extends Component {
         });
     }
     loginDone(res) {
+        console.log(res);
         if (res.loginSuccess) {
             this.setState({
                 loginStatus: true,
@@ -124,6 +128,11 @@ export default class Login extends Component {
             });
 
             this.props.history.push('/');
+
+            this.props.dispatch({
+                type: 'logged in',
+                user: res.user
+            });
         } else {
             this.setState({
                 loginStatus: false, //todo, store username
@@ -141,6 +150,10 @@ export default class Login extends Component {
                             <p style={panelP}>Please enter your username and password</p>
                         </div>
                         <form id='Login'>
+                            <div style={loginForm_formGroup}>
+                                <input type='text' className='form-control' style={loginForm_formControl} placeholder='Display Name (Optional)' value={this.state.displayname}
+                                    onChange={(e) => this.setState({ displayname: e.target.value })} />
+                            </div>
                             <div style={loginForm_formGroup}>
                                 <input type='text' className='form-control' style={loginForm_formControl} placeholder='User Name' value={this.state.username}
                                     onChange={(e) => this.setState({ username: e.target.value })} />
@@ -165,3 +178,4 @@ export default class Login extends Component {
     }
 }
 
+export default connect()(Login);
