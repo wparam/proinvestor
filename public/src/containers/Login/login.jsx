@@ -130,8 +130,8 @@ class Login extends Component {
             this.props.history.push('/');
 
             this.props.dispatch({
-                type: 'logged in',
-                user: res.user
+                type: 'LOGGED_IN',
+                payload: { user: res.user }
             });
         } else {
             this.setState({
