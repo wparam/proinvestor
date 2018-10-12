@@ -15,6 +15,8 @@ import RouterController from 'components/RouteController/routeController.jsx';
 
 const store = createStore(reducers);
 
+window.store = store;
+
 ReactDOM.render((
     <Provider store={store}>
         <RouterController/>

@@ -4,6 +4,10 @@ import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import Authentication from 'modules/authentication/authentication';
 import Http from 'modules/AjaxCalls/ajaxCalls';
 
+import { connect } from 'react-redux';
+
+const mapStateToProps = store => ({ user: store.login.user });
+
 //this should be a view
 class HeaderLinks extends Component{
     constructor(props){
@@ -59,7 +63,7 @@ class HeaderLinks extends Component{
                         <MenuItem divider />
                         <MenuItem eventKey={2.5}>Separated link</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={3} href="#">Some Name</NavItem>
+                    <NavItem eventKey={3} href="#">{ this.props.user.displayname }</NavItem>
                     <NavItem eventKey={3} onClick={this.logout}>Log out</NavItem>
                 </Nav>
             </div>
@@ -67,4 +71,4 @@ class HeaderLinks extends Component{
     }
 }
 
-export default HeaderLinks;
+export default connect(mapStateToProps)( HeaderLinks );
