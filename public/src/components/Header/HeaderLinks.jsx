@@ -14,6 +14,7 @@ class HeaderLinks extends Component{
         super(props);
         this.logout = this.logout.bind(this);
         this.state= { logout: false };
+        console.log(this.props.user);
     }
     logout(){
         if(!Authentication.removeToken()){
@@ -53,18 +54,18 @@ class HeaderLinks extends Component{
                     </NavItem>
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1} href="#">Account</NavItem>
-                    <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
-                        <MenuItem eventKey={2.1}>Action</MenuItem>
-                        <MenuItem eventKey={2.2}>Another action</MenuItem>
-                        <MenuItem eventKey={2.3}>Something</MenuItem>
-                        <MenuItem eventKey={2.4}>Another action</MenuItem>
-                        <MenuItem eventKey={2.5}>Something</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey={2.5}>Separated link</MenuItem>
-                    </NavDropdown>
-                    <NavItem eventKey={3} href="#">{ this.props.user.displayname }</NavItem>
-                    <NavItem eventKey={3} onClick={this.logout}>Log out</NavItem>
+                    {
+                        this.props.user ? (
+                            <NavDropdown eventKey={2} title={ this.props.user.displayname } id="basic-nav-dropdown-right">
+                                <MenuItem eventKey={2.1}>Action</MenuItem>
+                                <MenuItem eventKey={2.2}>Another action</MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey={2.3} onClick={this.logout}>Log Out</MenuItem>
+                            </NavDropdown>
+                        ) : (
+                            <NavItem eventKey={3} href="/login">Log In</NavItem>
+                        )
+                    }
                 </Nav>
             </div>
         );
