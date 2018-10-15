@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import Authentication from 'modules/authentication/authentication';
-import Http from 'modules/AjaxCalls/ajaxCalls';
+import Http from 'modules/ajaxCalls';
 
 import { connect } from 'react-redux';
 

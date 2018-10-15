@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Authentication from 'modules/authentication/authentication';
 import { loggedInUser } from './login.action';
-import Http from 'modules/AjaxCalls/ajaxCalls';
+import Http from 'modules/ajaxCalls';
 
 class Login extends Component {
     constructor(props) {

@@ -7,6 +7,8 @@ import {Card} from 'components/Cards/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
 
+import http from 'modules/ajaxCalls';
+
 const ReactHighcharts = require('react-highcharts');
 const Highcharts = ReactHighcharts.Highcharts;
 
@@ -40,22 +42,20 @@ class System extends Component {
     }
     setSysLoad(){
         let self = this;
-        fetch(this.sysapi).then((res)=>{
-            res.json().then((data)=>{
-                if(data && data.cpus && data.cpus.length>0){
-                    data.cpus.forEach((c, i)=>{
-                        let chart = self.chartRef.get(i);
-                        if(!chart || !chart.chart){
-                            console.error('Specific cpu chart ref is empty');
-                            return;
-                        }
-                        let chartSpeed = chart.chart;
-                        let load = Math.round(c.load * 100)/100;
-                        let point = chartSpeed.series[0].points[0];
-                        point.update(load);
-                    });
-                }
-            });
+        http.get(this.sysapi).then((data)=>{
+            if(data && data.cpus && data.cpus.length>0){
+                data.cpus.forEach((c, i)=>{
+                    let chart = self.chartRef.get(i);
+                    if(!chart || !chart.chart){
+                        console.error('Specific cpu chart ref is empty');
+                        return;
+                    }
+                    let chartSpeed = chart.chart;
+                    let load = Math.round(c.load * 100)/100;
+                    let point = chartSpeed.series[0].points[0];
+                    point.update(load);
+                });
+            }
         }).catch(err=>console.log(err));
     }
     getSysChartConfig(){
@@ -141,26 +141,24 @@ class System extends Component {
     }
     getSysInfo(){
         let self = this;
-        fetch(this.sysapi).then((res)=>{
-            res.json().then((data)=>{
-                if(data && data.cpus && data.cpus.length>0){
-                    data.cpus.forEach((c)=>{
-                        c.config = self.getSysChartConfig();
-                        c.config.series= [{
-                            name: 'Load',
-                            data: [Math.round(c.load * 100)/100],
-                            dataLabels: {
-                                format: '<div style="text-align:center"><span style="font-size:12px;color:' +
-                                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}%</span><br/>'
-                            },
-                            tooltip: {
-                                valueSuffix: ' %'
-                            }
-                        }];
-                    });
-                    self.setState({cpuInfo: data.cpus});
-                }
-            });
+        http.get(this.sysapi).then((data)=>{
+            if(data && data.cpus && data.cpus.length>0){
+                data.cpus.forEach((c)=>{
+                    c.config = self.getSysChartConfig();
+                    c.config.series= [{
+                        name: 'Load',
+                        data: [Math.round(c.load * 100)/100],
+                        dataLabels: {
+                            format: '<div style="text-align:center"><span style="font-size:12px;color:' +
+                                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}%</span><br/>'
+                        },
+                        tooltip: {
+                            valueSuffix: ' %'
+                        }
+                    }];
+                });
+                self.setState({cpuInfo: data.cpus});
+            }
         }).catch(err=>console.log(err));
     }
     getMemChartConfig(meminfo){
@@ -239,15 +237,13 @@ class System extends Component {
         };
     }
     getMemInfo(){
-        fetch(this.memapi).then((res)=>{
-            res.json().then((data)=>{
-                let chart = this.getMemChartConfig({
-                    total: data.total,
-                    used: data.used,
-                    free: data.free
-                });
-                this.setState({mem: chart });
+        http.get(this.memapi).then((data)=>{
+            let chart = this.getMemChartConfig({
+                total: data.total,
+                used: data.used,
+                free: data.free
             });
+            this.setState({mem: chart });
         }).catch((err)=>{console.error(err);});
     }
     render() {
@@ -255,47 +251,47 @@ class System extends Component {
             <div className="content">
                 <Grid fluid>
                     <Row >
-                            {this.state.cpuInfo && this.state.cpuInfo.map((c, idx) => 
-                                <Col lg={3} sm={6} key={idx} >
-                                    <Card title={ 'CPU:' + idx} 
-                                            category="System information"  
-                                            content={
-                                                <ReactHighcharts ref={ (ref)=>{this.chartRef.set(idx, ref);} } config={c.config}></ReactHighcharts>
-                                            }
-                                            legend={
-                                                <div className="legend">
-                                                    CPU: {idx}
-                                                </div>
-                                            }>
-                                    </Card>
-                                </Col>
-                            )}
-                            <Col lg={3} sm={6} >        
-                                <Card title="Memory Usage" 
+                        {this.state.cpuInfo && this.state.cpuInfo.map((c, idx) => 
+                            <Col lg={3} sm={6} key={idx} >
+                                <Card title={ 'CPU:' + idx} 
                                         category="System information"  
                                         content={
-                                            <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                            <ReactHighcharts ref={ (ref)=>{this.chartRef.set(idx, ref);} } config={c.config}></ReactHighcharts>
                                         }
                                         legend={
                                             <div className="legend">
-                                                Memory
-                                            </div>  
+                                                CPU: {idx}
+                                            </div>
                                         }>
                                 </Card>
                             </Col>
-                            <Col lg={3} sm={6} >        
-                                <Card title="Memory Usage" 
-                                        category="System information"  
-                                        content={
-                                            <ReactHighcharts config={this.state.mem}></ReactHighcharts>
-                                        }
-                                        legend={
-                                            <div className="legend">
-                                                Memory
-                                            </div>  
-                                        }>
-                                </Card>
-                            </Col>
+                        )}
+                        <Col lg={3} sm={6} >        
+                            <Card title="Memory Usage" 
+                                    category="System information"  
+                                    content={
+                                        <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                    }
+                                    legend={
+                                        <div className="legend">
+                                            Memory
+                                        </div>  
+                                    }>
+                            </Card>
+                        </Col>
+                        <Col lg={3} sm={6} >        
+                            <Card title="Memory Usage" 
+                                    category="System information"  
+                                    content={
+                                        <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                    }
+                                    legend={
+                                        <div className="legend">
+                                            Memory
+                                        </div>  
+                                    }>
+                            </Card>
+                        </Col>
                     </Row>
                     
                 </Grid>
