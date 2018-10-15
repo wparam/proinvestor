@@ -58,7 +58,7 @@ class HeaderLinks extends Component{
                         this.props.user ? (
                             <NavDropdown eventKey={2} title={ this.props.user.displayname } id="basic-nav-dropdown-right">
                                 <MenuItem eventKey={2.1}>Action</MenuItem>
-                                <MenuItem eventKey={2.2}>Another action</MenuItem>
+                                <MenuItem eventKey={2.2} href="/login">Another action</MenuItem>
                                 <MenuItem divider />
                                 <MenuItem eventKey={2.3} onClick={this.logout}>Log Out</MenuItem>
                             </NavDropdown>
