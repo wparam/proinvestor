@@ -14,7 +14,6 @@ class HeaderLinks extends Component{
         super(props);
         this.logout = this.logout.bind(this);
         this.state= { logout: false };
-        console.log(this.props.user);
     }
     logout(){
         if(!Authentication.removeToken()){

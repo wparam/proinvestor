@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-import DowWidget from 'components/Widgets/indexDow/dow.widget.jsx';
+import {Card} from 'components/Cards/Card.jsx';
+import IndexDow from 'components/Widgets/indexDow/dow.widget.jsx';
 
 export const Market = props => (
-    <div className="content">
+    <div className="content">BAC
         <Grid fluid>
             <Row>
                 <Col lg={4} sm={8}>
                     <Card title="DJIA" 
                             category="IDX"  
                             content={
-                                <DowWidget/>
+                                <IndexDow/>
                             }
                             legend={
                                 <div className="legend">
@@ -23,7 +24,7 @@ export const Market = props => (
                     <Card title="S&P 500" 
                             category="IDX"  
                             content={
-                                <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                <div/> //placeholder
                             }
                             legend={
                                 <div className="legend">
@@ -36,7 +37,7 @@ export const Market = props => (
                     <Card title="NASDAQ" 
                             category="IDX"  
                             content={
-                                <ReactHighcharts config={this.state.mem}></ReactHighcharts>
+                                <div/> //placeholder
                             }
                             legend={
                                 <div className="legend">
@@ -46,12 +47,6 @@ export const Market = props => (
                     </Card>
                 </Col>
             </Row>
-            <Row>
-            </Row>
-            <Row>
-                
-            </Row>
-
         </Grid>
     </div>
 )
