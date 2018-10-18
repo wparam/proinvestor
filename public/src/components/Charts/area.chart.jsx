@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import Moment from "moment";
+
 const ReactHighstock = require('react-highcharts/ReactHighstock.src');
+
 
 // const options = 
 export default class AreaChart extends Component{
@@ -16,6 +19,23 @@ export default class AreaChart extends Component{
         {
             xAxis: {
                 gapGridLineWidth: 0
+            },
+            yAxis: {
+                title: {
+                    text: 'Previous Close'
+                },
+                plotLines: [{
+                    value: 200, //todo
+                    color: 'grey',
+                    dashStyle: 'shortdash',
+                    width: 2,
+                    label: {
+                        text: 'Last quarter minimum'
+                    }
+                }]
+            },
+            time: {
+                timezone: 'America/New_York'
             },
             rangeSelector: {
                 buttons: [{

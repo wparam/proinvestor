@@ -38,7 +38,7 @@ export const BaseChart = {
             if(dt instanceof Date){
                 d.push([
                     dt.getTime(),
-                    element.average || element.marketAverage
+                    (!element.average || element.average === -1) ?  element.marketAverage : element.average 
                 ]);
             }else{
                 Log.error('Error in base.chart-getIntradayLine, fail to create dat object ');

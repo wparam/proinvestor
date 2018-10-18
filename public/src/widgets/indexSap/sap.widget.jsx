@@ -9,50 +9,19 @@ const Highcharts = ReactHighChart.Highcharts;
 export default class IndexSap extends Component{
     constructor(props){
         super(props);
-        this.api = '/api/stock/stock/DIA/realtime-update?last=3&chart=true';
+        this.api = '/api/stock/stock/SPY/realtime-update?last=3&chart=true';
         this.state = {
             data: []
         };
         this.getSeries = this.getSeries.bind(this);
     }
     componentDidMount(){
-        let self = this;
-        
-        //mock
-        let mockdata = [
-            {
-                "date": "20181017",
-                "minute": "10:14",
-                "average": 150.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:15",
-                "average": 158.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:16",
-                "average": 168.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:17",
-                "average": 175.736,
-                "marketAverage": 255.702
-            }
-        ];
-        this.setState({
-            data: BaseChart.getIntradayLine(mockdata)
+        var self = this;
+        http.get(this.api).then((d)=>{
+            self.setState({
+                data: BaseChart.getIntradayLine(d.chart)
+            });
         });
-        // http.get(this.api).then((d)=>{
-        //     self.setState({
-        //         data: d
-        //     });
-        // });
     }
     getOption(){
         return {

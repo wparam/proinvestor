@@ -9,7 +9,7 @@ const Highcharts = ReactHighChart.Highcharts;
 export default class IndexTqqq extends Component{
     constructor(props){
         super(props);
-        this.api = '/api/stock/stock/DIA/realtime-update?last=3&chart=true';
+        this.api = '/api/stock/stock/TQQQ/realtime-update?last=3&chart=true';
         this.state = {
             data: []
         };
@@ -17,42 +17,11 @@ export default class IndexTqqq extends Component{
     }
     componentDidMount(){
         let self = this;
-        
-        //mock
-        let mockdata = [
-            {
-                "date": "20181017",
-                "minute": "10:14",
-                "average": 60.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:15",
-                "average": 62.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:16",
-                "average": 65.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:17",
-                "average": 68.736,
-                "marketAverage": 255.702
-            }
-        ];
-        this.setState({
-            data: BaseChart.getIntradayLine(mockdata)
+        http.get(this.api).then((d)=>{
+            self.setState({
+                data: BaseChart.getIntradayLine(d.chart)
+            });
         });
-        // http.get(this.api).then((d)=>{
-        //     self.setState({
-        //         data: d
-        //     });
-        // });
     }
     getOption(){
         return {

@@ -17,42 +17,11 @@ export default class IndexDow extends Component{
     }
     componentDidMount(){
         let self = this;
-        
-        //mock
-        let mockdata = [
-            {
-                "date": "20181017",
-                "minute": "10:14",
-                "average": 253.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:15",
-                "average": 251.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:16",
-                "average": 245.736,
-                "marketAverage": 255.702
-            },
-            {
-                "date": "20181017",
-                "minute": "10:17",
-                "average": 220.736,
-                "marketAverage": 255.702
-            }
-        ];
-        this.setState({
-            data: BaseChart.getIntradayLine(mockdata)
+        http.get(this.api).then((d)=>{
+            self.setState({
+                data: BaseChart.getIntradayLine(d.chart)
+            });
         });
-        // http.get(this.api).then((d)=>{
-        //     self.setState({
-        //         data: d
-        //     });
-        // });
     }
     getOption(){
         return {
