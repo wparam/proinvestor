@@ -14,8 +14,8 @@ export const Util = {
         }
         let y = dayStr.substr(0, 4),
             m = parseInt(dayStr.substr(4, 2)) - 1,
-            d = dayStr.substr(6, 2),
-            [hh, mm] = timeStr.split(':');
+            d = dayStr.substr(6, 2);
+        let [hh, mm] = timeStr.split(':');
         return new Date(y, m, d, hh, mm);
     }
-}
+};

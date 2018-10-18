@@ -10,6 +10,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const extractCSS = new ExtractTextPlugin('[name].font.css');
 const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
+var LiveReloadPlugin = require('webpack-livereload-plugin');
+
 module.exports = {
     entry: {
         index: path.join(SRC_DIR, 'index.js')
@@ -102,7 +104,8 @@ module.exports = {
         }),
         extractCSS,
         extractSCSS,
-        new LodashModuleReplacementPlugin
+        new LodashModuleReplacementPlugin,
+        new LiveReloadPlugin()
         // new CopyWebpackPlugin([
         //   {from: './public/resource/img', to: 'img'}
         // ],

@@ -29,17 +29,19 @@ import { Util } from 'modules/util';
 export const BaseChart = {
     getIntradayLine: data => {
         if(!data || data.length === 0){
-            log.error('Error in base.chart, no input data');
+            Log.error('Error in base.chart, no input data');
             return;
         }
         let d = [];
         data.forEach(element => {
             let dt = Util.dateFormat(element.date, element.minute);
             if(dt instanceof Date){
-                d.push[
+                d.push([
                     dt.getTime(),
                     element.average || element.marketAverage
-                ];
+                ]);
+            }else{
+                Log.error('Error in base.chart-getIntradayLine, fail to create dat object ');
             }
         });
         return d;
