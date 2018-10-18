@@ -3,7 +3,7 @@ import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 
-import {Card} from 'components/Cards/Card.jsx';
+import Card from 'components/Cards/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
 

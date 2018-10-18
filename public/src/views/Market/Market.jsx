@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
-import {Card} from 'components/Cards/Card.jsx';
+import Card from 'components/Cards/Card.jsx';
 import IndexDow from 'components/Widgets/indexDow/dow.widget.jsx';
 
 export const Market = props => (

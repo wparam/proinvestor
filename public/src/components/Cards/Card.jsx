@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export class Card extends Component{
+export default class Card extends Component{
     render(){
         return (
             <div className='card'>
@@ -24,5 +24,3 @@ export class Card extends Component{
         );
     }
 }
-
-export default Card;
