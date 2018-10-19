@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Moment from "moment";
+import moment from "moment";
 
 const ReactHighstock = require('react-highcharts/ReactHighstock.src');
 
@@ -35,7 +35,7 @@ export default class AreaChart extends Component{
                 }]
             },
             time: {
-                timezone: 'America/New_York'
+                useUTC: false
             },
             rangeSelector: {
                 buttons: [{

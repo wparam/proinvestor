@@ -40,10 +40,12 @@ export default class IndexTqqq extends Component{
                     type: 'day',
                     count: 1,
                     text: '1D'
-                }]
+                }],
+                allButtonsEnabled: true,
+                inputEnabled: false 
             },
             navigator:{
-                enabled: false
+                enabled: true
             }
         };
     }

@@ -36,9 +36,10 @@ export const BaseChart = {
         data.forEach(element => {
             let dt = Util.dateFormat(element.date, element.minute);
             if(dt instanceof Date){
+                let avg = (!element.average || element.average === -1) ? (!element.marketAverage || element.marketAverage === -1 ? null : element.marketAverage ): element.average;
                 d.push([
                     dt.getTime(),
-                    (!element.average || element.average === -1) ?  element.marketAverage : element.average 
+                    avg
                 ]);
             }else{
                 Log.error('Error in base.chart-getIntradayLine, fail to create dat object ');

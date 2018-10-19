@@ -7,7 +7,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const extractCSS = new ExtractTextPlugin('[name].font.css');
 const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
 var LiveReloadPlugin = require('webpack-livereload-plugin');
@@ -42,25 +41,10 @@ module.exports = {
                 }
             },
             {
-                test: /\.(scss)$/,
-                use: ['css-hot-loader'].concat(extractSCSS.extract({
+                test: /\.(s*)css$/, 
+                use: extractSCSS.extract({
                     fallback: 'style-loader',
-                    use: [
-                    {
-                        loader: 'css-loader'
-                        // options: {alias: {'../img': '../public/resource/img'}}
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                    ]
-                }))
-            },
-            {
-                test: /\.css$/,
-                use: extractCSS.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader'
+                    use: ['css-loader', 'sass-loader']
                 })
             },
             {
@@ -102,7 +86,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
         }),
-        extractCSS,
         extractSCSS,
         new LodashModuleReplacementPlugin,
         new LiveReloadPlugin()

@@ -6,11 +6,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import configStore from 'redux/configureStore';
 
+import '../resource/sass/light-bootstrap-dashboard.scss';
+
 import '../resource/css/bootstrap.min.css';
 import '../resource/css/animate.min.css';
-import '../resource/sass/light-bootstrap-dashboard.css';
 import '../resource/css/am.css';
 import '../resource/css/pe-icon-7-stroke.css';
+
 
 import RouterController from 'components/RouteController/routeController.jsx';
 
