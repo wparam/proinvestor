@@ -11,7 +11,8 @@ export default class IndexSap extends Component{
         super(props);
         this.api = '/api/stock/stock/SPY/realtime-update?last=3&chart=true';
         this.state = {
-            data: []
+            data: [],
+            quote: {}
         };
         this.getSeries = this.getSeries.bind(this);
     }
@@ -19,7 +20,8 @@ export default class IndexSap extends Component{
         var self = this;
         http.get(this.api).then((d)=>{
             self.setState({
-                data: BaseChart.getIntradayLine(d.chart)
+                data: BaseChart.getIntradayLine(d.chart),
+                quote: d.quote
             });
         });
     }
@@ -78,7 +80,7 @@ export default class IndexSap extends Component{
         const opts = this.getOption();
         return (
             <div>
-                <AreaChart options={opts} series={ series } ></AreaChart>
+                <AreaChart options={opts} series={ series } quote={ this.state.quote }></AreaChart>
             </div>
         );
     }
