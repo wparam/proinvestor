@@ -22,8 +22,8 @@ export default class AreaChart extends Component{
             return '';
         }
         let { latestPrice, previousClose } = this.props.quote;
-        let pct = ( Math.abs((latestPrice - previousClose))/previousClose ).toFixed(2);
-        return `${latestPrice - previousClose} (${pct})`;
+        let pct = ( Math.abs((latestPrice - previousClose))*100/previousClose ).toFixed(2);
+        return `${(latestPrice - previousClose).toFixed(2)} (${pct})`;
     }
     getSeriesColor(){
         //todo: decide what is latest price
