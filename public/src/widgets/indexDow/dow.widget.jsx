@@ -32,17 +32,22 @@ export default class IndexDow extends Component{
             },
             title: {
                 text:  'Dow Jones Industrial Average'
-            },
+            },            
             rangeSelector: {
                 buttons: [{
                     type: 'hour',
                     count: 1,
                     text: '1h'
                 }, {
+                    type: 'hour',
+                    count: 3,
+                    text: '3h'
+                }, {
                     type: 'day',
                     count: 1,
                     text: '1D'
                 }],
+                selected: 1,
                 allButtonsEnabled: true,
                 inputEnabled: false 
             },
@@ -55,24 +60,7 @@ export default class IndexDow extends Component{
         return [{
             name: 'DJI',
             type: 'area',
-            data: this.state.data,
-            gapSize: 5,
-            tooltip: {
-                valueDecimals: 2
-            },
-            fillColor: {
-                linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                },
-                stops: [
-                    [0, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                ]
-            },
-            threshold: null
+            data: this.state.data
         }];
     }
     render() {

@@ -7,8 +7,8 @@ export const Log = {
         console.error(msg);
         return false;
     },
-    log: msg => {
-        console.log(msg);
+    warn: msg => {
+        console.warn(msg);
         return false;
     }
 };

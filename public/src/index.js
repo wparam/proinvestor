@@ -4,6 +4,7 @@ import Redux, {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
+
 import configStore from 'redux/configureStore';
 
 import '../resource/sass/light-bootstrap-dashboard.scss';
