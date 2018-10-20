@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Card from 'components/Cards/Card.jsx';
 
-import IndexDow from 'widgets/indexDow/dow.widget';
-import IndexSap from 'widgets/indexSap/sap.widget';
-import IndexTqqq from 'widgets/indexNasdaq/nasdaq.widget';
+import IndexDow from 'widgets/index-dow/dow.widget';
+import IndexSap from 'widgets/index-sap/sap.widget';
+import IndexTqqq from 'widgets/index-nasdaq/nasdaq.widget';
 
 
 const Market = props => (
@@ -50,6 +50,9 @@ const Market = props => (
                             }>
                     </Card>
                 </Col>
+            </Row>
+            <Row>
+                
             </Row>
         </Grid>
     </div>

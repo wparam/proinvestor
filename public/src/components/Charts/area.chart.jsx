@@ -23,7 +23,7 @@ export default class AreaChart extends Component{
         }
         let { latestPrice, previousClose } = this.props.quote;
         let pct = ( Math.abs((latestPrice - previousClose))*100/previousClose ).toFixed(2);
-        return `${(latestPrice - previousClose).toFixed(2)} (${pct})`;
+        return `${(latestPrice - previousClose).toFixed(2)} (${pct}%)`;
     }
     getSeriesColor(){
         //todo: decide what is latest price
@@ -32,7 +32,7 @@ export default class AreaChart extends Component{
             return Highcharts.getOptions().colors[0];
         }
         let { latestPrice, previousClose } = this.props.quote;
-        return latestPrice > previousClose ? '#02f23e' : 'red';
+        return latestPrice > previousClose ? '#0f9d58' : 'red';
     }
     getAreaOptions(){
         if(!this.props.quote || !this.props.series || this.props.series.length ===0){
@@ -129,7 +129,6 @@ export default class AreaChart extends Component{
     }
     render() {
         const opts = this.getAreaOptions();
-        console.log(opts);
         return (
             <div>
                 <ReactHighstock config={opts}></ReactHighstock>
