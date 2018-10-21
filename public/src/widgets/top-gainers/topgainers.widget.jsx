@@ -37,22 +37,20 @@ export default class TopGainers{
         return gainers.slice(0, top);
     }
     getConcreteComponent(){
+        let d = this.getTopGainers();
         return (
             <Table responsive>
                 <thead>
                     <tr>
                         <th>Symbol</th>
-                        <th>Price</th>
                         <th>Change %</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
+                        <th>Price</th>
+                        <th>Vol</th>
+                        <th>Avg Vol</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
                         <td>Table cell</td>
                         <td>Table cell</td>
                         <td>Table cell</td>
