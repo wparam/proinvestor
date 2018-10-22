@@ -36,7 +36,7 @@ export default class TopGainers{
         console.log(gainers);
         return gainers.slice(0, top);
     }
-    getConcreteComponent(){
+    getConcreteComponent(){ 
         let d = this.getTopGainers();
         return (
             <Table responsive>
