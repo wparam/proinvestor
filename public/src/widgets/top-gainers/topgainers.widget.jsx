@@ -1,8 +1,10 @@
 import React, { Component }  from 'react';
 import { Table } from 'react-bootstrap';
 import { Log } from 'modules/system';
+import { Util } from 'modules/util';
+import http from 'modules/ajaxCalls';
 
-export default class TopGainers{
+export default class TopGainers extends Component{
     //props:
     //enableSearch: false, showConcrete: false
     constructor(props){
@@ -22,42 +24,52 @@ export default class TopGainers{
         });
     }
     componentDidUpdate(){}
-    getTopGainers(top){
-        let top = top || 5;
+    getTopGainers(top=5){
         if(!this.state.data || this.state.data.length===0){
             Log.warn('Top Gainers: no gainer input');
             return;
         }
         let gainers = this.state.data.slice();
         let compare = (a, b)=>{
-            return a.changePercent > b.changePercent ? 1 : ( a.changePercent === b.changePercent ? 0 : -1 );
+            return a.changePercent > b.changePercent ? -1 : ( a.changePercent === b.changePercent ? 0 : 1 );
         };
         gainers.sort(compare);
-        console.log(gainers);
         return gainers.slice(0, top);
     }
     getConcreteComponent(){ 
         let d = this.getTopGainers();
+        let models = [  { title: 'Company', name: 'symbol', des: 'companyName', order: 0, format: '' },
+                        { title: 'Change%', name: 'changePercent', des: '', order: 1, format: 'percentage' },
+                        { title: 'Price', name: 'latestPrice', des: '', order: 2, format: 'thousand' },
+                        { title: 'Vol', name: 'latestVolume', des: '', order: 3, format: 'thousand' },
+                        { title: 'Avg Vol', name: 'avgTotalVolume', des: '', order: 4, format: 'thousand' }
+                     ];
+        let gainers = this.getTopGainers();
+        if(!gainers || gainers.length === 0){
+            return (<div>No Gainer Data</div>);
+        }
         return (
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>Symbol</th>
-                        <th>Change %</th>
-                        <th>Price</th>
-                        <th>Vol</th>
-                        <th>Avg Vol</th>
+                        {
+                            models.map((n)=><th key={n.order}>{n.title}</th>)
+                        }
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                    </tr>
+                    {
+                        gainers.map((row, idx) => 
+                            <tr key={idx}>{
+                                models.map((n) => 
+                                        <td key={n.order}>
+                                            <a><span>{ !n.format ? row[n.name]: Util.numberFormat(row[n.name], n.format) }</span> 
+                                                { row[n.des] ? <div style={desc}>{row[n.des]}</div> : null }
+                                            </a> 
+                                        </td>
+                                )}</tr>
+                        )
+                    }
                 </tbody>
             </Table>
         );
@@ -98,3 +110,7 @@ export default class TopGainers{
         );
     }
 }
+
+const desc = {
+    fontSize: '11px'
+};

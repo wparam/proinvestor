@@ -17,5 +17,16 @@ export const Util = {
             d = dayStr.substr(6, 2);
         let [hh, mm] = timeStr.split(':');
         return new Date(y, m, d, hh, mm);
+    },
+    numberFormat: (val, format) => {
+        if(!val)
+            return val;
+        switch(format){
+            case 'percentage':
+                return (val * 100).toFixed(2)+ '%';
+            case 'thousand':
+                return '';
+        }
+        return null;
     }
 };
