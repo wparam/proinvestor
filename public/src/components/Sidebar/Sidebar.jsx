@@ -30,7 +30,7 @@ class Sidebar extends Component{
 
                         </a>
                         <a href='' className='simple-text logo-normal'>
-                            Asset Manager
+                            AssetManager
                         </a>
                     </div>
                 <div className='sidebar-wrapper'>
