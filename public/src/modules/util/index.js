@@ -25,7 +25,7 @@ export const Util = {
             case 'percentage':
                 return (val * 100).toFixed(2)+ '%';
             case 'thousand':
-                return '';
+                return val.toString().replace(/(?=\B(\d{3})+$)/gm, ',');
         }
         return null;
     }

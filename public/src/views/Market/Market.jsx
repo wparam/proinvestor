@@ -7,6 +7,7 @@ import IndexSap from 'widgets/index-sap/sap.widget';
 import IndexTqqq from 'widgets/index-nasdaq/nasdaq.widget';
 
 import TopGainer from 'widgets/top-gainers/topgainers.widget';
+import TopLosers from 'widgets/top-losers/toplosers.widget';
 
 
 const Market = props => (
@@ -62,7 +63,7 @@ const Market = props => (
                             }
                             legend={
                                 <div className="legend">
-                                    Top Gainer
+                                    More Gainers
                                 </div>  
                             }>
                     </Card>
@@ -71,11 +72,11 @@ const Market = props => (
                     <Card title="Top Loser" 
                             category=""  
                             content={
-                                <div/>
+                                <TopLosers showConcrete="true"/>
                             }
                             legend={
                                 <div className="legend">
-                                    Top Loser
+                                    More Losers
                                 </div>  
                             }>
                     </Card>

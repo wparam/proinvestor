@@ -64,7 +64,9 @@ export default class TopGainers extends Component{
                                 models.map((n) => 
                                         <td key={n.order}>
                                             <a><span>{ !n.format ? row[n.name]: Util.numberFormat(row[n.name], n.format) }</span> 
-                                                { row[n.des] ? <div style={desc}>{row[n.des]}</div> : null }
+                                                { row[n.des] ? <div style={desc} title={row[n.des]}>{(row[n.des] && row[n.des].length >= 32) ? 
+                                                    row[n.des].substr(0, 30) + '...' : row[n.des]
+                                                }</div> : null }
                                             </a> 
                                         </td>
                                 )}</tr>
@@ -113,4 +115,8 @@ export default class TopGainers extends Component{
 
 const desc = {
     fontSize: '11px'
+};
+
+const upGreen = {
+    color: '#0f9d58'
 };
