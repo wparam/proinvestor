@@ -8,6 +8,7 @@ import IndexTqqq from 'widgets/index-nasdaq/nasdaq.widget';
 
 import TopGainer from 'widgets/top-gainers/topgainers.widget';
 import TopLosers from 'widgets/top-losers/toplosers.widget';
+import TopMoversInNas from 'widgets/top-movers/topmovers.widget';
 
 
 const Market = props => (
@@ -82,14 +83,14 @@ const Market = props => (
                     </Card>
                 </Col>
                 <Col lg={4} sm={8}>
-                    <Card title="Top Mover" 
+                    <Card title="Top Mover In Nasdaq" 
                             category=""  
                             content={
-                                <div/>
+                                <TopMoversInNas showConcrete="true"/>
                             }
                             legend={
                                 <div className="legend">
-                                    Top Mover
+                                    Top Mover In Nasdaq
                                 </div>  
                             }>
                     </Card>

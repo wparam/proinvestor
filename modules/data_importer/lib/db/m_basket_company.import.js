@@ -54,7 +54,7 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
                 const {statusCode} = res;
                 const contentEncoding = res.headers['content-encoding']
                 let rs = res;
-                if(statusCode!==200){
+                if(res.statusCode < 200 || res.statusCode>=400){
                     res.resume();
                     reject(Error(`Request Failed: StatusCode: ${statusCode} `));
                 }
@@ -153,7 +153,7 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
                     });
                 });
             })
-        }).then((d)=>{ console.log('after import'); console.log(d);  })
+        }).then((d)=>{ console.log('after import in m_basket_company, import data:'); console.log(d);  })
         .catch((err)=>{
             console.log(err.stack);
         }).then(this.afterImport.bind(this));

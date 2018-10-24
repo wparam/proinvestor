@@ -42,6 +42,7 @@ module.exports = class Importer{
 
     afterImport() {
         return new Promise((resolve, reject)=>{
+            console.log(`Import finish on model: ${this._modelName}`);
             resolve();
         });
         // console.log('after before import in importer father');

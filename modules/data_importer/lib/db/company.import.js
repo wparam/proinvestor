@@ -37,6 +37,8 @@ module.exports = class CompanyImporter extends Importer{
                 return reject(new Error('Fail in getBatchData: Batch load company list emtpy'));
             Promise.all(batchCompanies.map((c)=>{ return this.getData(c); })).then((result)=>{
                 resolve(result);
+            }).catch((err)=>{
+                console.error(err.message);
             });
         });
     }
@@ -47,8 +49,8 @@ module.exports = class CompanyImporter extends Importer{
                 return reject(new Error('Company is empty'));
             let url = this.api.replace('{company}', company);
             let req = http.request({ hostname:'localhost', path: url, port:4000 }, (res)=>{
-                if(res.statusCode !== 200)
-                    return reject(new Error(`Fail in getData when fetch company infor, company: ${company}`));
+                if(res.statusCode < 200 || res.statusCode>=400)
+                    return reject(new Error(`Fail in getData when fetch company infor, company: ${company}, status Code: ${res.statusCode}`));
                 let s = '';
                 res.setEncoding = 'utf8';
                 res.on('data', (chunk)=>{

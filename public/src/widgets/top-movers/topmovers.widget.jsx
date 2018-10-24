@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { Table } from 'react-bootstrap';
 
-export default class TopMovers{
+export default class TopMoversInNas{
     constructor(props){
         super(props);
     }
