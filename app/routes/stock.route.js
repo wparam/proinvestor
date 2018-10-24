@@ -1,6 +1,6 @@
 const dataCtrl = require('../controllers/stock.controller');
 const authen = require('../controllers/authenticate.controller')();
-const internalCtrl = require('../controllers/internal.controller');
+const internalRouter =  require('../controllers/internal');
 
 module.exports = (app) => {
     let stockPrefix = '/api/stock';
@@ -8,5 +8,5 @@ module.exports = (app) => {
     app.get(stockPrefix + '/*',  dataCtrl.proxyDataService);
 
     let internalPrefix = '/api/internal';
-    app.get(internalPrefix + '/*', authen, internalCtrl.foo);
+    app.use(internalPrefix, authen, internalRouter);
 };

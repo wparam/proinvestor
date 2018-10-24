@@ -7,83 +7,79 @@ import http from 'modules/ajaxCalls';
 export default class TopMoversInNas extends Component{
     constructor(props){
         super(props);
-        this.apiLosers = '/api/stock/stock/market/collection/list?collectionName=losers';
-        this.apiGainers = '/api/stock/stock/market/collection/list?collectionName=gainers';
         this.apiNasCompanys = '/api/internal/company/list';
+        this.apiNasStocks = '/api/stock/stock/market/batch?symbols={symbols}&types=quote&range=1d';
+        this.getTopMovers = this.getTopMovers.bind(this);
         this.getConcreteComponent = this.getConcreteComponent.bind(this);
         this.getFullComponent = this.getFullComponent.bind(this);
         this.state = {
-            data : []
+            companies: []
         };
     }
     componentDidMount(){
-        http.get(this.api).then((d)=>{
-            this.setState({
-                data: d
+        // var requests = [ http.get(this.apiNasCompanys), http.get(this.apiGainers), http.get(this.apiLosers) ];
+        http.get(this.apiNasCompanys).then((companies)=>{
+            let str = companies.map(c=>c.symbol).join(',');
+            http.get(this.apiNasStocks.replace('{symbols}', str)).then((d)=>{
+                this.setState({
+                    companies:d
+                });
             });
         });
     }
     componentDidUpdate(){}
-    getTopGainers(top=5){
-        if(!this.state.data || this.state.data.length===0){
-            Log.warn('Top Gainers: no gainer input');
+    getTopMovers(top=5){
+        if(!this.state.companies || this.state.companies.length===0){
+            Log.warn('Top Movers: no company information');
             return;
         }
-        let gainers = this.state.data.slice();
+        let companyArray = Array.from(Object.values(this.state.companies));
         let compare = (a, b)=>{
-            return a.changePercent > b.changePercent ? -1 : ( a.changePercent === b.changePercent ? 0 : 1 );
-        };
-        gainers.sort(compare);
-        return gainers.slice(0, top);
-    }
-    getTopLosers(top=5){
-        if(!this.state.data || this.state.data.length===0){
-            Log.warn('Top Losers: no loser input');
-            return;
-        }
-        let losers = this.state.data.slice();
-        let compare = (a, b)=>{
-            let ac = Math.abs(a.changePercent),
-                bc = Math.abs(b.changePercent);
+            let ac = Math.abs(a.quote.changePercent),
+                bc = Math.abs(b.quote.changePercent);
             return ac > bc ? -1 : ( ac === bc ? 0 : 1 );
         };
-        losers.sort(compare);
-        return losers.slice(0, top);
+        companyArray.sort(compare);
+        return companyArray.slice(0, top).map(n=>n.quote);
     }
     getConcreteComponent(){ 
-        let d = this.getTopLosers();
-        let models = [  { title: 'Company', name: 'symbol', des: 'companyName', order: 0, format: '' },
-                        { title: 'Change%', name: 'changePercent', des: '', order: 1, format: 'percentage' },
-                        { title: 'Price', name: 'latestPrice', des: '', order: 2, format: 'thousand' },
-                        { title: 'Vol', name: 'latestVolume', des: '', order: 3, format: 'thousand' },
-                        { title: 'Avg Vol', name: 'avgTotalVolume', des: '', order: 4, format: 'thousand' }
-                     ];
-        let losers = this.getTopLosers();
-        if(!losers || losers.length === 0){
-            return (<div>No Loser Data</div>);
+        let movers = this.getTopMovers();        
+        if(!movers || movers.length === 0){
+            return (<div>No movers Data</div>);
         }
         return (
             <Table responsive>
                 <thead>
                     <tr>
-                        {
-                            models.map((n)=><th key={n.order}>{n.title}</th>)
-                        }
+                        <td>Company</td>
+                        <td>Change%</td>
+                        <td>Price</td>
+                        <td>Vol</td>
+                        <td>Avg Vol</td>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        losers.map((row, idx) => 
-                            <tr key={idx}>{
-                                models.map((n) => 
-                                        <td key={n.order}>
-                                            <a><span>{ !n.format ? row[n.name]: Util.numberFormat(row[n.name], n.format) }</span> 
-                                                { row[n.des] ? <div style={desc} title={row[n.des]}>{
-                                                    (row[n.des] && row[n.des].length >= 32) ? 
-                                                    row[n.des].substr(0, 30) + '...' : row[n.des]}</div> : null }
-                                            </a> 
-                                        </td>
-                                )}</tr>
+                        movers.map((row, idx) => 
+                            <tr key={idx}>
+                                <td>
+                                    <a><span>{row['symbol']}</span>
+                                       <div style={desc} title={row['companyName']}>{row['companyName'] && row['companyName'].length >= 32 ? row['companyName'].substr(0, 30) + '...' : row['companyName'] }</div>
+                                    </a>
+                                </td>
+                                <td style={ row['changePercent']>0 ? upTrend : downTrend }>
+                                    {Util.numberFormat(row['changePercent'], 'percentage')}
+                                </td>
+                                <td>
+                                    {Util.numberFormat(row['latestPrice'], 'thousand')}
+                                </td>
+                                <td>
+                                    {Util.numberFormat(row['latestVolume'], 'thousand')}
+                                </td>
+                                <td>
+                                    {Util.numberFormat(row['avgTotalVolume'], 'thousand')}
+                                </td>
+                            </tr>
                         )
                     }
                 </tbody>
@@ -128,9 +124,14 @@ export default class TopMoversInNas extends Component{
 }
 
 const desc = {
-    fontSize: '11px'
+    fontSize: '11px',
+    whiteSpace: 'nowrap'
 };
 
-const upGreen = {
+const upTrend = {
     color: '#0f9d58'
+};
+
+const downTrend = {
+    color: 'red'
 };

@@ -83,14 +83,14 @@ const Market = props => (
                     </Card>
                 </Col>
                 <Col lg={4} sm={8}>
-                    <Card title="Top Mover In Nasdaq" 
+                    <Card title="Top Mover In Nasdaq 100" 
                             category=""  
                             content={
                                 <TopMoversInNas showConcrete="true"/>
                             }
                             legend={
                                 <div className="legend">
-                                    Top Mover In Nasdaq
+                                    Top Mover In Nasdaq 100
                                 </div>  
                             }>
                     </Card>

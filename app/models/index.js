@@ -4,12 +4,14 @@ const path = require('path');
 const modelsFiles = path.join(__dirname, '*.model.js');
 
 //db: {user: {}, basket: {},,,}
+let db = {};
 module.exports = (mongoose) => {
-    let db = {};
-    glob.sync(modelsFiles).forEach((file) => {
-        var model = require(file)(mongoose);
-        db[model.modelName] = model;
-    });
+    if(Object.keys(db).length===0){
+        glob.sync(modelsFiles).forEach((file) => {
+            var model = require(file)(mongoose);
+            db[model.modelName] = model;
+        });
+    }
     return db;
 };
 
