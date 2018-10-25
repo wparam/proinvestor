@@ -107,12 +107,13 @@ app.use((err, req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    if(req.isAuthenticated()){
-        return res.redirect('/');
-    }
-    res.status(404).render('404', {
-        message: 'Resource not found'
-    });
+    return res.redirect('/');
+    // if(!req.isAuthenticated()){
+    //     return res.redirect('/');
+    // }
+    // res.status(404).render('404', {
+    //     message: 'Resource not found'
+    // });
 });
 
 app.listen(config.port, () => {
