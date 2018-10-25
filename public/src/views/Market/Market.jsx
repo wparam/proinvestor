@@ -96,6 +96,20 @@ const Market = props => (
                     </Card>
                 </Col>
             </Row>
+            <Row>
+                <Col lg={12} sm={12}>
+                    <Card title="Nasdaq100 News" 
+                            category=""  
+                            content={
+                                <TopGainer showConcrete="true"/>
+                            }
+                            legend={
+                                <div className="legend">
+                                </div>  
+                            }>
+                    </Card>
+                </Col>
+            </Row>
         </Grid>
     </div>
 );
