@@ -1,0 +1,24 @@
+.newsContainer{
+    padding: 15px 0 0 5px
+}
+
+.outerContainer{
+    display: flex;
+    width: 100%;
+    height: 120px;
+};
+
+.txtContainer{
+    display: flex;
+    flex-direction: column;
+    div:nth-child(1){
+        font-size: 14px;
+    }
+    div:nth-child(2){
+        font-size: 20px;
+    }
+    div:nth-child(3){
+        font-size: 14px;
+    }
+};
+

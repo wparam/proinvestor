@@ -10,6 +10,7 @@ import TopGainer from 'widgets/top-gainers/topgainers.widget';
 import TopLosers from 'widgets/top-losers/toplosers.widget';
 import TopMoversInNas from 'widgets/top-movers/topmovers.widget';
 
+import NewsList from 'widgets/news-nasdaq/newsNasdaq.widget';
 
 const Market = props => (
     <div className="content">
@@ -101,7 +102,7 @@ const Market = props => (
                     <Card title="Nasdaq100 News" 
                             category=""  
                             content={
-                                <TopGainer showConcrete="true"/>
+                                <NewsList showConcrete="true" market="nasdaq"/>
                             }
                             legend={
                                 <div className="legend">

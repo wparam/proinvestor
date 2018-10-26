@@ -39,7 +39,7 @@ export default class AreaChart extends Component{
             Log.warn('Render area chart: empty quote and data');
             return null;
         }
-        let { previousClose, open, close, high, low  } = this.props.quote || {};
+        let { previousClose, open, close, high, low, openTime  } = this.props.quote || {};
         let clr = this.getSeriesColor();
         let subtitle = this.getSubtitle();
         let opts =  Object.assign(
@@ -123,7 +123,18 @@ export default class AreaChart extends Component{
                             selected: 1,
                             inputEnabled: false
                         },
-                        series: this.props.series
+                        series: [
+                            {   
+                                name: 'PreviousClose',
+                                data: [[openTime, previousClose]],
+                                type: 'scatter',
+                                marker: {
+                                    enabled: false
+                                }
+                            },
+                            ...this.props.series
+                        ]
+                            
                     }, this.props.options);
         return opts;
     }
