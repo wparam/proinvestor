@@ -33,7 +33,15 @@ export default class NewsList extends Component{
         http.get(this.apiCompanys).then((companies)=>{
             let str = companies.map(c=>c.symbol).join(',');
             http.get(this.apiCompanyNews.replace('{symbols}', str)).then((d)=>{
-                let data = [].concat(...Array.from(Object.values(d)).map(ns=>ns.news));
+                let nsMap = new Map();
+                let data = [].concat(...Array.from(Object.values(d)).map(ns=>ns.news)).filter(n=>{
+                    if(nsMap.has(n.headline))
+                        return false;
+                    else{
+                        nsMap.set(n.headline, true);
+                        return true;
+                    }
+                });
                 this.setState({
                     news: data
                 });
