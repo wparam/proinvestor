@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import configStore from 'redux/configureStore';
 
 import '../resource/sass/light-bootstrap-dashboard.scss';
+import '../resource/sass/main.scss';
 
 import '../resource/css/bootstrap.min.css';
 import '../resource/css/animate.min.css';

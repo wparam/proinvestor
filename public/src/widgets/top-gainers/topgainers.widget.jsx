@@ -112,7 +112,6 @@ export default class TopGainers extends Component{
         );
     }
 }
-
 const desc = {
     fontSize: '11px',
     whiteSpace: 'nowrap'
