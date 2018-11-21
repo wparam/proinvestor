@@ -22,7 +22,6 @@ module.exports = class ImportManager{
             let cls = require(path.join(__dirname, 'db', file));
             importers[cls.importerType()] = cls;
         });
-
         return importers;
     }
 
@@ -34,7 +33,6 @@ module.exports = class ImportManager{
         this.force = v;
     }   
 
-//#region start connection related
     get isDbOpen(){
         return this.conn.readyState === 1;
     }
@@ -72,8 +70,7 @@ module.exports = class ImportManager{
             resolve('Db is closed');
         });
     }
-//#endregion
-    
+
     /**
      * tasks looks like this: 
      * new Map({

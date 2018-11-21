@@ -5,7 +5,7 @@ module.exports = class Importer{
     constructor(models, forceMode=false){
         this._modelName = null;
         this.models = models;
-        this._force = forceMode;
+        this._forceMode = forceMode;
     }
 
     get modelName(){
@@ -14,6 +14,14 @@ module.exports = class Importer{
 
     set modelName(v){
         this._modelName = v;
+    }
+
+    get forceMode(){
+        return this._forceMode;
+    }
+
+    set forceMode(v){
+        this._forceMode = v;
     }
 
     processData() {}
