@@ -1,4 +1,5 @@
 const Importer = require('../importer');
+const logger = require('logger');
 const http = require('http');
 
 module.exports = class CompanyImporter extends Importer{
@@ -11,6 +12,27 @@ module.exports = class CompanyImporter extends Importer{
     }
     static importerType(){
         return 'company';
+    }
+
+    import() {
+        return this.beforeImport().then((d)=>{
+            if(d.clean)
+                logger.info(`Clean up finished before import:${this._modelName}`);
+            return new Promise((resolve, reject) => {
+                this.mapModel.distinct('company_symbol', function(err, docs){
+                    resolve(docs);
+                });
+            });
+        })
+        .then(this.filterCompanyData.bind(this))
+        .then(this.getBatchData.bind(this))
+        .then(this.insertData.bind(this))
+        .then((d)=>{ 
+            logger.info(`After import: the data is ${d}`);
+        })
+        .catch((err)=>{
+            console.log(err.stack);
+        }).then(this.afterImport.bind(this));
     }
 
     filterCompanyData(mapCompanys) {
@@ -79,22 +101,7 @@ module.exports = class CompanyImporter extends Importer{
         
     }
 
-    import() {
-        return this.beforeImport().then((d)=>{
-            return new Promise((resolve, reject) => {
-                this.mapModel.distinct('company_symbol', function(err, docs){
-                    resolve(docs);
-                });
-            });
-        })
-        .then(this.filterCompanyData.bind(this))
-        .then(this.getBatchData.bind(this))
-        .then(this.insertData.bind(this))
-        .then((d)=>{ console.log('after import'); console.log(d);  })
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
-    }
+    
 
     importMany(data) {
         if(!data || data.length === 0){

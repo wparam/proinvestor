@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "5.2.4"
+    "mongoose": "5.2.4",
+    "logger": "file:modules/logger"
   }
 }

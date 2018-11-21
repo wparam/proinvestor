@@ -81,14 +81,15 @@ module.exports = class ImportManager{
      */
     createTask(taskName, dependency){
         if(!taskName || !this.importers[taskName])
-            return new Error('Task name is invalid');
+            throw new Error('Task name is invalid');
         let dep = [];
+        //TODO, valid dependencies, and only check in previous list
         if(dependency && dependency.length>0){
             for(let i = 0, l = dependency.length; i<l; i++){
                 if(this.importers[dependency[i]])
                     dep.push(new this.importers[dependency[i]](this.models, this.isForceMode));
                 else
-                    return new Error('Dependency is invalid');
+                    throw new Error('Dependency is invalid');
             }
         }
         let imp = {

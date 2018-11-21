@@ -39,12 +39,11 @@ module.exports = class Importer{
                 this.model.remove({}, function(err){
                     if(err)
                         return reject(err);
-                    resolve(true);
+                    resolve({clean: true});
                 });
             }else
-                resolve(1);
+                resolve({clean: false});
         });
-        // console.log('start before import in importer father');
     }
 
 
