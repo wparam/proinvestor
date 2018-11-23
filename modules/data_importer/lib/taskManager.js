@@ -1,5 +1,6 @@
 const fs       = require('fs');
 const path     = require('path');
+const logger   = require('logger');
 const Importer = require('./importer');
 
 
@@ -80,26 +81,32 @@ module.exports = class ImportManager{
      * @param  {} dependency
      */
     createTask(taskName, dependency){
-        if(!taskName || !this.importers[taskName])
-            throw new Error('Task name is invalid');
-        let dep = [];
-        //TODO, valid dependencies, and only check in previous list
+        if(!taskName || !this.importers[taskName]){
+            logger.error(`This task is invalid: ${taskName}`);
+            return;
+        }
+        //check depend task is in the list
         if(dependency && dependency.length>0){
             for(let i = 0, l = dependency.length; i<l; i++){
-                if(this.importers[dependency[i]])
-                    dep.push(new this.importers[dependency[i]](this.models, this.isForceMode));
-                else
-                    throw new Error('Dependency is invalid');
+                if(!this.importers[dependency[i]]){
+                    logger.error(`Task's dependency is invalid, dependency: ${dependency[i]}`);
+                    return;
+                }
+                if(this.tasks.has(dependency[i])){
+                    //dependency already in task list, continue 
+                }else{
+                    this.createTask(dependency[i]);
+                }
             }
         }
         let imp = {
-            dependency: dep,
             importer: new this.importers[taskName](this.models, this.isForceMode)
         };
         if(!this.tasks.has(taskName))
             this.tasks.set(taskName, imp);
     }
 
+    //TODO: denpendency cancel?
     cancelTask(taskName){   
         if(!this.tasks.has(taskName))
             return false;
