@@ -139,7 +139,7 @@ module.exports = class ImportManager{
         }
 
         return Promise.all(Array.from(this.deps.values()).map(dep=>dep.importer.import()))
-                    .Promise.all(Array.from(this.tasks.values()).map(task => task.importer.import()));
+                    .then(depResult=>Promise.all(Array.from(this.tasks.values()).map(task => task.importer.import())));
     }
     
 }
