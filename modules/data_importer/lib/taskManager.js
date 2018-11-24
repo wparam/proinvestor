@@ -10,6 +10,7 @@ module.exports = class ImportManager{
         this.models = models;
         this.constr = 'mongodb://localhost:27017/asset_manager';
         this.tasks = new Map(); 
+        this.deps = new Map();
         this.conn = this.mongoose.connection;
         this.importers = ImportManager.getImporters();
         this.force = false;
@@ -88,15 +89,7 @@ module.exports = class ImportManager{
         //check depend task is in the list
         if(dependency && dependency.length>0){
             for(let i = 0, l = dependency.length; i<l; i++){
-                if(!this.importers[dependency[i]]){
-                    logger.error(`Task's dependency is invalid, dependency: ${dependency[i]}`);
-                    return;
-                }
-                if(this.tasks.has(dependency[i])){
-                    //dependency already in task list, continue 
-                }else{
-                    this.createTask(dependency[i]);
-                }
+                this.createDependency(dependency[i]);
             }
         }
         let imp = {
@@ -106,27 +99,47 @@ module.exports = class ImportManager{
             this.tasks.set(taskName, imp);
     }
 
-    //TODO: denpendency cancel?
+    hasTask(taskName){
+        if(!taskName){
+            logger.error(`Fail in taskManager-hasTask: Invalid Task name: ${taskName}`);
+            return;
+        }
+        return this.task.has(taskName);
+    }
+
+    createDependency(taskName){
+        if(!this.importers[taskName]){
+            logger.error(`Fail in createDependency: Task name is invalid: ${taskName}`);
+            return;
+        }
+        if(this.hasTask(taskName)){
+            this.cancelTask(taskName);
+        }
+        if(!this.deps.has(taskName))
+            this.deps.set(taskName, {
+                importer: new this.importers[taskName](this.models, this.isForceMode)
+            });
+    }
+
     cancelTask(taskName){   
         if(!this.tasks.has(taskName))
             return false;
         return this.tasks.delete(taskName);
+    }
+
+    cancelDep(taskName){
+        if(!this.deps.has(taskName))
+            return false;
+        return this.deps.delete(taskName);
     }
     
     runTasks(){
         if(this.tasks.size === 0){
             return Promise.reject(new Error('Tasks list is empty'));
         }
-        return Promise.all((Array.from(this.tasks.values()).map((task) => {
-            let dep = null;
-            if(task.dependency.length>0){
-                dep = task.dependency[0].import();
-                for(let i = 1, l = task.dependency.length-1; i<l; i++){
-                    dep = dep.then(task.dependency[i].import.bind(task.dependency[i]));
-                }
-            }
-            return dep === null ? task.importer.import() : dep.then(task.importer.import.bind(task.importer));
-        })));
+
+        return Promise.all(Array.from(this.deps.values()).map(dep=>dep.importer.import()))
+                    .Promise.all(Array.from(this.tasks.values()).map(task => task.importer.import()));
     }
     
 }
