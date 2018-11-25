@@ -1,5 +1,5 @@
 const import_log = require('./import_log');
-
+const logger     = require('logger');
 
 module.exports = class Importer{
     constructor(models, forceMode=false){
@@ -31,10 +31,11 @@ module.exports = class Importer{
     import() {}
 
     beforeImport() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {            
             if(this.model.db._readyState === 0){
                 return reject(new Error('Current DB is closed'));
             }
+            logger.info(`Import started on model: ${this._modelName}`);
             if(this._force){
                 this.model.remove({}, function(err){
                     if(err)
@@ -49,10 +50,9 @@ module.exports = class Importer{
 
     afterImport() {
         return new Promise((resolve, reject)=>{
-            console.log(`Import finish on model: ${this._modelName}`);
+            logger.info(`Import finished on model: ${this._modelName}`);
             resolve();
         });
-        // console.log('after before import in importer father');
     }
 }   
 

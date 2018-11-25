@@ -4,6 +4,7 @@ const https    = require('https');
 const zlib     = require('zlib');
 const csv      = require('csv');
 const readline = require('readline');
+const logger   = require('logger');
 const { Readable } = require('stream');
 
 module.exports = class M_Basket_CompanyImporter extends Importer{
@@ -123,6 +124,8 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
                         }
                         resolve(docs.length);
                     });
+                }else if(docs.length!==d.length){
+                    reject(new Error(`Fail in insertNASDAQ100: File has no.:${d.length}, and nas document in database has: ${docs.length}`));
                 }else{
                     resolve(0);
                 }
@@ -137,6 +140,8 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
     import() {
         let self = this;
         return this.beforeImport().then((d)=>{
+            if(d.clean)
+                logger.info(`Clean up finished before import:${this._modelName}`);
             return new Promise((resolve, reject)=>{
                 this.basketModel.find({}, function(err, docs){
                     if(err)
@@ -153,7 +158,7 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
                     });
                 });
             })
-        }).then((d)=>{ console.log('after import in m_basket_company, import data:'); console.log(d);  })
+        })
         .catch((err)=>{
             console.log(err.stack);
         }).then(this.afterImport.bind(this));

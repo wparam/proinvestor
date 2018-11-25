@@ -35,6 +35,10 @@ module.exports = class CompanyImporter extends Importer{
         }).then(this.afterImport.bind(this));
     }
 
+    /**
+     * Filter the document from map table, find those companies are in map table but does't exist in company table yet
+     * @param  {document} mapCompanys is from map_basket_company table's document
+     */
     filterCompanyData(mapCompanys) {
         return new Promise((resolve, reject)=>{
             if(!mapCompanys || mapCompanys.length ===0){
@@ -55,8 +59,10 @@ module.exports = class CompanyImporter extends Importer{
 
     getBatchData(batchCompanies){
         return new Promise((resolve, reject)=>{
-            if(!batchCompanies || batchCompanies.length === 0)
-                return reject(new Error('Fail in getBatchData: Batch load company list emtpy'));
+            if(!batchCompanies || batchCompanies.length === 0){
+                logger.info('Company importer: Done in getBatchData, there is no companies need to be inserted');
+                return resolve([]);
+            }
             Promise.all(batchCompanies.map((c)=>{ return this.getData(c); })).then((result)=>{
                 resolve(result);
             }).catch((err)=>{
@@ -91,6 +97,10 @@ module.exports = class CompanyImporter extends Importer{
 
     insertData(data){
         return new Promise((resolve, reject)=>{
+            if(!data || (data instanceof Array && data.length === 0)){
+                logger.info('Company importer: Done in insertData, no document need to be inserted');
+                return resolve(0);
+            }
             let d = data instanceof Array ? data: [data];
             this.model.insertMany(d, function(err, docs){
                 if(err)
@@ -100,8 +110,6 @@ module.exports = class CompanyImporter extends Importer{
         });
         
     }
-
-    
 
     importMany(data) {
         if(!data || data.length === 0){

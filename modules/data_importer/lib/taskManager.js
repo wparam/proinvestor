@@ -104,7 +104,7 @@ module.exports = class ImportManager{
             logger.error(`Fail in taskManager-hasTask: Invalid Task name: ${taskName}`);
             return;
         }
-        return this.task.has(taskName);
+        return this.tasks.has(taskName);
     }
 
     createDependency(taskName){
