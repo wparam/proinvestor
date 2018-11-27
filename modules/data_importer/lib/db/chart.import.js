@@ -35,34 +35,41 @@ module.exports = class ChartImporter extends Importer{
     }
 
     getData(companies){
-        return new Promise((resolve, reject) => {
-            if(!companies || companies.length === 0)
-                return resolve([]);
-            let url = this.api.replace('{companies}', companies);
-            let req = http.request({ hostname:'localhost', path: url, port:4000 }, (res)=>{
-                if(res.statusCode !== 200)
-                    return reject(new Error(`Fail in getData when fetch company infor, company: ${company}`));
-                let s = '';
-                res.setEncoding = 'utf8';
-                res.on('data', (chunk)=>{
-                    s += chunk;
+        if(!companies || companies.length === 0)
+            return Promise.resolve([]);
+        let cpstr = this.compressCompany(companies);
+        let promise = null;
+        return cpstr.map((cp)=>{
+            return new Promise((resolve, reject) => {
+                let url = this.api.replace('{companies}', cp);
+                let req = http.request({ hostname:'localhost', path: url, port:4000 }, (res)=>{
+                    if(res.statusCode !== 200)
+                        return reject(new Error(`Fail in getData when fetch company trade infor, company: ${company}`));
+                    let s = '';
+                    res.setEncoding = 'utf8';
+                    res.on('data', (chunk)=>{
+                        s += chunk;
+                    });
+                    res.on('end', ()=>{
+                        let r = JSON.parse(s);
+                        if(r instanceof Array){
+                            r.forEach((c)=>{
+                                c.datevalue = new Date(c.date).getTime()
+                            });
+                            return resolve(r);
+                        }
+                        return reject(new Error('Fail in getData: '))
+                    });
+                }).on('error', (err)=>{
+                    reject(err);
                 });
-                res.on('end', ()=>{
-                    let r = JSON.parse(s);
-                    if(r instanceof Array){
-                        r.forEach((c)=>{
-                            c.datevalue = new Date(c.date).getTime(),
-                            c.symbol =  company
-                        });
-                        return resolve(r);
-                    }
-                    return reject(new Error('Fail in getData: '))
-                });
-            }).on('error', (err)=>{
-                reject(err);
+                req.end();
             });
-            req.end();
         });
+    }
+
+    compressCompany(companies){
+        //since querystr max length roughly 2000 charactors, 
         
     }
 
@@ -75,16 +82,11 @@ module.exports = class ChartImporter extends Importer{
                 resolve(docs.length);
             });
         });
-        
     }
-
-    
 
     importMany(data) {
         if(!data || data.length === 0){
             throw new Error('Fail at Company"s insertMany function');
         }
     }
-
-    
 }
