@@ -1,4 +1,4 @@
-# Asset Manager
+# Pro Investor
 
-## A asset management tool for analyze stock
+## A helpful tool for analyze stock
 
