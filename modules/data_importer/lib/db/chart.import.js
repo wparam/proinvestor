@@ -34,6 +34,7 @@ module.exports = class ChartImporter extends Importer{
         }).then(this.afterImport.bind(this));
     }
 
+    //return array of promises
     getData(companies){
         if(!companies || companies.length === 0)
             return Promise.resolve([]);
@@ -70,7 +71,15 @@ module.exports = class ChartImporter extends Importer{
 
     compressCompany(companies){
         //since querystr max length roughly 2000 charactors, 
-        
+        let result = [],
+            count = 300,//preset max length
+            l = companies.length,
+            cpCompanies = companies.slice(0);
+        while(l > 0){
+            let temp = companies.slice(0, count);
+            result.push(temp.join(',').replace(/,$/g, ''));
+            
+        }
     }
 
     insertData(data){       
