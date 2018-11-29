@@ -86,17 +86,34 @@ module.exports = class ChartImporter extends Importer{
     }
 
     processData(data){
-        
+        return new Promise((resolve, reject)=>{
+            if(!data || Object.keys(data).length === 0){
+                logger.info('Chart importer: Done in insertData, no document need to be inserted');
+                return resolve([]);
+            }
+            let d = [];
+            Object.keys(data).forEach(key=>{    
+                if(data[key] && data[key].chart && data[key].chart.length>0){
+                    d = [].concat(d, data[key].chart.map((c)=>
+                        Object.assign({
+                            symbol: key,
+                            datevalue: new Date(c.date).getTime()
+                        }, c)
+                    ));
+                }
+            });
+            resolve(d);
+        });
     }
 
     insertData(data){       
         // data sample: { apple: {chart: []}, fb: {chart: []}, tsla: {chart: []}}
         return new Promise((resolve, reject)=>{
-            if(!data || Object.keys(data).length === 0){
+            if(!data || data.length === 0){
                 logger.info('Chart importer: Done in insertData, no document need to be inserted');
                 return resolve(0);
             }
-            this.model.insertMany(d, function(err, docs){
+            this.model.insertMany(data, function(err, docs){
                 if(err)
                     return reject(err);
                 resolve(docs.length);
