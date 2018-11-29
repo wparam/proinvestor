@@ -27,7 +27,7 @@ process.on('unhandledRejection', (reason, p) => {
 
 
 const conn = mongoose.connection;
-mongoose.connect('mongodb://localhost:27017/asset_manager1', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/pro_investor', {useNewUrlParser: true});
 
 app.amMongoose = mongoose;
 app.amModels = db;
