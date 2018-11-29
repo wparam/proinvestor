@@ -39,7 +39,8 @@ module.exports = class CompanyImporter extends Importer{
     filterCompanyData(mapCompanys) {
         return new Promise((resolve, reject)=>{
             if(!mapCompanys || mapCompanys.length ===0){
-                return reject(new Error('Fail in prepareCompanyData: Empty data got from mapping table'));
+                logger.info('Finish in prepareCompanyData: Empty data got from mapping table');
+                return resolve([]);
             }
             this.model.find({}, 'symbol', function(err, docs){
                 if(err)

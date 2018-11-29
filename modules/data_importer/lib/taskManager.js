@@ -8,7 +8,7 @@ module.exports = class ImportManager{
     constructor(mongoose, models) {
         this.mongoose = mongoose;
         this.models = models;
-        this.constr = 'mongodb://localhost:27017/asset_manager';
+        this.constr = 'mongodb://localhost:27017/asset_manager1';
         this.tasks = new Map(); 
         this.deps = new Map();
         this.conn = this.mongoose.connection;

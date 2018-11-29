@@ -8,7 +8,7 @@ module.exports = (mongoose, models) => {
     const openConnection = ()=>{
         return new Promise((resolve, reject) => {
             if(conn.readyState === 0){
-                mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
+                mongoose.connect('mongodb://localhost:27017/asset_manager1', {useNewUrlParser: true});
             }
 
             conn.on('open', () => {

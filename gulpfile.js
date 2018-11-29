@@ -116,7 +116,8 @@ gulp.task('db:data-import', /*['db:load'],*/ ()=>{
     //TODO: task run paral mode would need more work on task allocation, 1st tier, 2nd tier...
     importerTasks.openConnection().then( (msg) => {
         logger.info(msg);
-        importerTasks.createTask('m_basket_company');
+        importerTasks.createTask('basket');
+        importerTasks.createTask('m_basket_company', ['basket']);
         importerTasks.createTask('company', ['m_basket_company']);
         importerTasks.createTask('chart');
         return importerTasks.runTasks();
