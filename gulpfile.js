@@ -113,6 +113,7 @@ gulp.task('db:load', ()=>{
 gulp.task('db:data-import', /*['db:load'],*/ ()=>{
     let importerTasks = new ImportManager(mongoose, models);   
     // importerTasks.setForceMode = true;
+    //TODO: task run paral mode would need more work on task allocation, 1st tier, 2nd tier...
     importerTasks.openConnection().then( (msg) => {
         logger.info(msg);
         importerTasks.createTask('m_basket_company');

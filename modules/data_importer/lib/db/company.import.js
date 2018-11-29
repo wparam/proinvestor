@@ -27,9 +27,6 @@ module.exports = class CompanyImporter extends Importer{
         .then(this.filterCompanyData.bind(this))
         .then(this.getBatchData.bind(this))
         .then(this.insertData.bind(this))
-        .then((d)=>{ 
-            logger.info(`After import: the data is ${d}`);
-        })
         .catch((err)=>{
             console.log(err.stack);
         }).then(this.afterImport.bind(this));

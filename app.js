@@ -20,6 +20,12 @@ const db = require('./app/models')(mongoose);
 const passport = require('./config/passport')(db);
 const authen = require('./app/controllers/authenticate.controller')();
 
+//process handler
+process.on('unhandledRejection', (reason, p) => {
+    logger.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
+
+
 const conn = mongoose.connection;
 mongoose.connect('mongodb://localhost:27017/asset_manager', {useNewUrlParser: true});
 
