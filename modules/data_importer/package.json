@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "mongoose": "5.2.4",
-    "logger": "file:modules/logger"
+    "logger": "file:../logger"
   }
 }
