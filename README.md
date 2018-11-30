@@ -39,9 +39,7 @@ npm i
 ### Run App
 ```bash
 nvm use;
-
 gulp 
-
 #open another tab and run
 gulp db:data-import
 ```
