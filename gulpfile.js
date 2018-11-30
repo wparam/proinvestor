@@ -119,7 +119,7 @@ gulp.task('db:data-import', /*['db:load'],*/ ()=>{
         importerTasks.createTask('basket');
         importerTasks.createTask('m_basket_company', ['basket']);
         importerTasks.createTask('company', ['m_basket_company']);
-        importerTasks.createTask('chart');
+        importerTasks.createTask('chart', ['company']);
         return importerTasks.runTasks();
     }).catch((err) => {
         logger.error(err.stack);

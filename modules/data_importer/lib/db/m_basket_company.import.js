@@ -137,31 +137,26 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
         return Promise.resolve();
     }
 
-    import() {
+    inImport() {
         let self = this;
-        return this.beforeImport().then((d)=>{
-            if(d.clean)
-                logger.info(`Clean up finished before import:${this._modelName}`);
-            return new Promise((resolve, reject)=>{
-                this.basketModel.find({}, function(err, docs){
-                    if(err)
-                        return reject(err);
-                    return Promise.all(docs.map((doc)=>{
-                        if(doc.name === 'NASDAQ-100'){
-                            return self.loadNASDAQ100();
-                        }
-                        return self.getData();
-                    })).then((d)=>{
-                        resolve(d);
-                    }).catch((err)=>{
-                        reject(err);
-                    });
+        if(d.clean)
+            logger.info(`Clean up finished before import:${this._modelName}`);
+        return new Promise((resolve, reject)=>{
+            this.basketModel.find({}, function(err, docs){
+                if(err)
+                    return reject(err);
+                return Promise.all(docs.map((doc)=>{
+                    if(doc.name === 'NASDAQ-100'){
+                        return self.loadNASDAQ100();
+                    }
+                    return self.getData();
+                })).then((d)=>{
+                    resolve(d);
+                }).catch((err)=>{
+                    reject(err);
                 });
-            })
-        })
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
+            });
+        });
     }
     
     insertDocument(){}

@@ -28,7 +28,17 @@ module.exports = class Importer{
 
     saveData() {}
 
-    import() {}
+    import() {
+        this.beforeImport()
+            .then(this.inImport.bind(this))
+            .catch((err)=>{ 
+                logger.error(err.statck || err.message);
+                return -1;
+            })
+            .then(this.afterImport.bind(this));
+            
+            
+    }
 
     beforeImport() {
         return new Promise((resolve, reject) => {            
@@ -47,11 +57,15 @@ module.exports = class Importer{
         });
     }
 
+    inImport() {}
 
-    afterImport() {
-        return new Promise((resolve, reject)=>{
-            logger.info(`Import finished on model: ${this._modelName}`);
-            resolve();
+    afterImport(docAffected) {
+        return new Promise((resolve, reject)=>{            
+            if(docAffected!==-1){
+                logger.info(`Import finished on model: ${this._modelName}, affected documents: ${docAffected}`);
+                resolve();
+            }else
+                reject(-1);
         });
     }
 }   

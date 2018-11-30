@@ -86,21 +86,15 @@ module.exports = class NewImporter extends Importer{
         
     }
 
-    import() {
-        return this.beforeImport().then((d)=>{
-            return new Promise((resolve, reject) => {
-                this.companyModel.find({}, 'symbol', function(err, docs){
-                    resolve(docs);
-                });
+    inImport() {
+        return new Promise((resolve, reject) => {
+            this.companyModel.find({}, 'symbol', function(err, docs){
+                resolve(docs);
             });
         })
         .then(this.filterCompanyData.bind(this))
         .then(this.getBatchData.bind(this))
-        .then(this.insertData.bind(this))
-        .then((d)=>{ console.log('after import'); console.log(d);  })
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
+        .then(this.insertData.bind(this));
     }
 
     importMany(data) {

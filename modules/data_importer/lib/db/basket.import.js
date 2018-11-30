@@ -13,28 +13,23 @@ module.exports = class BasketImporter extends Importer{
         return 'basket';
     }
 
-    import() {
-        return this.beforeImport().then((d)=>{
-            return new Promise((resolve, reject) => {
-                if(d.clean)
-                    logger.info(`Clean up finished before import:${this._modelName}`);
-                this.model.find({"name": "NASDAQ-100"}, function(err, docs){
-                    if(err)
-                        return reject(err);
-                    if(docs.length === 0)
-                        return resolve([{
-                            "name": "NASDAQ-100",
-                            "componentUrl" : "https://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download",
-                            "componentType" : "csv"
-                        }]);
-                    resolve([]);
-                })
-            });
+    inImport(d) {
+        return new Promise((resolve, reject) => {
+            if(d.clean)
+                logger.info(`Clean up finished before import:${this._modelName}`);
+            this.model.find({"name": "NASDAQ-100"}, function(err, docs){
+                if(err)
+                    return reject(err);
+                if(docs.length === 0)
+                    return resolve([{
+                        "name": "NASDAQ-100",
+                        "componentUrl" : "https://www.nasdaq.com/quotes/nasdaq-100-stocks.aspx?render=download",
+                        "componentType" : "csv"
+                    }]);
+                resolve([]);
+            })
         })
-        .then(this.insertData.bind(this))
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
+        .then(this.insertData.bind(this));
     }
     
     insertData(data){       
@@ -45,8 +40,11 @@ module.exports = class BasketImporter extends Importer{
                 return resolve(0);
             }
             this.model.insertMany(data, function(err, docs){
-                if(err)
+                if(err){
+                    console.log('in error insertdata');
                     return reject(err);
+                }
+                    
                 resolve(docs.length);
             });
         });

@@ -16,24 +16,19 @@ module.exports = class ChartImporter extends Importer{
         return 'chart';
     }
 
-    import() {
-        return this.beforeImport().then((d)=>{
-            if(d.clean)
-                logger.info(`Clean up finished before import:${this._modelName}`);
-            return new Promise((resolve, reject) => {
-                this.companyModel.find({}, 'symbol', function(err, docs){
-                    if(err)
-                        return reject(err);
-                    resolve(docs.map(n=>n.symbol));
-                });
+    inImport(d) {
+        if(d.clean)
+            logger.info(`Clean up finished before import:${this._modelName}`);
+        return new Promise((resolve, reject) => {
+            this.companyModel.find({}, 'symbol', function(err, docs){
+                if(err)
+                    return reject(err);
+                resolve(docs.map(n=>n.symbol));
             });
         })
         .then(this.getData.bind(this))
         .then(this.processData.bind(this))
-        .then(this.insertData.bind(this))
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
+        .then(this.insertData.bind(this));
     }
 
     //return array of promises

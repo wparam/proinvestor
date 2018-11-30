@@ -14,22 +14,17 @@ module.exports = class CompanyImporter extends Importer{
         return 'company';
     }
 
-    import() {
-        return this.beforeImport().then((d)=>{
-            if(d.clean)
-                logger.info(`Clean up finished before import:${this._modelName}`);
-            return new Promise((resolve, reject) => {
-                this.mapModel.distinct('company_symbol', function(err, docs){
-                    resolve(docs);
-                });
+    inImport() {
+        if(d.clean)
+            logger.info(`Clean up finished before import:${this._modelName}`);
+        return new Promise((resolve, reject) => {
+            this.mapModel.distinct('company_symbol', function(err, docs){
+                resolve(docs);
             });
         })
         .then(this.filterCompanyData.bind(this))
         .then(this.getBatchData.bind(this))
-        .then(this.insertData.bind(this))
-        .catch((err)=>{
-            console.log(err.stack);
-        }).then(this.afterImport.bind(this));
+        .then(this.insertData.bind(this));
     }
 
     /**

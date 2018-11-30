@@ -2,7 +2,7 @@
     {
         "displayName": "Test User",
         "username": "test",
-        "password":"a",
+        "password":"test",
         "email": "a@a.com"
     }
 ]
