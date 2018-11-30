@@ -1,6 +1,6 @@
 # Pro Investor
 
-## A helpful tool for analyze stock
+## A helpful tool for analyzing stock
 
 ## Installation
 
