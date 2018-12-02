@@ -29,15 +29,13 @@ module.exports = class Importer{
     saveData() {}
 
     import() {
-        this.beforeImport()
+        return this.beforeImport()
             .then(this.inImport.bind(this))
             .catch((err)=>{ 
                 logger.error(err.statck || err.message);
                 return -1;
             })
             .then(this.afterImport.bind(this));
-            
-            
     }
 
     beforeImport() {

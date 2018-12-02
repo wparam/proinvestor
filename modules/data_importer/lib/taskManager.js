@@ -11,6 +11,7 @@ module.exports = class ImportManager{
         this.constr = 'mongodb://localhost:27017/pro_investor';
         this.tasks = new Map(); 
         this.deps = new Map();
+        this.depLinks = []; //array of names which has promises in deps, 
         this.conn = this.mongoose.connection;
         this.importers = ImportManager.getImporters();
         this.force = false;
@@ -78,59 +79,72 @@ module.exports = class ImportManager{
      * new Map({
      *   'name': {importer: new importer(), dependency: [ new importer(), new importer(), ... ]
      * })
-     * @param  {} taskName
+     * @param  {} taskname
      * @param  {} dependency
      */
-    createTask(taskName, dependency){
-        if(!taskName || !this.importers[taskName]){
-            logger.error(`This task is invalid: ${taskName}`);
+    createTask(taskname, dependencies){
+        if(!taskname || !this.importers[taskname]){
+            logger.error(`This task is invalid: ${taskname}`);
             return;
         }
         //check depend task is in the list
-        if(dependency && dependency.length>0){
-            for(let i = 0, l = dependency.length; i<l; i++){
-                this.createDependency(dependency[i]);
+        if(dependencies && dependencies.length>0){
+            for(let i = 0, l = dependencies.length; i<l; i++){
+                this.createDependency(dependencies[i]);
             }
         }
         let imp = {
-            importer: new this.importers[taskName](this.models, this.isForceMode)
+            importer: new this.importers[taskname](this.models, this.isForceMode),
+            dependencies: dependencies
         };
-        if(!this.tasks.has(taskName))
-            this.tasks.set(taskName, imp);
+        if(!this.tasks.has(taskname))
+            this.tasks.set(taskname, imp);
     }
 
-    hasTask(taskName){
-        if(!taskName){
-            logger.error(`Fail in taskManager-hasTask: Invalid Task name: ${taskName}`);
+    hasTask(taskname){
+        if(!taskname){
+            logger.error(`Fail in taskManager-hasTask: Invalid Task name: ${taskname}`);
             return;
         }
-        return this.tasks.has(taskName);
+        return this.tasks.has(taskname);
     }
 
-    createDependency(taskName){
-        if(!this.importers[taskName]){
-            logger.error(`Fail in createDependency: Task name is invalid: ${taskName}`);
+    createDependency(taskname){
+        if(!this.importers[taskname]){
+            logger.error(`Fail in createDependency: Task name is invalid: ${taskname}`);
             return;
         }
-        if(this.hasTask(taskName)){
-            this.cancelTask(taskName);
-        }
-        if(!this.deps.has(taskName))
-            this.deps.set(taskName, {
-                importer: new this.importers[taskName](this.models, this.isForceMode)
+        //put into dep map first
+        if(!this.deps.has(taskname)){
+            this.deps.set(taskname, {
+                importer: new this.importers[taskname](this.models, this.isForceMode)
             });
+        }
+
+        //then handle the depRunners array
+        this.depTaskRunners.push
+    
+        if(this.hasTask(taskname)){
+            this.cancelTask(taskname);
+        }
     }
 
-    cancelTask(taskName){   
-        if(!this.tasks.has(taskName))
-            return false;
-        return this.tasks.delete(taskName);
+    createDepLinks(taskname){
+        if(!this.depLinks || this.depLinks.length === 0){
+            
+        }
     }
 
-    cancelDep(taskName){
-        if(!this.deps.has(taskName))
+    cancelTask(taskname){   
+        if(!this.tasks.has(taskname))
             return false;
-        return this.deps.delete(taskName);
+        return this.tasks.delete(taskname);
+    }
+
+    cancelDep(taskname){
+        if(!this.deps.has(taskname))
+            return false;
+        return this.deps.delete(taskname);
     }
     
     runTasks(){
