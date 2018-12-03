@@ -9,8 +9,8 @@ module.exports = class ImportManager{
         this.mongoose = mongoose;
         this.models = models;
         this.constr = 'mongodb://localhost:27017/pro_investor';
-        this.tasks = new Map(); 
-        this.deps = new Map();
+        this.tasks = new Map(); //store all tasks with no dep
+        this.deps = new Map(); //store all task with dep
         this.depLinks = []; //array of names which has promises in deps, 
         this.conn = this.mongoose.connection;
         this.importers = ImportManager.getImporters();
@@ -87,11 +87,8 @@ module.exports = class ImportManager{
             logger.error(`This task is invalid: ${taskname}`);
             return;
         }
-        //check depend task is in the list
         if(dependencies && dependencies.length>0){
-            for(let i = 0, l = dependencies.length; i<l; i++){
-                this.createDependency(dependencies[i]);
-            }
+            this.createDependency(taskname, dependencies);
         }
         let imp = {
             importer: new this.importers[taskname](this.models, this.isForceMode),
@@ -109,7 +106,7 @@ module.exports = class ImportManager{
         return this.tasks.has(taskname);
     }
 
-    createDependency(taskname){
+    createDependency(taskname, deps){
         if(!this.importers[taskname]){
             logger.error(`Fail in createDependency: Task name is invalid: ${taskname}`);
             return;
@@ -117,12 +114,21 @@ module.exports = class ImportManager{
         //put into dep map first
         if(!this.deps.has(taskname)){
             this.deps.set(taskname, {
-                importer: new this.importers[taskname](this.models, this.isForceMode)
+                importer: new this.importers[taskname](this.models, this.isForceMode),
+                dependencies: deps
             });
         }
 
         //then handle the depRunners array
-        this.depTaskRunners.push
+        //check depend task is in the list
+        if(dependencies && dependencies.length>0){
+            this.createDependency(taskname, dependencies);
+            for(let i = 0, l = dependencies.length; i<l; i++){
+                this.createDependency(dependencies[i]);
+            }
+        }
+
+        this.createDepLinks(taskname);
     
         if(this.hasTask(taskname)){
             this.cancelTask(taskname);
@@ -130,9 +136,13 @@ module.exports = class ImportManager{
     }
 
     createDepLinks(taskname){
-        if(!this.depLinks || this.depLinks.length === 0){
-            
-        }
+        this.depLinks.forEach((n)=>{
+            if(n instanceof Array && n.find(subn=>subn===taskname)){
+                
+            }else{
+
+            }
+        });
     }
 
     cancelTask(taskname){   
