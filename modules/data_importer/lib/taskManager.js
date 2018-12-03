@@ -118,14 +118,9 @@ module.exports = class ImportManager{
                 dependencies: deps
             });
         }
-
-        //then handle the depRunners array
-        //check depend task is in the list
-        if(dependencies && dependencies.length>0){
-            this.createDependency(taskname, dependencies);
-            for(let i = 0, l = dependencies.length; i<l; i++){
-                this.createDependency(dependencies[i]);
-            }
+        //then handle deps, check to be able to put into depLinks
+        for(let i = 0, l = deps.length; i<l; i++){
+            this.createDepLinks(taskname);
         }
 
         this.createDepLinks(taskname);
@@ -136,6 +131,10 @@ module.exports = class ImportManager{
     }
 
     createDepLinks(taskname){
+        let dep = this.deps.get(taskname);
+        if(dep){
+            
+        }
         this.depLinks.forEach((n)=>{
             if(n instanceof Array && n.find(subn=>subn===taskname)){
                 
