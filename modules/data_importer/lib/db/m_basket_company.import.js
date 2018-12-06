@@ -137,7 +137,7 @@ module.exports = class M_Basket_CompanyImporter extends Importer{
         return Promise.resolve();
     }
 
-    inImport() {
+    inImport(d) {
         let self = this;
         if(d.clean)
             logger.info(`Clean up finished before import:${this._modelName}`);

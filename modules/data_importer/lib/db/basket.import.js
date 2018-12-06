@@ -36,7 +36,6 @@ module.exports = class BasketImporter extends Importer{
         // data sample: { apple: {chart: []}, fb: {chart: []}, tsla: {chart: []}}
         return new Promise((resolve, reject)=>{
             if(!data || data.length === 0){
-                logger.info('Basket importer: Done in insertData, no document need to be inserted');
                 return resolve(0);
             }
             this.model.insertMany(data, function(err, docs){

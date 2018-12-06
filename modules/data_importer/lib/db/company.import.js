@@ -14,7 +14,7 @@ module.exports = class CompanyImporter extends Importer{
         return 'company';
     }
 
-    inImport() {
+    inImport(d) {
         if(d.clean)
             logger.info(`Clean up finished before import:${this._modelName}`);
         return new Promise((resolve, reject) => {
@@ -91,7 +91,6 @@ module.exports = class CompanyImporter extends Importer{
     insertData(data){
         return new Promise((resolve, reject)=>{
             if(!data || (data instanceof Array && data.length === 0)){
-                logger.info('Company importer: Done in insertData, no document need to be inserted');
                 return resolve(0);
             }
             let d = data instanceof Array ? data: [data];

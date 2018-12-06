@@ -32,7 +32,7 @@ module.exports = class Importer{
         return this.beforeImport()
             .then(this.inImport.bind(this))
             .catch((err)=>{ 
-                logger.error(err.statck || err.message);
+                logger.error(err);
                 return -1;
             })
             .then(this.afterImport.bind(this));

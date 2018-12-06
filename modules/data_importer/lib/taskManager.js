@@ -11,7 +11,6 @@ module.exports = class ImportManager{
         this.constr = 'mongodb://localhost:27017/pro_investor';
         this.tasks = new Map(); //store all tasks with no dep
         this.deps = new Map(); //store all task with dep
-        this.depLinks = []; //array of names which has promises in deps, 
         this.conn = this.mongoose.connection;
         this.importers = ImportManager.getImporters();
         this.force = false;
@@ -88,7 +87,7 @@ module.exports = class ImportManager{
             return;
         }
         if(dependencies && dependencies.length>0){
-            this.createDependency(taskname, dependencies);
+            dependencies.forEach(n=>this.createDependency(n));
         }
         let imp = {
             importer: new this.importers[taskname](this.models, this.isForceMode),
@@ -106,7 +105,7 @@ module.exports = class ImportManager{
         return this.tasks.has(taskname);
     }
 
-    createDependency(taskname, deps){
+    createDependency(taskname){
         if(!this.importers[taskname]){
             logger.error(`Fail in createDependency: Task name is invalid: ${taskname}`);
             return;
@@ -114,34 +113,13 @@ module.exports = class ImportManager{
         //put into dep map first
         if(!this.deps.has(taskname)){
             this.deps.set(taskname, {
-                importer: new this.importers[taskname](this.models, this.isForceMode),
-                dependencies: deps
+                importer: new this.importers[taskname](this.models, this.isForceMode)
             });
         }
-        //then handle deps, check to be able to put into depLinks
-        for(let i = 0, l = deps.length; i<l; i++){
-            this.createDepLinks(taskname);
-        }
 
-        this.createDepLinks(taskname);
-    
         if(this.hasTask(taskname)){
             this.cancelTask(taskname);
         }
-    }
-
-    createDepLinks(taskname){
-        let dep = this.deps.get(taskname);
-        if(dep){
-            
-        }
-        this.depLinks.forEach((n)=>{
-            if(n instanceof Array && n.find(subn=>subn===taskname)){
-                
-            }else{
-
-            }
-        });
     }
 
     cancelTask(taskname){   
@@ -160,9 +138,9 @@ module.exports = class ImportManager{
         if(this.tasks.size === 0){
             return Promise.reject(new Error('Tasks list is empty'));
         }
-
-        return Promise.all(Array.from(this.deps.values()).map(dep=>dep.importer.import()))
-                    .then(depResult=>Promise.all(Array.from(this.tasks.values()).map(task => task.importer.import())));
+        let promise = Promise.resolve();
+        let dep = Array.from(this.deps.values()).reduce((s, c)=>s.then(c.importer.import.bind(c.importer)), promise);
+        return dep.then(depResult=>Promise.all(Array.from(this.tasks.values()).map(task => task.importer.import())));
     }
     
 }
