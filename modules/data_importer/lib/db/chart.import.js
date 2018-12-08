@@ -8,7 +8,7 @@ module.exports = class ChartImporter extends Importer{
         super(models, forceMode);
         this._modelName = 'chart';
         this.model = this.models[this._modelName];
-        this.api = '/api/stock/stock/market/batch?symbols={companies}&types=chart&range=5y';
+        this.api = '/api/stock/stock/market/batch?symbols={companies}&types=chart&range={range}';
         // this.api = '/api/stock/stock/market/batch?symbols={companies}&types=chart&range=5y';
         this.companyModel = this.models['company'];
     }
