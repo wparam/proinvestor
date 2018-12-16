@@ -27,10 +27,5 @@ proxy.on('error', (err, req, res) => {
 
 
 exports.proxyDataService = (req, res) => {   
-    proxy.web(req, res, {        
-        // headers:{
-        //     // 'X-Auth-Token':  req.session.curuser.token //'d77f95e0-1c76-45c2-af90-f3aac241dc44' 
-        // }
-        }
-    );
+    proxy.web(req, res, {});
 };
