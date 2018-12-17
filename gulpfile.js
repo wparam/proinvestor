@@ -18,6 +18,7 @@ const fixture = require('./fixtures')(mongoose, models);
 
 const ImportManager = require('./modules/data_importer');
 const logger = require('logger');
+const loadManager = require('loadbalancer');
 
 mongoose.Promise = global.Promise;
 
@@ -97,6 +98,12 @@ gulp.task('appmon', function () {
     });
 });
 
+gulp.task('test:loadbalancer', ()=>{
+    loadManager.add('localhost:20000', '/data');
+    loadManager.add('localhost:20001', '/data');
+    loadManager.run();
+});
+
 //#endregion
 
 //#region db related tasks
@@ -126,7 +133,5 @@ gulp.task('db:data-import', /*['db:load'],*/ ()=>{
     }).then(()=>{
         return importerTasks.closeConnection().then((msg)=>{logger.info(msg);});
     });
-    
-    
 });
 //#endregion

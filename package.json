@@ -35,6 +35,7 @@
     "jshint": "2.9.6",
     "lodash": ">=4.17.5",
     "lodash-webpack-plugin": "0.11.4",
+    "loadbalancer": "file:modules/loadbalancer",
     "logger": "file:modules/logger",
     "moment": "2.22.2",
     "mongoose": "^5.2.4",
