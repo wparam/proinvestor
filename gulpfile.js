@@ -31,7 +31,7 @@ livereload();
 // ===========================
 const watchFiles = {
         serverViews: ['app/views/**/*.*'],
-        serverJS: ['gulpfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js' ],
+        serverJS: ['gulpfile.js', 'app.js', 'server.js', 'config/**/*.js', 'app/**/*.js' ],
         clientViews: ['public/src/**/*.html'],
         clientJS: ['public/src/**/*.js','public/src/**/*.jsx', 'webpack.config.js']
     };
@@ -92,7 +92,7 @@ gulp.task('watch', function(){
 
 gulp.task('appmon', function () {
     nodemon({
-        script: 'app.js', 
+        script: 'server.js', 
         watch: watchFiles.serverJS,
         env: { 'NODE_ENV': 'development' }
     });

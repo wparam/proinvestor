@@ -1,9 +1,7 @@
 module.exports = {
-    loaders: [],
-    addLoader: (loader)=>{
-        if(!this.loaders.find(l=>l === loader)){
-            this.loader.push(loader);
-        }
+    loaders: {},
+    addLoader: (groupId, host, endpoint)=>{
+        
     },
     removeLoader: (loader)=>{   
         let idx = this.loaders.indexOf(loader);
@@ -13,5 +11,11 @@ module.exports = {
     },
     dispatchLoader: ()=>{
         
+    },
+    run: ()=>{
+
+    },
+    checkAvailability: ()=>{
+
     }
 };

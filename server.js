@@ -1,28 +1,29 @@
 const child_process = require('child_process');
 const cluster = require('cluster');
 const cpus = require('os').cpus().length;
+const logger = require('logger');
+const config = require('./config');
+const lbManager = require('loadbalancer');
+
+//mock load configed balancers
+lbManager.addLoader('http://localhost:20000', '/data');
+lbManager.addLoader('http://localhost:20001', '/data');
+lbManager.run();
 
 if(cluster.isMaster){
-    
-    console.log(`master ${process.pid} is running`);
     let workers = [];
+    logger.info(`Server-Master: Start spawning clusters`);
     for(let i = 0; i<cpus; i++){
         workers.push(cluster.fork());
     }
     cluster.on('exit', (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} died`);
+        logger.info(`Server: worker ${worker.process.pid} is out`);
     });
-    for(let i = 0; i<workers.length; i++){
-        workers[i].on('message', (msg) => {
-            console.log(`receive message from master, and it is ${msg.test}`);
-        });
-        workers[i].send({test: 'b'});
-    }
 }
 else{
-    console.log(`Worker ${process.pid} started`);
-    process.on('message', (msg) => {
-        console.log(`receive message in cluser, the msg is : ${msg.test}`);
+    let app = require('./app')();
+
+    app.listen(config.port, () => {
+        logger.info(`Server-Cluster: listening on ${config.port} from process: ${process.pid}`);
     });
-    process.send({test: 'a'});
 }

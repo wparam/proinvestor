@@ -1,10 +1,11 @@
 const http = requier('http');
 
-class LoadWorker{
+class LoadBalancer{
     constructor(host, endpoint, check='/check'){
         this.host = host;
         this.endpoint = endpoint;
         this.check = check;
+        this.connections = new Map();
     }
 
     start(){
