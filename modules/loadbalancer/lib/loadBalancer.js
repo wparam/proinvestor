@@ -4,7 +4,7 @@ const logger = require('logger');
 class LoadBalancer{
     constructor(groupId){
         this.groupId = groupId;
-        this.servers = {};
+        this.servers = []; //[{server: 'xx.xx', statuspoint: '/xxx/xx, working: fasle}]
         this.curPool = new Map();
     }
     getServer(uid){
@@ -14,15 +14,17 @@ class LoadBalancer{
         }
     }
     addServer(server, statuspoint){
-        if(servers[server]===undefined){
-            servers[server] = { statuspoint: statuspoint, working: fasle};
+        let findserver = this.servers.find(s=>s.server === server);
+        if(!findserver){
+            servers.push({server: server, statuspoint: statuspoint, working: fasle});
         }else{
             logger.info(`LoadBalancer: Add exist server to list: ${server}`);
         }
     }
     removeServer(server){
-        if(servers[server])
-            delete servers[server];
+        let idx = this.servers.findIndex(s=>s.server === server);
+        if(idx !== -1)
+            this.servers.splice(idx, 1);
     }
     checkServer(serverId){
         return this.server[serverId] && this.servers[serverId].working;
