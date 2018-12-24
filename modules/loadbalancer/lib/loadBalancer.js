@@ -6,6 +6,8 @@ class LoadBalancer{
         this.groupId = groupId;
         this.servers = []; //[{server: 'xx.xx', statuspoint: '/xxx/xx, working: fasle}]
         this.curPool = new Map();
+        this.interval = 1000 * 90;
+        this.timeout = 1000 * 60 * 2;
     }
     getServer(uid){
         let workingservers = this.getWorkingServers();
@@ -24,7 +26,7 @@ class LoadBalancer{
     addServer(server, statuspoint){
         let findserver = this.servers.find(s=>s.server === server);
         if(!findserver){
-            servers.push({server: server, statuspoint: statuspoint, working: fasle});
+            servers.push({server: server, statuspoint: statuspoint, working: fasle, lastchek: null});
         }else{
             logger.info(`LoadBalancer: Add exist server to list: ${server}`);
         }
@@ -39,7 +41,15 @@ class LoadBalancer{
     }
     start(){
         //start check servers' status
-        
+        this.isReady().then(s=>{
+            logger.info('finish a round of check, the result is: ');
+            logger.info(this.servers);
+        }).catch(e=>{
+            logger.error(e);
+        }).finally(()=>{
+            //restart this check
+            setTimeout(this.start(), this.interval);
+        });
     }
     getWorkingServers(){
         return this.servers.filter(s=>s.working);
@@ -66,6 +76,7 @@ class LoadBalancer{
             d.forEach(result=>{
                 let s = this.servers.find(s=>s.server === result.server);
                 s.working = result.status;
+                s.lastchek = new Date().getTime();
             });
         });
     }
