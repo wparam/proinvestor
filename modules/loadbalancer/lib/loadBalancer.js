@@ -41,7 +41,7 @@ class LoadBalancer{
     }
     start(){
         //start check servers' status
-        this.isReady().then(s=>{
+        return this.isReady().then(s=>{
             logger.info('finish a round of check, the result is: ');
             logger.info(this.servers);
         }).catch(e=>{
