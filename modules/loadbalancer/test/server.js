@@ -2,13 +2,16 @@ const child_process = require('child_process');
 const cluster = require('cluster');
 const cpus = require('os').cpus().length;
 const logger = require('logger');
-const config = require('./config');
-const lbManager = require('loadbalancer');
+
+const lbManager = require('../index');
+const express = require('express'); //for test
 
 //mock load configed balancers
 lbManager.addLoader(1, 'http://localhost:20000', '/data/check');
 lbManager.addLoader(1, 'http://localhost:20001', '/data/check');
 lbManager.run();
+
+const config = {port : 4000};
 
 if(cluster.isMaster){
     let workers = [];
@@ -21,7 +24,7 @@ if(cluster.isMaster){
     });
 }
 else{
-    let app = require('./app')();
+    let app = express();
 
     app.listen(config.port, () => {
         logger.info(`Server-Cluster: listening on ${config.port} from process: ${process.pid}`);

@@ -9,20 +9,22 @@ if(cluster.isMaster){
     for(let i = 0; i<cpus; i++){
         workers.push(cluster.fork());
     }
+    console.log('hit');
+    console.log(workers.length);
     cluster.on('exit', (worker, code, signal) => {
         console.log(`worker ${worker.process.pid} died`);
     });
     for(let i = 0; i<workers.length; i++){
-        workers[i].on('message', (msg) => {
-            console.log(`receive message from master, and it is ${msg.test}`);
-        });
-        workers[i].send({test: 'b'});
+        // workers[i].on('message', (msg) => {
+            // console.log(`receive message, and it is ${msg.test}`);
+        // });
+        workers[i].send({test: 'This is msg from master'});
     }
 }
 else{
     console.log(`Worker ${process.pid} started`);
     process.on('message', (msg) => {
-        console.log(`receive message in cluser, the msg is : ${msg.test}`);
+        console.log(`receive message, the msg is : ${msg.test}`);
     });
-    process.send({test: 'a'});
+    // process.send({test: 'This is msg from cluster'});
 }
