@@ -1,6 +1,14 @@
 const LoadBalancer = require('./loadBalancer');
 const logger = require('logger');
 const cluster = require('cluster');
+const fs = require('fs');
+const ipc = require('node-ipc');
+
+ipc.config.unlink = false;
+ipc.config.retry = 1000 * 15;
+ipc.config.silent = true;
+
+const socketPath = '/tmp/ipcsocket';
 
 const _this = module.exports = {
     loaders: {},
@@ -47,6 +55,41 @@ const _this = module.exports = {
         }
     },
     runByIPC:()=>{
-        
+        if(cluster.isMaster){
+            ipc.config.id = 'master';
+            if(fs.existsSync(socketPath)){
+                fs.unlinkSync(socketPath);
+            }
+            ipc.serve(socketPath, ()=>{
+                let workers = cluster.workers;
+                logger.info('LoadManager: IPC Server started');
+                const updateFunc = ()=>{
+                    Object.keys(_this.loaders).forEach(groupId=>{
+                        if(_this.loaders[groupId]){
+                            _this.loaders[groupId].startCheck().then(s=>{
+                                ipc.server.broadcast('updateServerList', {
+                                    id: ipc.config.id,
+                                    groupId: groupId,
+                                    servers: s
+                                });
+                            });
+                        }
+                    });
+                    setTimeout(updateFunc, _this.interval);
+                };
+                updateFunc();  
+            });
+            ipc.server.start();
+        }else{
+            ipc.connectTo('master', socketPath,
+                function(){
+                    ipc.of.master.on('updateServerList', (data)=>{
+                        if(data.groupId && _this.loaders[data.groupId]){
+                            _this.loaders[data.groupId].update(data.servers);
+                        }
+                    });
+                }
+            );
+        }
     }
 };

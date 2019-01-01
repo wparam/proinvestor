@@ -9,7 +9,7 @@ const express = require('express'); //for test
 //mock load configed balancers
 lbManager.addLoader(1, 'http://localhost:20000', '/data/check');
 lbManager.addLoader(1, 'http://localhost:20001', '/data/check');
-lbManager.run();
+lbManager.runByIPC();
 
 const config = {port : 4000};
 

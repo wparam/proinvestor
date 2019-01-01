@@ -16,7 +16,7 @@ class LoadBalancer{
         // }, 1000 * 30);
     }
     debugFoo(){
-        console.log(`Check Server in ${cluster.isMaster ? 'Master' : 'Cluster'}  ${process.pid}`);
+        console.log(`*****Check Server in ${cluster.isMaster ? 'Master' : 'Cluster'}  ${process.pid}*****`);
         console.log(util.inspect(this.servers, {colors: true}));
     }
     getServer(uid){
