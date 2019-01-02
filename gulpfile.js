@@ -98,12 +98,6 @@ gulp.task('appmon', function () {
     });
 });
 
-gulp.task('test:loadbalancer', ()=>{
-    loadManager.add('localhost:20000', '/data');
-    loadManager.add('localhost:20001', '/data');
-    loadManager.run();
-});
-
 //#endregion
 
 //#region db related tasks
