@@ -19,6 +19,10 @@ export default class TopMoversInNas extends Component{
     componentDidMount(){
         // var requests = [ http.get(this.apiNasCompanys), http.get(this.apiGainers), http.get(this.apiLosers) ];
         http.get(this.apiNasCompanys).then((companies)=>{
+            if(!companies || companies.length === 0){
+                console.error('No company infor');
+                return;
+            }
             let str = companies.map(c=>c.symbol).join(',');
             http.get(this.apiNasStocks.replace('{symbols}', str)).then((d)=>{
                 this.setState({
