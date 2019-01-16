@@ -30,6 +30,9 @@ export default class Authentication{
         if(token && token.token){
             return new Date().getTime() < token.created + token.expired;
         }else{
+            alert(new Date());
+            alert(token.created);
+            alert(token.expired);
             return false;
         }   
     }

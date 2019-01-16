@@ -89,11 +89,14 @@ class App extends Component {
             document.documentElement.classList.toggle('nav-open');
         }
     }
+    toggleSidebar(){
+        console.log('toggle');
+    }
     render() {
         return (
             <div className='wrapper'>
                 <NotificationSystem ref={(noti) => { this.notificationSystem = noti; }} style={style}/>
-                <Sidebar {...this.props} /> 
+                <Sidebar {...this.props} onToggle={this.toggleSidebar}/> 
                 <div id='main-panel' className='main-panel'>
                     <Header {...this.props}/>
                         <Switch>

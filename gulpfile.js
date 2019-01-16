@@ -65,13 +65,6 @@ gulp.task('hint:server', function(p){
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('hint:client', () => {
-    return gulp.src(watchFiles.clientJS)
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
-});
-
 gulp.task('compile',['clean'], function(){
     return gulp.src(path.join(SRC_DIR, 'index.js'))
         .pipe(webpack(WEBPACK_CONFIG))
@@ -86,7 +79,7 @@ gulp.task('clean', function() {
  
 gulp.task('watch', function(){ 
     gulp.watch(watchFiles.serverJS, ['hint:server']);
-    gulp.watch(watchFiles.clientJS, ['hint:client', 'compile']);
+    gulp.watch(watchFiles.clientJS, ['compile']);
     livereload.listen({ basePath: 'public/dist' });
 }); 
 

@@ -6,9 +6,9 @@ const config = require('./config');
 const lbManager = require('loadbalancer');
 
 //mock load configed balancers
-lbManager.addLoader(1, 'http://localhost:20000', '/data/check');
-lbManager.addLoader(1, 'http://localhost:20001', '/data/check');
-lbManager.run();
+// lbManager.addLoader(1, 'http://localhost:20000', '/data/check');
+// lbManager.addLoader(1, 'http://localhost:20001', '/data/check');
+// lbManager.run();
 
 if(cluster.isMaster){
     let workers = [];
