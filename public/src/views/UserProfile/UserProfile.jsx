@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink, Route,  Switch, Redirect } from 'react-router-dom';
 import {
     Grid, Row, Col,
     FormGroup, ControlLabel, FormControl
@@ -12,6 +13,10 @@ import Button from 'elements/CustomButton/CustomButton.jsx';
 import avatar from 'img/faces/face-3.jpg';
 
 class UserProfile extends Component {
+    constructor(props){
+        super(props);
+        console.log(props);
+    }
     render() {
         return (
             <div className='content'>
@@ -158,4 +163,39 @@ class UserProfile extends Component {
     }
 }
 
-export default UserProfile;
+class Overview extends Component{
+    constructor(props){
+        super(props);
+        console.log(this.props);
+    }
+    render(){
+        return (
+            <div>
+                <ul>
+                    <li>
+                        <NavLink to='/user/usera' className='nav-link' activeClassName='active'>
+                            ToUserA
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/user/userb' className='nav-link' activeClassName='active'>
+                            ToUserB
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+}
+
+class User extends Component{
+    render(){
+        return (
+            <div>
+                <Route path='/user/:userid' component={UserProfile} />
+                <Route exact path='/user' component={Overview}  />
+            </div>
+        );
+    }
+}
+export default User;
