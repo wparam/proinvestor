@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 
-import Card from 'components/Cards/Card.jsx';
-import {thArray, tdArray} from 'components/variables/Variables.jsx';
+import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
+
+const products = [ {id: 'a', 'Product ID': 'ab'} ];
+const columns = [{
+  dataField: 'id',
+  text: 'Product ID'
+}, {
+  dataField: 'name',
+  text: 'Product Name'
+}, {
+  dataField: 'price',
+  text: 'Product Price'
+}];
 
 class TableList extends Component {
 
@@ -12,83 +25,8 @@ class TableList extends Component {
                 <Grid fluid>
                     <Row>
                         <Col md={12}>
-                            <Card
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
-                                ctTableFullWidth ctTableResponsive
-                                content={
-                                    <Table striped hover>
-                                        <thead>
-                                            <tr>
-                                                {
-                                                    thArray.map((prop, key) => {
-                                                        return (
-                                                        <th  key={key}>{prop}</th>
-                                                        );
-                                                    })
-                                                }
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                tdArray.map((prop,key) => {
-                                                    return (
-                                                        <tr key={key}>{
-                                                            prop.map((prop,key)=> {
-                                                                return (
-                                                                    <td  key={key}>{prop}</td>
-                                                                );
-                                                            })
-                                                        }</tr>
-                                                    );
-                                                })
-                                            }
-                                        </tbody>
-                                    </Table>
-                                }
-                            />
+                           <BootstrapTable keyField='id' data={ products } columns={ columns } />
                         </Col>
-
-
-                        <Col md={12}>
-                            <Card
-                                plain
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
-                                ctTableFullWidth ctTableResponsive
-                                content={
-                                    <Table hover>
-                                        <thead>
-                                            <tr>
-                                                {
-                                                    thArray.map((prop, key) => {
-                                                        return (
-                                                        <th  key={key}>{prop}</th>
-                                                        );
-                                                    })
-                                                }
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                tdArray.map((prop,key) => {
-                                                    return (
-                                                        <tr key={key}>{
-                                                            prop.map((prop,key)=> {
-                                                                return (
-                                                                    <td  key={key}>{prop}</td>
-                                                                );
-                                                            })
-                                                        }</tr>
-                                                    );
-                                                })
-                                            }
-                                        </tbody>
-                                    </Table>
-                                }
-                            />
-                        </Col>
-
                     </Row>
                 </Grid>
             </div>
