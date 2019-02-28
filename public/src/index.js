@@ -14,6 +14,7 @@ import '../resource/css/bootstrap.min.css';
 import '../resource/css/animate.min.css';
 import '../resource/css/am.css';
 import '../resource/css/pe-icon-7-stroke.css';
+import '../resource/css/fontawesome.css';
 
 
 import RouterController from 'components/RouteController/routeController.jsx';

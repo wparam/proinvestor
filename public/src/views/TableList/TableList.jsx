@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
+import './table.scss';
 
-import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-
-
-const products = [ {id: 'a', 'Product ID': 'ab'} ];
-const columns = [{
-  dataField: 'id',
-  text: 'Product ID'
-}, {
-  dataField: 'name',
-  text: 'Product Name'
-}, {
-  dataField: 'price',
-  text: 'Product Price'
-}];
 
 class TableList extends Component {
-
+    getDate(){
+        return [
+            {name: 'Jason', age: 20, title: 'Manager', region: 'Beijing'},
+            {name: 'Kate', age: 30, title: 'Cip', region: 'Shanghai'},
+            {name: 'Jimmy', age: 22, title: 'Afew', region: 'Dongjing'},
+            {name: 'Tup', age: 40, title: 'Aqqe', region: 'Dongggou'}
+        ];
+    }
     render() {
+        const data = this.getDate();
         return (
-            <div className="content">
+            <div className="content container">
                 <Grid fluid>
                     <Row>
                         <Col md={12}>
-                           <BootstrapTable keyField='id' data={ products } columns={ columns } />
+                           <Table striped bordered hover condensed>
+                               <thead>
+                                    <tr>
+                                        <th className="sortable">Name</th>
+                                        <th className="sortable">Age</th>
+                                        <th className="sortable">Title</th>
+                                        <th className="sortable">Region</th>
+                                    </tr>
+                               </thead>
+                               <tbody>
+                                   {
+                                    data.map((emp, k)=><tr key={k}>
+                                        <td>{emp.name}</td>
+                                        <td>{emp.age}</td>
+                                        <td>{emp.title}</td>
+                                        <td>{emp.region}</td>
+                                    </tr>)
+                                   }
+                               </tbody>
+                           </Table>
                         </Col>
                     </Row>
                 </Grid>
