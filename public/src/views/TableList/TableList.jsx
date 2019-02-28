@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './table.scss';
-
-
 class TableList extends Component {
     getDate(){
         return [
@@ -22,10 +23,10 @@ class TableList extends Component {
                            <Table striped bordered hover condensed>
                                <thead>
                                     <tr>
-                                        <th className="sortable">Name</th>
-                                        <th className="sortable">Age</th>
-                                        <th className="sortable">Title</th>
-                                        <th className="sortable">Region</th>
+                                        <th >Name<i class="fa fa-sort"></i></th>
+                                        <th >Age<i class="fa fa-sort"></i></th>
+                                        <th >Title<i class="fa fa-sort"></i></th>
+                                        <th >Region<i class="fa fa-sort"></i></th>
                                     </tr>
                                </thead>
                                <tbody>
