@@ -1,6 +1,9 @@
 const passport = require('passport');
 const coreCtrl = require('../controllers/core.controller');
 const userCtrl = require('../controllers/user.controller');
+const { SAML } = require('passport-saml');
+const bodyParser = require('body-parser');
+const config = require('../../config');
 // const authen = require('../controllers/authenticate.controller')();
 
 module.exports = (app) => {
@@ -10,4 +13,18 @@ module.exports = (app) => {
     app.post('/register', (req, res, next) => {
         return userCtrl.register(app.amModels, req, res, next);
     });
+
+
+    app.post('/login/callback',  bodyParser.urlencoded({ extended: false }), passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+        function(req, res) {
+            console.log('hit callback');
+            res.redirect('/');
+        }
+    );
+
+    app.get('/login/saml/meta', (req, res, next)=>{
+        console.log(passport._strategy('saml').generateServiceProviderMetadata(null, config.sso.publicCert));
+        res.set('Content-Type', 'text/xml');
+        res.send(passport._strategy('saml').generateServiceProviderMetadata(null, config.sso.publicCert));
+    }); 
 };
