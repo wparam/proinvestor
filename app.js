@@ -105,13 +105,15 @@ module.exports = () =>{
         require(path.resolve(routePath))(app);
     });
 
-    app.use((err, req, res, next) => {
-        if(!err)
-            next();
-        res.status(err.status || 500).render('500', {
-            message: err.message
-        });
-    });
+    // app.use((err, req, res, next) => {
+    //     console.log('error: ');
+    //     console.log(err);
+    //     if(!err)
+    //         next();
+    //     res.status(err.status || 500).render('500', {
+    //         message: err.message
+    //     });
+    // });
 
     app.use((req, res, next) => {
         return res.redirect('/');

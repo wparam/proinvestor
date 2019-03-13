@@ -22,6 +22,12 @@ module.exports = (app) => {
         }
     );
 
+    app.get('/login/sso', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+        function(req, res) {
+            res.redirect('/');
+        }
+    );
+
     app.get('/login/saml/meta', (req, res, next)=>{
         console.log(passport._strategy('saml').generateServiceProviderMetadata(null, config.sso.publicCert));
         res.set('Content-Type', 'text/xml');
