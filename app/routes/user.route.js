@@ -29,8 +29,8 @@ module.exports = (app) => {
     );
 
     app.get('/login/saml/meta', (req, res, next)=>{
-        console.log(passport._strategy('saml').generateServiceProviderMetadata(null, config.sso.publicCert));
+        console.log(passport._strategy('saml').generateServiceProviderMetadata(config.sso.decryptionCert, config.sso.publicCert));
         res.set('Content-Type', 'text/xml');
-        res.send(passport._strategy('saml').generateServiceProviderMetadata(null, config.sso.publicCert));
+        res.send(passport._strategy('saml').generateServiceProviderMetadata(config.sso.decryptionCert, config.sso.publicCert));
     }); 
 };

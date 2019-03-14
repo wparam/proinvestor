@@ -12,6 +12,10 @@ module.exports = (db)=>{
         callbackUrl: config.sso.callbackUrl,
         cert: config.sso.cert,  // The public key from the IdP
         issuer: config.sso.issuer,  // The entity ID we used to register our SP with
+        decryptionPvk: config.sso.decryptionPvk,
+        decryptionCert: config.sso.decryptionCert,
+        // identifierFormat: config.sso.identifierFormat,
+        signatureAlgorithm: config.sso.signatureAlgorithm
     },
     function(profile, done) {
         console.log(profile);

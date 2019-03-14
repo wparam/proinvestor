@@ -48,7 +48,7 @@
     "node-sass": "4.5.3",
     "passport": "0.4.0",
     "passport-local": "1.0.0",
-    "passport-saml": "1.0.0",
+    "passport-saml": "file:modules/passport-saml",
     "prop-types": "15.6.0",
     "react": "~16.0.0",
     "react-bootstrap": "0.31.5",
