@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 module.exports = {
-    loginUrl: '/login/sso',
+    // loginUrl: '/login/sso',
     sso:{
         entryPoint: 'http://sp:9090/openam/SSORedirect/metaAlias/idp',// Use the redirect option
         logoutUrl: 'http://sp:9090/openam/IDPSloRedirect/metaAlias/idp',
