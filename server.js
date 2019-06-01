@@ -4,6 +4,7 @@ const cpus = require('os').cpus().length;
 const logger = require('logger');
 const config = require('./config');
 const lbManager = require('loadbalancer');
+const app = require('./app');
 
 //mock load configed balancers
 // lbManager.addLoader(1, 'http://localhost:20000', '/data/check');
@@ -21,8 +22,6 @@ if(cluster.isMaster){
     });
 }
 else{
-    let app = require('./app')();
-
     app.listen(config.port, () => {
         logger.info(`Server-Cluster: listening on ${config.port} from process: ${process.pid}`);
     });

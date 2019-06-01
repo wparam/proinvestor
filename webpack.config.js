@@ -48,9 +48,12 @@ module.exports = {
                 test: /\.(s*)css$/, 
                 use: [
                     {
+                        loader: "sass-loader"
+                    },
+                    {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '../.',
+                            publicPath: '../',
                             hmr: process.env.NODE_ENV === 'development'
                         }
                     },
